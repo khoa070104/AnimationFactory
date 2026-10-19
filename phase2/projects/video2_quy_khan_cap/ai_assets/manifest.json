@@ -1,0 +1,158 @@
+{
+  "assets": {
+    "piggy_ai": {
+      "id": "piggy_ai",
+      "kind": "prop",
+      "status": "approved",
+      "prompt": "a small savings piggy bank (pink pig with a coin slot on its back and one gold coin dropping in)",
+      "full_prompt": "Call the generate_image tool directly (do NOT run shell commands, do NOT write code or SVG to draw). Generate exactly ONE image. Style rules (must follow): flat 2D vector illustration for an adult-audience explainer video; thick near-black outline (#1D1D1F, about 8px at 512px); solid color fills; NO gradients, NO shadows, NO textures, NO 3D; simple geometric shapes; no text or letters anywhere. Palette: cream #FFF6E5, orange #F26B21, blue #3B6FD8, yellow #FFC83D, teal #1FA79A, red #D64545, green #2E9E5B. Subject is ONE single object, centered, filling most of the square frame, on a plain pure white (#FFFFFF) background with nothing else around it. Square image. Subject: a small savings piggy bank (pink pig with a coin slot on its back and one gold coin dropping in). Reference image(s) are in the current directory: frame02.png. Open them to match the visual style (line weight, flatness, colours); do not copy their subject unless the subject says so. When done, reply with one line: the exact file path of the generated image and the tool name you used.",
+      "refs": [
+        {
+          "path": "D:\\AnimationFactory\\phase2\\approved\\bi_v2.1\\frames\\frame02.png",
+          "sha256": "5368dba8cf0787cb2828293983f331983abd3a37b97def4714400a83b0888e24"
+        }
+      ],
+      "display": 300,
+      "file": "ai_assets/piggy_ai.png",
+      "png_size": [
+        600,
+        557
+      ],
+      "sha256": "e560670387801c9440e8b61196c2b0018c7d8cd4beb7a03ac7d5f96e338dab58",
+      "source": "ai_assets/source/piggy_ai.jpg",
+      "source_sha256": "9277fc941ab75c5b77fddf5a38fd43099264e5b99a4d06007e441404ba477953",
+      "transparent": true,
+      "signature": "0fda8096a30f3f12aa80250ea2123073f85dbdf4",
+      "attempts": [
+        {
+          "try": 1,
+          "seconds": 62.3,
+          "usage": {
+            "input_tokens": 76038,
+            "output_tokens": 3567,
+            "thinking_tokens": 2968,
+            "cache_read_tokens": 0,
+            "total_tokens": 79605
+          },
+          "tool_evidence": true,
+          "denied": [],
+          "conversation_id": "b571a7f4-3c78-435c-86a3-f2d2a9005e18",
+          "events_log": "projects\\video2_quy_khan_cap\\ai_assets\\logs\\piggy_ai_20261018_172833_try1.events.jsonl"
+        }
+      ],
+      "created": "2026-10-18 17:29:36",
+      "approved_by": "chủ dự án (qua chat 2026-10-18)",
+      "history": [],
+      "approved_on": "2026-10-18"
+    },
+    "umbrella_ai": {
+      "id": "umbrella_ai",
+      "kind": "prop",
+      "status": "approved",
+      "prompt": "a closed red umbrella with a simple curved handle (symbol of being prepared for emergencies)",
+      "full_prompt": "Call the generate_image tool directly (do NOT run shell commands, do NOT write code or SVG to draw). Generate exactly ONE image. Style rules (must follow): flat 2D vector illustration for an adult-audience explainer video; thick near-black outline (#1D1D1F, about 8px at 512px); solid color fills; NO gradients, NO shadows, NO textures, NO 3D; simple geometric shapes; no text or letters anywhere. Palette: cream #FFF6E5, orange #F26B21, blue #3B6FD8, yellow #FFC83D, teal #1FA79A, red #D64545, green #2E9E5B. Subject is ONE single object, centered, filling most of the square frame, on a plain pure white (#FFFFFF) background with nothing else around it. Square image. Subject: a closed red umbrella with a simple curved handle (symbol of being prepared for emergencies). Reference image(s) are in the current directory: frame01.png. Open them to match the visual style (line weight, flatness, colours); do not copy their subject unless the subject says so. When done, reply with one line: the exact file path of the generated image and the tool name you used.",
+      "refs": [
+        {
+          "path": "D:\\AnimationFactory\\phase2\\approved\\bi_v2.1\\frames\\frame01.png",
+          "sha256": "ff1dbc7208f2222d808ee56a06859a0c79a69f18453a38afdbe22459c15e6c2e"
+        }
+      ],
+      "display": 300,
+      "transparent": true,
+      "file": "ai_assets/umbrella_ai.png",
+      "png_size": [
+        202,
+        600
+      ],
+      "sha256": "a64120f46a4fdee68537d80a54dd6e09e0438ca0a4765453dca0a0e9ef0904ae",
+      "source": "ai_assets/source/umbrella_ai.jpg",
+      "source_sha256": "f462fb6de3e4a9cf91ad6499ce7f27ecd6a08eb4920ce4b4c7761267e748822e",
+      "signature": "90c3537188668b44ffd9236203be8dede2d5cc1a",
+      "conversation_id": "0d072075-a640-43e8-929c-48960d37f768",
+      "subagent_ids": [
+        "184d9763-1fe6-4714-a7bc-e920b55f735d"
+      ],
+      "generated_file": "C:\\Users\\NCPC\\.gemini\\antigravity-cli\\brain\\0d072075-a640-43e8-929c-48960d37f768\\closed_umbrella_1792320938810.jpg",
+      "agent_model": "Gemini 3.8 Flash (High)",
+      "image_model": null,
+      "image_model_note": "not exposed by agy",
+      "attempts": [
+        {
+          "try": 1,
+          "seconds": 101.2,
+          "usage": {
+            "input_tokens": 49434,
+            "output_tokens": 4217,
+            "thinking_tokens": 3483,
+            "cache_read_tokens": 29934,
+            "total_tokens": 53651
+          },
+          "tool_evidence": true,
+          "denied": [],
+          "conversation_id": "0d072075-a640-43e8-929c-48960d37f768",
+          "subagent_ids": [
+            "184d9763-1fe6-4714-a7bc-e920b55f735d"
+          ],
+          "events_log": "D:\\AnimationFactory\\phase2\\projects\\video2_quy_khan_cap\\ai_assets\\logs\\umbrella_ai_20261018_175428_try1.events.jsonl",
+          "agent_model": "Gemini 3.8 Flash (High)"
+        }
+      ],
+      "created": "2026-10-18 17:56:09",
+      "approved_by": "Chủ dự án (qua chat 2026-10-18)",
+      "history": [],
+      "approved_on": "2026-10-18"
+    },
+    "calm_room_ai": {
+      "id": "calm_room_ai",
+      "kind": "background",
+      "status": "approved",
+      "prompt": "a calm flat living room corner: a plain wall, a window, a small sofa and a floor lamp, soft cream and pale blue shapes",
+      "full_prompt": "Call the generate_image tool directly (do NOT run shell commands, do NOT write code or SVG to draw). Generate exactly ONE image. Style rules (must follow): flat 2D vector illustration for an adult-audience explainer video; thick near-black outline (#1D1D1F, about 8px at 512px); solid color fills; NO gradients, NO shadows, NO textures, NO 3D; simple geometric shapes; no text or letters anywhere. Palette: cream #FFF6E5, orange #F26B21, blue #3B6FD8, yellow #FFC83D, teal #1FA79A, red #D64545, green #2E9E5B. Wide 16:9 landscape scene background, no characters, no text, calm low-contrast flat shapes so characters and charts placed on top stay readable. Subject: a calm flat living room corner: a plain wall, a window, a small sofa and a floor lamp, soft cream and pale blue shapes. When done, reply with one line: the exact file path of the generated image and the tool name you used.",
+      "refs": [],
+      "display": 1920,
+      "transparent": false,
+      "file": "ai_assets/calm_room_ai.png",
+      "png_size": [
+        3840,
+        2160
+      ],
+      "sha256": "62b1f914a9df158fb482739cfa283b24bc60df67e0dcc4033a580983b1e4ec9c",
+      "source": "ai_assets/source/calm_room_ai.jpg",
+      "source_sha256": "d9ea529e544b15f2603d3bb05c6a56241d87a51cea93d6fced5fb1f8f7b55a7f",
+      "signature": "deed835bee0d433926d4ed7112f9af0c759d6fa2",
+      "conversation_id": "f55d998e-97bf-4fb0-8d6d-9a893b5f5a88",
+      "subagent_ids": [
+        "035ff2b2-4f2f-4933-98a9-ef80b13f7640"
+      ],
+      "generated_file": "C:\\Users\\NCPC\\.gemini\\antigravity-cli\\brain\\f55d998e-97bf-4fb0-8d6d-9a893b5f5a88\\calm_living_room_corner_1792321002384.jpg",
+      "agent_model": "Gemini 3.8 Flash (High)",
+      "image_model": null,
+      "image_model_note": "not exposed by agy",
+      "attempts": [
+        {
+          "try": 1,
+          "seconds": 50.9,
+          "usage": {
+            "input_tokens": 40754,
+            "output_tokens": 3196,
+            "thinking_tokens": 2811,
+            "cache_read_tokens": 0,
+            "total_tokens": 43950
+          },
+          "tool_evidence": true,
+          "denied": [],
+          "conversation_id": "f55d998e-97bf-4fb0-8d6d-9a893b5f5a88",
+          "subagent_ids": [
+            "035ff2b2-4f2f-4933-98a9-ef80b13f7640"
+          ],
+          "events_log": "D:\\AnimationFactory\\phase2\\projects\\video2_quy_khan_cap\\ai_assets\\logs\\calm_room_ai_20261018_175609_try1.events.jsonl",
+          "agent_model": "Gemini 3.8 Flash (High)"
+        }
+      ],
+      "created": "2026-10-18 17:57:01",
+      "approved_by": "Chủ dự án (qua chat 2026-10-18)",
+      "history": [],
+      "approved_on": "2026-10-18"
+    }
+  }
+}

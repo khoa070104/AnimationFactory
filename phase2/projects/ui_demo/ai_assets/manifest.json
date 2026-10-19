@@ -1,0 +1,66 @@
+{
+  "assets": {
+    "coin_ui": {
+      "id": "coin_ui",
+      "kind": "prop",
+      "status": "draft",
+      "prompt": "a single shiny gold coin with a dollar sign",
+      "full_prompt": "Call the generate_image tool directly (do NOT run shell commands, do NOT write code or SVG to draw). Generate exactly ONE image. Style rules (must follow): flat 2D vector illustration for an adult-audience explainer video; thick near-black outline (#1D1D1F, about 8px at 512px); solid color fills; NO gradients, NO shadows, NO textures, NO 3D; simple geometric shapes; no text or letters anywhere. Palette: cream #FFF6E5, orange #F26B21, blue #3B6FD8, yellow #FFC83D, teal #1FA79A, red #D64545, green #2E9E5B. Subject is ONE single object, centered, filling most of the square frame, on a plain pure white (#FFFFFF) background with nothing else around it. Square image. Subject: a single shiny gold coin with a dollar sign. When done, reply with one line: the exact file path of the generated image and the tool name you used.",
+      "refs": [],
+      "display": 300,
+      "transparent": true,
+      "transparency_check": {
+        "ok": true,
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "opaque_fraction": 0.749,
+        "edge_transparent_fraction": 1.0
+      },
+      "file": "ai_assets/coin_ui.png",
+      "png_size": [
+        598,
+        600
+      ],
+      "sha256": "1909fb931709a69e572d21aeefc744cce8acbd13a80f05b07debafa94c3abe1b",
+      "source": "ai_assets/source/coin_ui.jpg",
+      "source_sha256": "0573bdcee2f9ae49535b55d6662954f5d52cb48f714d61a3fdd75f6b0d859dbc",
+      "signature": "29f3010ec9be7b772f1e1d0fc476cd41da6751c1",
+      "conversation_id": "c6699839-8c4c-4456-ab5b-5b5ec3ff4c3c",
+      "subagent_ids": [
+        "3683ae34-e395-4719-b6f2-8ca1f086018f"
+      ],
+      "generated_file": "C:\\Users\\NCPC\\.gemini\\antigravity-cli\\brain\\c6699839-8c4c-4456-ab5b-5b5ec3ff4c3c\\coin_illustration_1792323937273.jpg",
+      "agent_model": "Gemini 3.8 Flash (High)",
+      "image_model": null,
+      "image_model_note": "not exposed by agy",
+      "attempts": [
+        {
+          "try": 1,
+          "seconds": 45.6,
+          "usage": {
+            "input_tokens": 39863,
+            "output_tokens": 2500,
+            "thinking_tokens": 2104,
+            "cache_read_tokens": 0,
+            "total_tokens": 42363
+          },
+          "tool_evidence": true,
+          "denied": [],
+          "conversation_id": "c6699839-8c4c-4456-ab5b-5b5ec3ff4c3c",
+          "subagent_ids": [
+            "3683ae34-e395-4719-b6f2-8ca1f086018f"
+          ],
+          "events_log": "D:\\AnimationFactory\\phase2\\projects\\ui_demo\\ai_assets\\logs\\coin_ui_20261018_184505_try1.events.jsonl",
+          "agent_model": "Gemini 3.8 Flash (High)"
+        }
+      ],
+      "created": "2026-10-18 18:45:51",
+      "approved_by": null,
+      "history": []
+    }
+  }
+}
