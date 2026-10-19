@@ -7,7 +7,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent.parent
-TOP_OK = {".editorconfig", ".env.example", ".gitignore", ".mcp.json", "README.md", "pyproject.toml", "docs", "legacy", "phase2"}
+TOP_OK = {".editorconfig", ".gitattributes", ".env.example", ".gitignore", ".mcp.json", "README.md", "pyproject.toml", "docs", "legacy", "phase2"}
 BAD_EXT = {".mp4", ".wav", ".mp3", ".zip", ".exe", ".mov"}
 MD_OK = {"README.md", "phase2/remotion/README.md", "phase2/assets_mcp/README.md", "phase2/style/STYLE_GUIDE.md", "phase2/motion/ACTIONS.md"}    # everything else is under docs/ or legacy/
 FIXTURES = {"video1_luong", "video2_quy_khan_cap", "ui_demo"}

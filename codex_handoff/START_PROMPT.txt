@@ -1,0 +1,17 @@
+Bạn tiếp nhận dự án AnimationFactory trên PC từ một cuộc chat dài.
+
+Dự án dự kiến ở D:\AnimationFactory. Đọc AGENTS.md đang áp dụng, rồi đọc codex_handoff/00_README.md, CURRENT_STATUS.md và toàn bộ tài liệu 01 đến 06 theo thứ tự. Hai bản trong archive là tài liệu gốc; đọc khi cần chi tiết và chú ý quyết định mới đã thay thế nội dung cũ.
+
+Mục tiêu cốt lõi: build TOOL sản xuất hoạt hình cho nhiều chủ đề để Claude/Codex/Antigravity dùng qua CLI/MCP; tôi định hướng và duyệt. Không chỉ làm đẹp sample. Remotion hiện là renderer chính, Craft dự phòng. Antigravity tạo ảnh theo kế hoạch cho dự án mới; dùng lại Sample A chỉ là phạm vi kiểm thử Chặng 1.
+
+Ở lượt đầu, hãy tiếp nhận ngữ cảnh và đối chiếu chỉ đọc với repo/working tree: HEAD, thay đổi chưa commit, tài liệu, trạng thái sáu lỗi R1–R6 tại baseline 677a84b8479d89f2647cb60e11b93718bc004ecc và các bằng chứng đang có. Không sửa code, không ghi đè thay đổi, không gọi provider trả phí hoặc gửi Telegram chỉ vì đọc gói bàn giao.
+
+Sau đó báo ngắn:
+1. Bạn hiểu mục tiêu và kiến trúc hiện hành như thế nào.
+2. Phần nào của handoff còn đúng, phần nào repo mới đã sửa/thay đổi.
+3. Việc cần làm tiếp để chốt Chặng 1 và bằng chứng còn thiếu thực sự cần tôi cung cấp.
+
+Phân biệt yêu cầu đã chốt, báo cáo của Claude, review đã kiểm và phần chưa chứng minh. Không giả vờ đã đọc file/video không truy cập được; không dùng test xanh làm bằng chứng chất lượng hình/giọng đã đạt. Không hỏi lại các quyết định đã có trong gói.
+
+Khi tôi giao tiếp phần triển khai, thực hiện trong phạm vi đã được giao, sửa thành phần dùng chung, dùng sample để nghiệm thu và cập nhật checkpoint cuối phiên để phiên kế tiếp tiếp tục được.
+

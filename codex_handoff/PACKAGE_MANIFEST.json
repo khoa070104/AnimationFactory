@@ -1,0 +1,74 @@
+{
+  "package": "AnimationFactory Codex handoff",
+  "document_date": "2026-10-20",
+  "reviewed_commit": "677a84b8479d89f2647cb60e11b93718bc004ecc",
+  "repository": "https://github.com/khoa070104/AnimationFactory.git",
+  "scope": "Curated context, not a verbatim transcript; no source code, credentials or videos bundled.",
+  "files": [
+    {
+      "path": "00_README.md",
+      "bytes": 5061,
+      "sha256": "0dfa0865c334f8f22db9a6bee90efa738f6950fdcee62ab06305c9f82f27f41d"
+    },
+    {
+      "path": "01_CONTEXT_CURRENT.md",
+      "bytes": 8789,
+      "sha256": "d2f55a4376aed57ddaaac40112ec4379878a5b0e2c8bccfc4f67e171086557d1"
+    },
+    {
+      "path": "02_HISTORY_DECISIONS.md",
+      "bytes": 11173,
+      "sha256": "6f40cb6247b137c33a98988e7de640c3a64f205e10c695df3b1e24c85ddb35c9"
+    },
+    {
+      "path": "03_REVIEW_CODE_CHANG1.md",
+      "bytes": 8783,
+      "sha256": "1d514a3e02a16a7e374bd63667ef21355c76c3b633ccf0962e6896261a87dedf"
+    },
+    {
+      "path": "04_REVIEW_VIDEO_CHANG1.md",
+      "bytes": 4765,
+      "sha256": "801ce1927958da729f7b5326b559375e44c83c0575a2a01fda7f0fb3bc6e44bf"
+    },
+    {
+      "path": "05_NEXT_WORK_AND_ACCEPTANCE.md",
+      "bytes": 5938,
+      "sha256": "c54837a0316c0e2c08da61b27f4367dd8e0949b314b3a920b1c55d59808a0dec"
+    },
+    {
+      "path": "06_EVIDENCE_AND_GAPS.md",
+      "bytes": 7191,
+      "sha256": "9ca753bc939a2c6dbe2b9f06ace27bc131b3d680e2bb331d52cc20bd70519a69"
+    },
+    {
+      "path": "AGENTS_SNIPPET.txt",
+      "bytes": 2070,
+      "sha256": "828e8f7416ffdd89121e6c3d4d1269dd2292ad8ceafdff442082b9760bd1a209"
+    },
+    {
+      "path": "CURRENT_STATUS.md",
+      "bytes": 1900,
+      "sha256": "a4b8d1549591739b7bb677847b915067b1d910ddd03979a12f45ae82bed54830"
+    },
+    {
+      "path": "START_PROMPT.txt",
+      "bytes": 2107,
+      "sha256": "9f18faed6e2722a85c533cf0de9b1690155db050f5adb5a78c5f81aeab64c52b"
+    },
+    {
+      "path": "archive/AnimationFactory_Master_Plan.md",
+      "bytes": 38765,
+      "sha256": "a92ca655b1abcb04332297aaea1be1ebf67e4bea16f9b6e89c0cba44d9f6ec7d"
+    },
+    {
+      "path": "archive/AnimationFactory_Tool_Cho_AI_CLI_KeHoach_NangCap.txt",
+      "bytes": 30340,
+      "sha256": "2df9df938dd01e080099956884ab50ed8f02c0ce577ac9a8bb7b989b7887b156"
+    },
+    {
+      "path": "archive/README.md",
+      "bytes": 921,
+      "sha256": "1e806acb05dbcd76d2e2f57b2e395bd701ffa58b67b034ebed4cb4fbb03258c3"
+    }
+  ]
+}

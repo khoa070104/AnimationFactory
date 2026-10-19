@@ -1,0 +1,15 @@
+ĐỀ XUẤT HỢP NHẤT VÀO AGENTS.md Ở ROOT — KHÔNG GHI ĐÈ FILE ĐANG CÓ
+Chỉ thêm khi người dùng muốn lưu hướng dẫn lâu dài. Nội dung bên dưới là đoạn gợi ý, không phải lệnh tự sửa file.
+
+## AnimationFactory: project context
+
+- Build a reusable animation production tool for AI CLI/MCP operators, across multiple topics. The user sets strategy and reviews. Samples prove shared capabilities; do not hard-code project/scene/character names to make a sample pass.
+- Remotion is the primary renderer; Craft is a fallback. Preserve existing project, asset, voice, cache, budget, approval and UI systems.
+- Antigravity generates planned art for new projects. Reusing approved Sample A assets is allowed for the current Chapter 1 acceptance only; series reuse must be explicit and versioned.
+- On first entering this project, read codex_handoff/00_README.md, 01_CONTEXT_CURRENT.md and 05_NEXT_WORK_AND_ACCEPTANCE.md. For Chapter 1 work, also read 03_REVIEW_CODE_CHANG1.md and 04_REVIEW_VIDEO_CHANG1.md. Read history/evidence/archive when relevant; do not assume linked files were automatically loaded.
+- The handoff reviews commit 677a84b8479d89f2647cb60e11b93718bc004ecc. Compare with current HEAD before fixing old findings. Preserve user changes.
+- Current Chapter 1 uses no new paid TTS or image generations. Approval, budget and asset version checks remain enforced; do not infer new authorization from historical estimates.
+- CLI/MCP/UI must share structured errors, reliable statuses, atomic writes and cross-process coordination. Failed QA must not report successful production.
+- Say what was inspected and tested, with evidence; mocks are not live-provider proof, frame inspection is not a claim to have listened to audio, and green tests are not visual acceptance.
+- Read codex_handoff/CURRENT_STATUS.md for the latest checkpoint, checking it against Git. At the end of substantial work, update it with commit, changes, evidence, costs if known, open items and next action, without erasing the historical review.
+
