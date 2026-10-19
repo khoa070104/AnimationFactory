@@ -1,0 +1,17 @@
+[14:34:57] config: shirt=#F26B21 pointSpeed=0.5 out=D:\AnimationFactory\acceptance\out1\final_v2.mp4 work=D:\AnimationFactory\acceptance\work1
+[14:34:57] SKIP voice scene1: text/voice unchanged, reusing audio (no API call)
+[14:34:57] SKIP voice scene2: text/voice unchanged, reusing audio (no API call)
+[14:34:57] START audio verification (text == speech, not cut off)
+[14:34:57] OK   audio verification (text == speech, not cut off) (0.2s)
+[14:34:57] START assets (VectorCraft)
+[14:34:57] OK   assets (VectorCraft) (0.5s)
+[14:34:57] START scenes (EffectCraft)
+[14:35:06] OK   scenes (EffectCraft) (8.4s)
+[14:35:06] START assembly (FilmCraft)
+[14:35:20] OK   assembly (FilmCraft) (13.8s)
+[14:35:20] PASS Scene1: no duplicate layer names (15 layers)
+[14:35:20] PASS Scene2: no duplicate layer names (20 layers)
+[14:35:20] PASS timeline has exactly 2 video + 2 audio clips (video 2, audio 2)
+[14:35:20] PASS output 1920x1080 with audio 
+[14:35:20] PASS duration within 20-30 s (25.8s)
+[14:35:20] OUTPUT D:\AnimationFactory\acceptance\out1\final_v2.mp4 25.8s  log: D:\AnimationFactory\acceptance\out1\logs\run_20261018_143457.log

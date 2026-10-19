@@ -1,0 +1,27 @@
+[18:15:23] produce ui_demo until=video code_hash=ce04cf08ac3b48c2
+[18:15:24]    0 error(s), 0 warning(s)
+[18:15:24] OK   validate (0.1s)
+[18:15:26]    saved D:/AnimationFactory/phase2/projects/ui_demo/previews/storyboard_preview.ecproj scenes=3
+[18:15:26]    
+[18:15:26]    scenes 3 total {'chars': 281, 'sec': 21.4, 'credits': 201}
+[18:15:26] OK   storyboard (2.6s)
+[18:15:26] estimate: 281 chars, ~21.4 s, ~201 credits
+[18:15:28]    [18:15:26] plan: 0 scene(s) to generate (0 chars, est. ~0 credits), 3 from the shared voice cache (no API call), 0 unchanged (no API call)
+[18:15:28]    [18:15:27] CACHE-HIT a1: reused stored audio, no API call. 18 words | last word 4.30s, audio 5.10s
+[18:15:28]    [18:15:27] CACHE-HIT a2: reused stored audio, no API call. 21 words | last word 6.34s, audio 7.17s
+[18:15:28]    [18:15:28] CACHE-HIT a3: reused stored audio, no API call. 22 words | last word 6.19s, audio 7.00s
+[18:15:28] OK   voice (1.5s)
+[18:16:04]    [18:15:48] PASS video 1920x1080 with audio
+[18:16:04]    [18:15:48] PASS duration within 10-120 s - 19.5s
+[18:16:04]    [18:15:48] PASS scene count within 1-12 - 3 scenes
+[18:16:04]    [18:15:48] PASS timeline has exactly one video and one audio clip per scene (no duplicates) - video 3, audio 3
+[18:16:04]    [18:15:48] PASS video clips are contiguous (no gaps/overlaps) - max |gap| 0.000s
+[18:16:04]    [18:15:48] PASS each voice clip starts `lead` s into its scene and ends inside it
+[18:16:04]    [18:15:48] PASS silence between scenes <= 0.85 s (<= 1.5 s after scenes that hold a chart/summary) - gaps [0.68, 0.68]
+[18:16:04]    [18:15:48] PASS no speech trimmed: every voice clip keeps >= 0.1 s after the last word - []
+[18:16:04]    [18:15:48] PASS subtitles: inside scene, in order, no overlap, <= 56 chars
+[18:16:04]    [18:15:48] PASS all cue-driven actions/appear times fall inside their scene
+[18:16:04]    [18:16:04] PASS motion QA on all scenes (joint limits, no snaps/flips, arms never through torso)
+[18:16:04]    [18:16:04] DONE D:\AnimationFactory\phase2\projects\ui_demo\output\ui_demo_v2_preview.mp4 19.5s | rendered ['a1', 'a2', 'a3'] | reused - | log D:\AnimationFactory\phase2\projects\ui_demo\logs\build_20261018_181528.log
+[18:16:04] OK   video (36.7s)
+[18:16:04] DONE

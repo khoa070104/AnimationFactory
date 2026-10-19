@@ -1,0 +1,18 @@
+{
+  "job_id": "calm_room_ai-deed835bee",
+  "asset_id": "calm_room_ai",
+  "project": "video2_quy_khan_cap",
+  "kind": "background",
+  "prompt": "a calm flat living room corner: a plain wall, a window, a small sofa and a floor lamp, soft cream and pale blue shapes",
+  "state": "succeeded",
+  "requested_at": "2026-10-18 17:54:28",
+  "signature": "deed835bee0d433926d4ed7112f9af0c759d6fa2",
+  "timeout_seconds": 330,
+  "reference_images": [],
+  "fail_count": 0,
+  "run": 1,
+  "started_at": "2026-10-18 17:56:09",
+  "reused": false,
+  "error": null,
+  "finished_at": "2026-10-18 17:57:01"
+}

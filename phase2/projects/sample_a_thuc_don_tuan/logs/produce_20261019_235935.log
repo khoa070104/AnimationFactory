@@ -1,0 +1,26 @@
+[23:59:35] produce sample_a_thuc_don_tuan until=video code_hash=966ef37a4ab85ff2
+[23:59:35]    WARNING s02: main holds a prop in a hand that action 'hold_phone' also moves: the prop will swing with the arm; choose another action or drop the prop
+[23:59:35]    WARNING s02: main holds a prop in a hand that action 'shrug' also moves: the prop will swing with the arm; choose another action or drop the prop
+[23:59:35]    WARNING s03: cast1 holds a prop in a hand that action 'wave' also moves: the prop will swing with the arm; choose another action or drop the prop
+[23:59:35]    WARNING s05: cast1 holds a prop in a hand that action 'point_seq' also moves: the prop will swing with the arm; choose another action or drop the prop
+[23:59:35]    WARNING s06: cast1 holds a prop in a hand that action 'point' also moves: the prop will swing with the arm; choose another action or drop the prop
+[23:59:35]    WARNING s06: the `card` prop is an empty card with a tick: it carries no text; use a notice for text or leave it out
+[23:59:35]    0 error(s), 6 warning(s)
+[23:59:35] OK   validate (0.3s)
+[23:59:42]    saved D:/AnimationFactory/phase2/projects/sample_a_thuc_don_tuan/previews/storyboard_preview.ecproj scenes=8
+[23:59:42]    
+[23:59:42]    scenes 8 total {'chars': 1196, 'sec': 83.0, 'credits': 857}
+[23:59:42] OK   storyboard (7.0s)
+[23:59:42] draft voice (no paid call) for: ['s03']
+[00:01:10]    [23:59:42] export scene data
+[00:01:10]    [23:59:48] render (incremental) 83.4 s, voice stub
+[00:01:10]    [00:01:10] PASS video 1920x1080 with audio
+[00:01:10]    [00:01:10] PASS pass/fail criteria were fixed before the build (not loosened since) - locked {'duration': [60, 90], 'scenes': [6, 10], 'cue_tolerance': 0.7}
+[00:01:10]    [00:01:10] PASS duration within 60-90 s - 83.5s
+[00:01:10]    [00:01:10] PASS scene count within 6-10 - 8 scenes
+[00:01:10]    [00:01:10] PASS subtitles: inside scene, in order, no overlap, <= 56 chars
+[00:01:10]    [00:01:10] PASS actions start within 0.7 s of their spoken cue (planned vs actual start, after non-overlap scheduling) - 23 actions
+[00:01:10]    [00:01:10] PASS motion QA on all characters (joint limits, no snaps/flips, arms never through torso)
+[00:01:10]    [00:01:10] DONE D:\AnimationFactory\phase2\projects\sample_a_thuc_don_tuan\output\sample_a_thuc_don_tuan_v11_draft.mp4 83.5s | rendered ['s01', 's02', 's03', 's04', 's05', 's06', 's07', 's08'] | reused -
+[00:01:10] OK   video (88.4s)
+[00:01:10] DONE (draft: stub voice)

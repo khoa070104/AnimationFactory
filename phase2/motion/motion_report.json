@@ -1,0 +1,44 @@
+{
+  "checks": [
+    {
+      "name": "frames sampled",
+      "pass": true,
+      "info": "775 frames"
+    },
+    {
+      "name": "held phone is parented to hand_R",
+      "pass": true,
+      "info": "parent=hand_R"
+    },
+    {
+      "name": "joint limits respected (elbow flexion <= 175 deg, no pass through the folded pose)",
+      "pass": true,
+      "info": "ranges: elR -130..142, elL -6..75, shR -155..8, shL -8..155"
+    },
+    {
+      "name": "no joint snap/flip (max change per frame <= 30 deg)",
+      "pass": true,
+      "info": "max 21.2 deg/frame at elR t=22.73s"
+    },
+    {
+      "name": "elbow never flips bend direction between frames",
+      "pass": true,
+      "info": "0 flips"
+    },
+    {
+      "name": "elbows/hands never pass through the torso",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "FK matches rendered joint markers (<= 4 px, marker centroid tolerance)",
+      "pass": true,
+      "info": "83 markers, worst 3.23 px (elbowL t=0.5)"
+    },
+    {
+      "name": "held phone rigid on the hand (distance and angle constant)",
+      "pass": true,
+      "info": "7 frames, distance 72.6..72.9px, angle deviation 0.4 deg"
+    }
+  ]
+}

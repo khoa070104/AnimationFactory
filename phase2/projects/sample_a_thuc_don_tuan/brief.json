@@ -1,0 +1,23 @@
+{
+  "title": "Lên thực đơn tuần để đỡ tốn tiền ăn",
+  "goal": "Người xem làm được thực đơn tuần trong 10 phút và đi chợ một lần theo danh sách, nhờ đó bớt lãng phí thực phẩm",
+  "message": "Quyết định bữa ăn trước khi đi chợ giúp tiết kiệm tiền và đỡ bỏ đồ ăn hỏng",
+  "audience": "",
+  "duration_seconds": 75,
+  "references": "",
+  "research": "no",
+  "script_text": "",
+  "channel": "gate1",
+  "budget": {
+    "images": 14,
+    "llm_calls": 40,
+    "voice_credits": 1200.0
+  },
+  "notes": "Bối cảnh cần thấy được: căn bếp, tủ lạnh, bàn viết thực đơn, siêu thị/chợ. Hành động cần thấy: mở tủ lạnh xem đồ còn lại, viết thực đơn, cầm giỏ/túi đi chợ, xếp đồ vào tủ.",
+  "story_guideline": "Kể như câu chuyện nhỏ: một bạn trẻ sống một mình hay mua đồ ăn dư rồi bỏ phí, được người bạn cùng nhà hướng dẫn lập thực đơn tuần; 6 đến 10 cảnh, giọng thân thiện, có chút hài hước",
+  "character_mode": "ai",
+  "character_hint": "Nhân vật chính: một bạn trẻ nam, áo thun xanh lá; nhân vật phụ: một bạn nữ cùng nhà, tóc buộc đuôi ngựa, tạp dề cam",
+  "asset_policy": "new",
+  "series_from": "",
+  "library_assets": []
+}

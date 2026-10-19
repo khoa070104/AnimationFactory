@@ -1,0 +1,20 @@
+{
+  "job_id": "umbrella_ai-90c3537188",
+  "asset_id": "umbrella_ai",
+  "project": "video2_quy_khan_cap",
+  "kind": "prop",
+  "prompt": "a closed red umbrella with a simple curved handle (symbol of being prepared for emergencies)",
+  "state": "succeeded",
+  "requested_at": "2026-10-18 17:54:27",
+  "signature": "90c3537188668b44ffd9236203be8dede2d5cc1a",
+  "timeout_seconds": 330,
+  "reference_images": [
+    "D:\\AnimationFactory\\phase2\\approved\\bi_v2.1\\frames\\frame01.png"
+  ],
+  "fail_count": 0,
+  "run": 1,
+  "started_at": "2026-10-18 17:54:28",
+  "reused": false,
+  "error": null,
+  "finished_at": "2026-10-18 17:56:09"
+}

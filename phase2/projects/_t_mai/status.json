@@ -1,0 +1,37 @@
+{
+  "project": "_t_mai",
+  "storyboard_version": 1,
+  "state": "draft_built",
+  "approved": {},
+  "voice_generated": false,
+  "api_calls": 0,
+  "credits_spent": 0,
+  "steps": {
+    "validate": {
+      "state": "ok",
+      "seconds": 0.2
+    },
+    "storyboard": {
+      "state": "ok",
+      "seconds": 2.3
+    },
+    "voice": {
+      "state": "pending"
+    },
+    "video": {
+      "state": "ok",
+      "seconds": 24.4
+    }
+  },
+  "code_hash": "1e0ffe893d86048b",
+  "last_build": {
+    "draft": true,
+    "output": "D:\\AnimationFactory\\phase2\\projects\\_t_mai\\output\\_t_mai_v1_draft.mp4",
+    "seconds": 7.7,
+    "rendered": [],
+    "reused": [
+      "s01"
+    ],
+    "built_in_s": 24.2
+  }
+}

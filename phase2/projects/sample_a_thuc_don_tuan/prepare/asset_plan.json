@@ -1,0 +1,110 @@
+{
+  "assets": [
+    {
+      "id": "bg_kitchen",
+      "kind": "background",
+      "prompt": "Cozy warm kitchen and dining area in a home apartment, wooden dining table with chairs, minimalist counter and warm cream walls, empty 16:9 illustration without people, clean simple 2D flat design",
+      "rationale": "Provides a consistent indoor kitchen setting for the shared apartment scenes where meal planning and fridge checking happen.",
+      "scenes": [
+        "s01",
+        "s03",
+        "s04",
+        "s05",
+        "s06",
+        "s07",
+        "s08"
+      ],
+      "placement": {
+        "scene": "s01",
+        "mode": "bg",
+        "x": 1400,
+        "y": 560,
+        "scale": 1.0,
+        "appear": 0.3
+      },
+      "refs": [],
+      "reuse": null
+    },
+    {
+      "id": "bg_supermarket",
+      "kind": "background",
+      "prompt": "Interior of a grocery supermarket aisle with grocery shelves and food stalls, bright clean aesthetic, empty 16:9 illustration without people, warm flat 2D style",
+      "rationale": "Shows the supermarket place where Tuấn goes shopping after work in scene 2.",
+      "scenes": [
+        "s02"
+      ],
+      "placement": {
+        "scene": "s02",
+        "mode": "bg",
+        "x": 1400,
+        "y": 560,
+        "scale": 1.0,
+        "appear": 0.3
+      },
+      "refs": [],
+      "reuse": null
+    },
+    {
+      "id": "prop_messy_fridge",
+      "kind": "prop",
+      "prompt": "Open refrigerator interior with disorganized wilting vegetables, forgotten frozen meat, and messy leftover containers inside, isolated on white background, 2D flat illustration",
+      "rationale": "Visually illustrates the problem described in scene 1 of an unorganized fridge with wasted food.",
+      "scenes": [
+        "s01",
+        "s04"
+      ],
+      "placement": {
+        "scene": "s01",
+        "mode": "item",
+        "x": 1400,
+        "y": 520,
+        "scale": 1.1,
+        "appear": 0.3
+      },
+      "refs": [],
+      "reuse": null
+    },
+    {
+      "id": "prop_tidy_fridge",
+      "kind": "prop",
+      "prompt": "Open refrigerator interior neatly organized with fresh ingredients in transparent containers, tidy shelves, isolated on white background, 2D flat illustration",
+      "rationale": "Shows the transformed, well-organized fridge in scene 7 after applying the weekly meal plan.",
+      "scenes": [
+        "s07"
+      ],
+      "placement": {
+        "scene": "s07",
+        "mode": "item",
+        "x": 1400,
+        "y": 520,
+        "scale": 1.1,
+        "appear": 0.3
+      },
+      "refs": [],
+      "reuse": null
+    },
+    {
+      "id": "prop_shopping_bag",
+      "kind": "prop",
+      "prompt": "A full paper grocery shopping bag with fresh vegetables, isolated on white background, flat 2D illustration",
+      "rationale": "Held by Tuấn when returning from the market in scene 7 with the planned groceries.",
+      "scenes": [
+        "s07"
+      ],
+      "placement": {
+        "scene": "s07",
+        "mode": "hold",
+        "x": 1250,
+        "y": 580,
+        "scale": 0.9,
+        "appear": 0.3,
+        "who": "main",
+        "side": "L"
+      },
+      "refs": [],
+      "reuse": null
+    }
+  ],
+  "created": "2026-10-19 19:54:33",
+  "images_remaining_at_planning": 14
+}

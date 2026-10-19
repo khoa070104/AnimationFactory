@@ -1,0 +1,26 @@
+[10:51:13] produce gate1_hoc_bai until=video code_hash=0ad5c3df233d67c9
+[10:51:13]    WARNING s01: main character 'minh' is 'draft' (design only: it must be approved before the video is built)
+[10:51:13]    WARNING s01: cast[0] character 'chi_lan' is 'draft' (design only: it must be approved before the video is built)
+[10:51:13]    WARNING s02: main character 'chi_lan' is 'draft' (design only: it must be approved before the video is built)
+[10:51:13]    WARNING s03: main character 'minh' is 'draft' (design only: it must be approved before the video is built)
+[10:51:13]    WARNING s03: cast[0] character 'chi_lan' is 'draft' (design only: it must be approved before the video is built)
+[10:51:13]    0 error(s), 5 warning(s)
+[10:51:13] OK   validate (0.2s)
+[10:51:16]    saved D:/AnimationFactory/phase2/projects/gate1_hoc_bai/previews/storyboard_preview.ecproj scenes=3
+[10:51:16]    
+[10:51:16]    scenes 3 total {'chars': 499, 'sec': 35.2, 'credits': 357}
+[10:51:16] OK   storyboard (3.3s)
+[10:51:17] draft voice (no paid call) for: ['s01', 's02', 's03']
+[10:52:48]    [10:51:49] PASS duration within 20-40 s - 35.3s
+[10:52:48]    [10:51:49] PASS scene count within 2-3 - 3 scenes
+[10:52:48]    [10:51:49] PASS timeline has exactly one video and one audio clip per scene (no duplicates) - video 3, audio 3
+[10:52:48]    [10:51:49] PASS video clips are contiguous (no gaps/overlaps) - max |gap| 0.000s
+[10:52:48]    [10:51:49] PASS each voice clip starts `lead` s into its scene and ends inside it
+[10:52:48]    [10:51:49] PASS silence between scenes <= 0.85 s (<= 1.5 s after scenes that hold a chart/summary) - gaps [0.67, 0.68]
+[10:52:48]    [10:51:49] PASS no speech trimmed: every voice clip keeps >= 0.1 s after the last word - []
+[10:52:48]    [10:51:49] PASS subtitles: inside scene, in order, no overlap, <= 56 chars
+[10:52:48]    [10:51:49] PASS all cue-driven actions/appear times fall inside their scene
+[10:52:48]    [10:51:49] FAIL actions start within 0.7 s of their spoken cue (planned vs actual start, after non-overlap scheduling) - s01/main shrug planned 3.63s starts 4.45s (+0.82)
+[10:52:48]    [10:52:48] FAIL motion QA on all scenes (joint limits, no snaps/flips, arms never through torso) - s02: main no joint snap/flip (max change per frame <= 30 deg) (max 60.0 deg/frame at shR t=0.60s)
+[10:52:48]    [10:52:48] DONE D:\AnimationFactory\phase2\projects\gate1_hoc_bai\output\gate1_hoc_bai_v4_draft.mp4 35.3s | rendered ['s01', 's02', 's03'] | reused - | log D:\AnimationFactory\phase2\projects\gate1_hoc_bai\logs\build_20261019_105117.log
+[10:52:48] FAIL video (91.8s)

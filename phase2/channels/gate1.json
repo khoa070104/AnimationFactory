@@ -1,0 +1,31 @@
+{
+  "name": "Kênh thử gate 1",
+  "audience": "người đi làm trẻ, mới bắt đầu quản lý tiền",
+  "tone": "thân thiện, rõ ràng, không giáo điều; câu ngắn, ví dụ đời thường",
+  "visual_style": "phẳng, viền đậm, nền kem ấm; nhân vật hoạt hình cắt dán dễ thương",
+  "character": {
+    "name": "Bi",
+    "shirt": "#F26B21"
+  },
+  "avoid": [
+    "lời khuyên đầu tư cụ thể",
+    "hứa hẹn lợi nhuận",
+    "so sánh/chê bai thương hiệu"
+  ],
+  "guiding_message": "Hiểu tiền của mình để chủ động hơn, không cần giỏi toán.",
+  "language": "vi",
+  "voice": {
+    "voice_id": "edge_vi-VN-HoaiMyNeural",
+    "speed": 1.0
+  },
+  "targets": {
+    "duration": [
+      15,
+      35
+    ],
+    "scenes": [
+      2,
+      3
+    ]
+  }
+}

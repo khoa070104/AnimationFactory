@@ -1,0 +1,19 @@
+{
+  "paths": {
+    "effectcraft": "C:\\Program Files\\EffectCraft\\effectcraft-cli.exe",
+    "filmcraft": "C:\\Program Files\\FilmCraft\\filmcraft-cli.exe",
+    "vectorcraft": "C:\\Program Files\\VectorCraft\\vectorcraft-cli.exe",
+    "font": "C:/Windows/Fonts/arial.ttf"
+  },
+  "ai": {
+    "provider": "agy",
+    "models": {"cheap": "gemini-3.8-flash-low", "quality": "claude-sonnet-4-6"},
+    "fallback": {"quality": "gemini-3.8-flash-high", "cheap": "gemini-3.8-flash-medium"},
+    "allow_fallback": true,
+    "timeout_seconds": 300,
+    "max_retries": 1,
+    "agy_concurrency": 1,
+    "limits": {"llm_calls": 40, "llm_tokens": 1500000, "images": 6, "voice_credits": 900},
+    "price_per_1k_tokens": null
+  }
+}

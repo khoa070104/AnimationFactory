@@ -1,0 +1,21 @@
+[10:53:18] since approval: voice text changed -; scene data/timing changed (flag for re-review) -
+[10:53:21] scenes resolved: 3; total audio 33.6s
+[10:53:22] EffectCraft project built (1.3s)
+[10:53:26] RENDER s01 (4.4s)
+[10:53:32] RENDER s02 (5.8s)
+[10:53:36] RENDER s03 (3.8s)
+[10:53:48] assembled + exported in 11.9s -> D:\AnimationFactory\phase2\projects\gate1_hoc_bai\output\gate1_hoc_bai_v4_draft.mp4
+[10:53:48] PASS video 1920x1080 with audio
+[10:53:48] PASS pass/fail criteria were fixed before the build (not loosened since) - locked {'duration': [20, 40], 'scenes': [2, 3], 'cue_tolerance': 0.7} by first build at 2026-10-19 10:51:49
+[10:53:48] PASS duration within 20-40 s - 35.3s
+[10:53:48] PASS scene count within 2-3 - 3 scenes
+[10:53:48] PASS timeline has exactly one video and one audio clip per scene (no duplicates) - video 3, audio 3
+[10:53:48] PASS video clips are contiguous (no gaps/overlaps) - max |gap| 0.000s
+[10:53:48] PASS each voice clip starts `lead` s into its scene and ends inside it
+[10:53:48] PASS silence between scenes <= 0.85 s (<= 1.5 s after scenes that hold a chart/summary) - gaps [0.67, 0.68]
+[10:53:48] PASS no speech trimmed: every voice clip keeps >= 0.1 s after the last word - []
+[10:53:48] PASS subtitles: inside scene, in order, no overlap, <= 56 chars
+[10:53:48] PASS all cue-driven actions/appear times fall inside their scene
+[10:53:48] PASS actions start within 0.7 s of their spoken cue (planned vs actual start, after non-overlap scheduling) - 14 actions, worst shift 0.66s
+[10:54:49] FAIL motion QA on all scenes (joint limits, no snaps/flips, arms never through torso) - s02: main no joint snap/flip (max change per frame <= 30 deg) (max 60.0 deg/frame at shR t=0.60s)
+[10:54:49] DONE D:\AnimationFactory\phase2\projects\gate1_hoc_bai\output\gate1_hoc_bai_v4_draft.mp4 35.3s | rendered ['s01', 's02', 's03'] | reused - | log D:\AnimationFactory\phase2\projects\gate1_hoc_bai\logs\build_20261019_105318.log

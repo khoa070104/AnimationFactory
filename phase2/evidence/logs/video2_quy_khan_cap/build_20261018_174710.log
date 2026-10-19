@@ -1,0 +1,25 @@
+[17:47:10] since approval: voice text changed -; scene data/timing changed (flag for re-review) -
+[17:47:14] scenes resolved: 9; total audio 61.8s
+[17:47:16] EffectCraft project built (1.4s)
+[17:47:16] REUSE s01: inputs unchanged, clip not re-rendered
+[17:47:16] REUSE s02: inputs unchanged, clip not re-rendered
+[17:47:16] REUSE s03: inputs unchanged, clip not re-rendered
+[17:47:16] REUSE s04: inputs unchanged, clip not re-rendered
+[17:47:16] REUSE s04b: inputs unchanged, clip not re-rendered
+[17:47:16] REUSE s05: inputs unchanged, clip not re-rendered
+[17:47:19] RENDER s06 (3.1s)
+[17:47:19] REUSE s07: inputs unchanged, clip not re-rendered
+[17:47:19] REUSE s08: inputs unchanged, clip not re-rendered
+[17:47:40] assembled + exported in 21.2s -> D:\AnimationFactory\phase2\projects\video2_quy_khan_cap\output\video2_quy_khan_cap_v3_preview.mp4
+[17:47:40] PASS video 1920x1080 with audio
+[17:47:40] PASS duration within 60-90 s - 62.1s
+[17:47:40] PASS scene count within 6-10 - 9 scenes
+[17:47:40] PASS timeline has exactly one video and one audio clip per scene (no duplicates) - video 9, audio 9
+[17:47:40] PASS video clips are contiguous (no gaps/overlaps) - max |gap| 0.000s
+[17:47:40] PASS each voice clip starts `lead` s into its scene and ends inside it
+[17:47:40] PASS silence between scenes <= 0.85 s (<= 1.5 s after scenes that hold a chart/summary) - gaps [0.66, 0.67, 0.66, 1.28, 0.69, 1.28, 0.67, 0.68]
+[17:47:40] PASS no speech trimmed: every voice clip keeps >= 0.1 s after the last word - []
+[17:47:40] PASS subtitles: inside scene, in order, no overlap, <= 56 chars
+[17:47:40] PASS all cue-driven actions/appear times fall inside their scene
+[17:48:37] PASS motion QA on all scenes (joint limits, no snaps/flips, arms never through torso)
+[17:48:37] DONE D:\AnimationFactory\phase2\projects\video2_quy_khan_cap\output\video2_quy_khan_cap_v3_preview.mp4 62.1s | rendered ['s06'] | reused ['s01', 's02', 's03', 's04', 's04b', 's05', 's07', 's08'] | log D:\AnimationFactory\phase2\projects\video2_quy_khan_cap\logs\build_20261018_174710.log

@@ -1,0 +1,64 @@
+{
+  "id": "s04b",
+  "title": "Chi tiêu thiết yếu gồm gì",
+  "voice": "Chi tiêu thiết yếu là những khoản không thể bỏ: tiền nhà, ăn uống, điện nước, đi lại và thuốc men.",
+  "subtitles": [
+    "Chi tiêu thiết yếu là những khoản",
+    "không thể bỏ: tiền nhà, ăn uống,",
+    "điện nước, đi lại và thuốc men."
+  ],
+  "bg": "cream",
+  "transition": "slide-left",
+  "bi": {
+    "x": 500,
+    "y": 930,
+    "scale": 1.05,
+    "face": "neutral",
+    "pose": "point"
+  },
+  "actions": [
+    {
+      "name": "point_seq",
+      "cues": [
+        "tiền nhà",
+        "ăn uống",
+        "điện nước",
+        "đi lại",
+        "thuốc men"
+      ],
+      "hold": 0.6
+    }
+  ],
+  "face_cues": [],
+  "items": [
+    {
+      "type": "text",
+      "text": "Chi tiêu thiết yếu",
+      "x": 1340,
+      "y": 170,
+      "size": 64,
+      "color": "dark",
+      "appear": "Chi tiêu thiết yếu"
+    },
+    {
+      "type": "pills",
+      "x": 1340,
+      "y": 300,
+      "gap": 125,
+      "texts": [
+        "Tiền nhà",
+        "Ăn uống",
+        "Điện nước",
+        "Đi lại",
+        "Thuốc men"
+      ],
+      "appears": [
+        "tiền nhà",
+        "ăn uống",
+        "điện nước",
+        "đi lại",
+        "thuốc men"
+      ]
+    }
+  ]
+}

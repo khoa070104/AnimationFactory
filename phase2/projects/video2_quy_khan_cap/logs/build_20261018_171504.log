@@ -1,0 +1,24 @@
+[17:15:04] since approval: voice text changed -; scene data/timing changed (flag for re-review) ['s05']
+[17:15:08] scenes resolved: 8; total audio 55.0s
+[17:15:09] EffectCraft project built (1.3s)
+[17:15:12] RENDER s01 (2.8s)
+[17:15:15] RENDER s02 (2.5s)
+[17:15:17] RENDER s03 (2.2s)
+[17:15:20] RENDER s04 (3.2s)
+[17:15:24] RENDER s05 (3.7s)
+[17:15:26] RENDER s06 (2.3s)
+[17:15:29] RENDER s07 (2.7s)
+[17:15:31] RENDER s08 (2.1s)
+[17:15:49] assembled + exported in 17.4s -> D:\AnimationFactory\phase2\projects\video2_quy_khan_cap\output\video2_quy_khan_cap_v1_preview.mp4
+[17:15:49] PASS video 1920x1080 with audio
+[17:15:49] FAIL duration within 60-90 s - 55.5s
+[17:15:49] PASS scene count within 6-10 - 8 scenes
+[17:15:49] PASS timeline has exactly one video and one audio clip per scene (no duplicates) - video 8, audio 8
+[17:15:49] PASS video clips are contiguous (no gaps/overlaps) - max |gap| 0.000s
+[17:15:49] PASS each voice clip starts `lead` s into its scene and ends inside it
+[17:15:49] PASS silence between scenes <= 0.85 s (<= 1.5 s after scenes that hold a chart/summary) - gaps [0.66, 0.67, 0.66, 1.29, 1.28, 0.67, 0.68]
+[17:15:49] PASS no speech trimmed: every voice clip keeps >= 0.1 s after the last word - []
+[17:15:49] PASS subtitles: inside scene, in order, no overlap, <= 56 chars
+[17:15:49] PASS all cue-driven actions/appear times fall inside their scene
+[17:16:37] PASS motion QA on all scenes (joint limits, no snaps/flips, arms never through torso)
+[17:16:37] DONE D:\AnimationFactory\phase2\projects\video2_quy_khan_cap\output\video2_quy_khan_cap_v1_preview.mp4 55.5s | rendered ['s01', 's02', 's03', 's04', 's05', 's06', 's07', 's08'] | reused - | log D:\AnimationFactory\phase2\projects\video2_quy_khan_cap\logs\build_20261018_171504.log

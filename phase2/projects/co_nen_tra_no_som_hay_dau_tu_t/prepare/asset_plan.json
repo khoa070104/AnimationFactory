@@ -1,0 +1,76 @@
+{
+  "assets": [
+    {
+      "id": "calm_room_bg",
+      "kind": "background",
+      "prompt": "a calm flat living room corner: a plain wall, a window, a small sofa and a floor lamp, soft cream and pale blue shapes",
+      "rationale": "Sets an inviting, cozy living room atmosphere for Bi at the opening of the story.",
+      "scenes": [
+        "s01"
+      ],
+      "placement": {
+        "scene": "s01",
+        "mode": "bg",
+        "x": 1400,
+        "y": 560,
+        "scale": 1.0,
+        "appear": "khoản tiền dư"
+      },
+      "refs": [],
+      "reuse": {
+        "project": "lap_ngan_sach_chi_tieu_hang_th",
+        "asset": "calm_room_ai"
+      }
+    },
+    {
+      "id": "umbrella_prop",
+      "kind": "prop",
+      "prompt": "a closed red umbrella with a simple curved handle (symbol of being prepared for emergencies)",
+      "rationale": "Visually symbolizes the emergency buffer fund protecting against unexpected life events.",
+      "scenes": [
+        "s05"
+      ],
+      "placement": {
+        "scene": "s05",
+        "mode": "item",
+        "x": 1400,
+        "y": 520,
+        "scale": 1,
+        "appear": "khoản dự phòng"
+      },
+      "refs": [
+        "D:\\AnimationFactory\\phase2\\approved\\bi_v2.1\\frames\\frame01.png"
+      ],
+      "reuse": {
+        "project": "video2_quy_khan_cap",
+        "asset": "umbrella_ai"
+      }
+    },
+    {
+      "id": "piggy_prop",
+      "kind": "prop",
+      "prompt": "a small savings piggy bank (pink pig with a coin slot on its back and one gold coin dropping in)",
+      "rationale": "Illustrates disciplined monthly savings alongside gradual debt repayment.",
+      "scenes": [
+        "s07"
+      ],
+      "placement": {
+        "scene": "s07",
+        "mode": "item",
+        "x": 1450,
+        "y": 500,
+        "scale": 1,
+        "appear": "tích lũy đều đặn"
+      },
+      "refs": [
+        "D:\\AnimationFactory\\phase2\\approved\\bi_v2.1\\frames\\frame01.png"
+      ],
+      "reuse": {
+        "project": "lap_ngan_sach_chi_tieu_hang_th",
+        "asset": "piggy_ai"
+      }
+    }
+  ],
+  "created": "2026-10-18 20:41:30",
+  "images_remaining_at_planning": 6
+}

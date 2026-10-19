@@ -1,0 +1,22 @@
+[16:17:16] scenes resolved: 9; total audio 63.5s
+[16:17:20] EffectCraft project built (4.4s)
+[16:17:24] RENDER s01 (3.4s)
+[16:17:27] RENDER s02 (3.2s)
+[16:17:30] RENDER s03 (3.5s)
+[16:17:33] RENDER s04 (2.9s)
+[16:17:37] RENDER s05 (3.8s)
+[16:17:40] RENDER s06 (3.5s)
+[16:17:43] RENDER s07 (3.1s)
+[16:17:46] RENDER s08 (2.4s)
+[16:17:49] RENDER s09 (3.5s)
+[16:18:16] assembled + exported in 26.9s -> D:\AnimationFactory\phase2\projects\video1_luong\output\video1_luong_v2_preview.mp4
+[16:18:16] PASS video 1920x1080 with audio
+[16:18:16] PASS duration within 60-90 s - 70.7s
+[16:18:16] PASS scene count within 6-10 - 9 scenes
+[16:18:16] PASS timeline has exactly one video and one audio clip per scene (no duplicates) - video 9, audio 9
+[16:18:16] PASS video clips are contiguous (no gaps/overlaps) - max |gap| 0.000s
+[16:18:16] PASS each voice clip starts `lead` s into its scene and ends inside it
+[16:18:16] PASS subtitles: inside scene, in order, no overlap, <= 56 chars
+[16:18:16] PASS all cue-driven actions/appear times fall inside their scene
+[16:19:37] PASS motion QA on all scenes (joint limits, no snaps/flips, arms never through torso)
+[16:19:37] DONE D:\AnimationFactory\phase2\projects\video1_luong\output\video1_luong_v2_preview.mp4 70.7s | rendered ['s01', 's02', 's03', 's04', 's05', 's06', 's07', 's08', 's09'] | reused - | log D:\AnimationFactory\phase2\projects\video1_luong\logs\build_20261018_161713.log

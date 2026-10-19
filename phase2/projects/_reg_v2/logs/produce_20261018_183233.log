@@ -1,0 +1,33 @@
+[18:32:33] produce video2_quy_khan_cap until=video code_hash=11701db21ad47fec
+[18:32:33]    0 error(s), 0 warning(s)
+[18:32:33] OK   validate (0.1s)
+[18:32:38]    saved D:/AnimationFactory/phase2/projects/video2_quy_khan_cap/previews/storyboard_preview.ecproj scenes=9
+[18:32:38]    
+[18:32:38]    scenes 9 total {'chars': 913, 'sec': 68.4, 'credits': 652}
+[18:32:38] OK   storyboard (4.5s)
+[18:32:38] estimate: 913 chars, ~68.4 s, ~652 credits
+[18:32:38]    [18:32:38] plan: 0 scene(s) to generate (0 chars, est. ~0 credits), 0 from the shared voice cache (no API call), 9 unchanged (no API call)
+[18:32:38]    [18:32:38] SKIP s01: text/voice/speed unchanged, reusing audio (no API call)
+[18:32:38]    [18:32:38] SKIP s02: text/voice/speed unchanged, reusing audio (no API call)
+[18:32:38]    [18:32:38] SKIP s03: text/voice/speed unchanged, reusing audio (no API call)
+[18:32:38]    [18:32:38] SKIP s04: text/voice/speed unchanged, reusing audio (no API call)
+[18:32:38]    [18:32:38] SKIP s04b: text/voice/speed unchanged, reusing audio (no API call)
+[18:32:38]    [18:32:38] SKIP s05: text/voice/speed unchanged, reusing audio (no API call)
+[18:32:38]    [18:32:38] SKIP s06: text/voice/speed unchanged, reusing audio (no API call)
+[18:32:38]    [18:32:38] SKIP s07: text/voice/speed unchanged, reusing audio (no API call)
+[18:32:38]    [18:32:38] SKIP s08: text/voice/speed unchanged, reusing audio (no API call)
+[18:32:38] OK   voice (0.3s)
+[18:34:23]    [18:33:28] PASS video 1920x1080 with audio
+[18:34:23]    [18:33:28] PASS duration within 60-90 s - 62.1s
+[18:34:23]    [18:33:28] PASS scene count within 6-10 - 9 scenes
+[18:34:23]    [18:33:28] PASS timeline has exactly one video and one audio clip per scene (no duplicates) - video 9, audio 9
+[18:34:23]    [18:33:28] PASS video clips are contiguous (no gaps/overlaps) - max |gap| 0.000s
+[18:34:23]    [18:33:28] PASS each voice clip starts `lead` s into its scene and ends inside it
+[18:34:23]    [18:33:28] PASS silence between scenes <= 0.85 s (<= 1.5 s after scenes that hold a chart/summary) - gaps [0.66, 0.67, 0.66, 1.28, 0.69, 1.28, 0.67, 0.68]
+[18:34:23]    [18:33:28] PASS no speech trimmed: every voice clip keeps >= 0.1 s after the last word - []
+[18:34:23]    [18:33:28] PASS subtitles: inside scene, in order, no overlap, <= 56 chars
+[18:34:23]    [18:33:28] PASS all cue-driven actions/appear times fall inside their scene
+[18:34:23]    [18:34:23] PASS motion QA on all scenes (joint limits, no snaps/flips, arms never through torso)
+[18:34:23]    [18:34:23] DONE D:\AnimationFactory\phase2\projects\video2_quy_khan_cap\output\video2_quy_khan_cap_v3_preview.mp4 62.1s | rendered ['s01', 's02', 's03', 's04', 's04b', 's05', 's06', 's07', 's08'] | reused - | log D:\AnimationFactory\phase2\projects\video2_quy_khan_cap\logs\build_20261018_183238.log
+[18:34:23] OK   video (104.4s)
+[18:34:23] DONE

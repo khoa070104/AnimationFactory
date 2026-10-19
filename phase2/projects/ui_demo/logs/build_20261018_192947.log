@@ -1,0 +1,19 @@
+[19:29:47] since approval: voice text changed -; scene data/timing changed (flag for re-review) ['a3']
+[19:29:49] scenes resolved: 3; total audio 19.3s
+[19:29:50] EffectCraft project built (0.6s)
+[19:29:50] REUSE a1: inputs unchanged, clip not re-rendered
+[19:29:50] REUSE a2: inputs unchanged, clip not re-rendered
+[19:29:50] REUSE a3: inputs unchanged, clip not re-rendered
+[19:30:00] assembled + exported in 9.7s -> D:\AnimationFactory\phase2\projects\ui_demo\output\ui_demo_v4_preview.mp4
+[19:30:00] PASS video 1920x1080 with audio
+[19:30:00] PASS duration within 10-120 s - 19.5s
+[19:30:00] PASS scene count within 1-12 - 3 scenes
+[19:30:00] PASS timeline has exactly one video and one audio clip per scene (no duplicates) - video 3, audio 3
+[19:30:00] PASS video clips are contiguous (no gaps/overlaps) - max |gap| 0.000s
+[19:30:00] PASS each voice clip starts `lead` s into its scene and ends inside it
+[19:30:00] PASS silence between scenes <= 0.85 s (<= 1.5 s after scenes that hold a chart/summary) - gaps [0.68, 0.68]
+[19:30:00] PASS no speech trimmed: every voice clip keeps >= 0.1 s after the last word - []
+[19:30:00] PASS subtitles: inside scene, in order, no overlap, <= 56 chars
+[19:30:00] PASS all cue-driven actions/appear times fall inside their scene
+[19:30:00] PASS motion QA on all scenes (joint limits, no snaps/flips, arms never through torso)
+[19:30:00] DONE D:\AnimationFactory\phase2\projects\ui_demo\output\ui_demo_v4_preview.mp4 19.5s | rendered - | reused ['a1', 'a2', 'a3'] | log D:\AnimationFactory\phase2\projects\ui_demo\logs\build_20261018_192947.log

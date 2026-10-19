@@ -1,0 +1,710 @@
+{
+  "project": "video1_luong",
+  "title": "Nhận lương xong tiền đi đâu?",
+  "version": 2,
+  "status": "v2 - nội dung đã được duyệt có chỉnh s05-s08 (xem approval.json)",
+  "audience": "người đi làm trẻ",
+  "message": "Ghi lại từng khoản và chia lương theo khung tham khảo 50-30-20 trên thu nhập thực nhận (điều chỉnh theo hoàn cảnh), để tiền có chỗ đi rõ ràng.",
+  "voice": {
+    "provider": "edge",
+    "voice_id": "edge_vi-VN-HoaiMyNeural",
+    "speed": 1.0
+  },
+  "timing": {
+    "lead": 0.15,
+    "tail": 0.3,
+    "word_pad": 0.15
+  },
+  "scenes": [
+    {
+      "id": "s01",
+      "title": "Lương về",
+      "voice": "Ting! Lương về rồi! Mười lăm triệu đồng. Hôm nay mình giàu nhất xóm!",
+      "subtitles": [
+        "Ting! Lương về rồi!",
+        "Mười lăm triệu đồng.",
+        "Hôm nay mình giàu nhất xóm!"
+      ],
+      "bg": "cream",
+      "transition": "cut",
+      "bi": {
+        "x": 500,
+        "y": 930,
+        "scale": 1.05,
+        "face": "happy",
+        "pose": "cheer"
+      },
+      "actions": [
+        {
+          "name": "enter",
+          "at": 0.0
+        },
+        {
+          "name": "cheer",
+          "cue": "Hôm nay"
+        }
+      ],
+      "face_cues": [],
+      "items": [
+        {
+          "type": "prop",
+          "img": "phone",
+          "x": 1400,
+          "y": 640,
+          "scale": 1.2,
+          "appear": 0.2
+        },
+        {
+          "type": "notice",
+          "x": 1400,
+          "y": 400,
+          "amount": "+15.000.000đ",
+          "caption": "Lương tháng 10",
+          "appear": "Ting"
+        },
+        {
+          "type": "prop",
+          "img": "coin",
+          "x": 1090,
+          "y": 250,
+          "scale": 1.2,
+          "rot": -15,
+          "appear": "Mười lăm"
+        },
+        {
+          "type": "prop",
+          "img": "coin",
+          "x": 1740,
+          "y": 230,
+          "scale": 1.0,
+          "rot": 20,
+          "appear": "triệu đồng"
+        },
+        {
+          "type": "prop",
+          "img": "sparkle",
+          "x": 930,
+          "y": 560,
+          "scale": 1.0,
+          "appear": "giàu nhất"
+        },
+        {
+          "type": "text",
+          "text": "Ting!",
+          "x": 930,
+          "y": 330,
+          "size": 92,
+          "color": "bi",
+          "rot": -8,
+          "appear": "Ting"
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "title": "Chỉ còn sáu triệu",
+      "voice": "Nhưng mới giữa tháng, tài khoản chỉ còn sáu triệu. Tiền đi đâu hết rồi?",
+      "subtitles": [
+        "Nhưng mới giữa tháng,",
+        "tài khoản chỉ còn sáu triệu.",
+        "Tiền đi đâu hết rồi?"
+      ],
+      "bg": "blue",
+      "transition": "slide-left",
+      "bi": {
+        "x": 500,
+        "y": 930,
+        "scale": 1.05,
+        "face": "surprised",
+        "pose": "point"
+      },
+      "actions": [
+        {
+          "name": "point",
+          "cue": "chỉ còn",
+          "hold": 1.8
+        }
+      ],
+      "face_cues": [],
+      "items": [
+        {
+          "type": "prop",
+          "img": "phone",
+          "x": 1380,
+          "y": 600,
+          "scale": 1.25,
+          "appear": 0.2
+        },
+        {
+          "type": "text",
+          "text": "Số dư",
+          "x": 1380,
+          "y": 430,
+          "size": 44,
+          "color": "dark",
+          "appear": "chỉ còn"
+        },
+        {
+          "type": "text",
+          "text": "6.000.000đ",
+          "x": 1380,
+          "y": 520,
+          "size": 42,
+          "color": "bad",
+          "appear": "sáu triệu"
+        },
+        {
+          "type": "text",
+          "text": "?",
+          "x": 900,
+          "y": 300,
+          "size": 150,
+          "color": "bad",
+          "rot": -10,
+          "appear": "Tiền đi"
+        },
+        {
+          "type": "text",
+          "text": "?",
+          "x": 1010,
+          "y": 200,
+          "size": 100,
+          "color": "bad",
+          "rot": 12,
+          "appear": "hết rồi"
+        }
+      ]
+    },
+    {
+      "id": "s03",
+      "title": "Xem lại chi tiêu",
+      "voice": "Mình ngồi xem lại. Tiền nhà bốn triệu, ăn uống hai triệu rưỡi, mua sắm một triệu rưỡi.",
+      "subtitles": [
+        "Mình ngồi xem lại.",
+        "Tiền nhà bốn triệu,",
+        "ăn uống hai triệu rưỡi,",
+        "mua sắm một triệu rưỡi."
+      ],
+      "bg": "cream",
+      "transition": "slide-left",
+      "bi": {
+        "x": 500,
+        "y": 930,
+        "scale": 1.05,
+        "face": "neutral",
+        "pose": "point"
+      },
+      "actions": [
+        {
+          "name": "point_seq",
+          "cues": [
+            "Tiền nhà",
+            "ăn uống",
+            "mua sắm"
+          ],
+          "hold": 0.9
+        }
+      ],
+      "face_cues": [],
+      "items": [
+        {
+          "type": "chart",
+          "x": 1340,
+          "y": 520,
+          "scale": 1.05,
+          "title": "Chi tiêu nửa tháng",
+          "unit_h": 70,
+          "appear": 0.3,
+          "bars": [
+            {
+              "label": "Nhà",
+              "value": 4.0,
+              "text": "4tr",
+              "color": "blue",
+              "appear": "Tiền nhà"
+            },
+            {
+              "label": "Ăn uống",
+              "value": 2.5,
+              "text": "2,5tr",
+              "color": "yellow",
+              "appear": "ăn uống"
+            },
+            {
+              "label": "Mua sắm",
+              "value": 1.5,
+              "text": "1,5tr",
+              "color": "pink",
+              "appear": "mua sắm"
+            },
+            {
+              "label": "Khác",
+              "value": 1.0,
+              "text": "1tr",
+              "color": "teal",
+              "appear": "một triệu rưỡi"
+            }
+          ]
+        }
+      ],
+      "hold_after": 0.9
+    },
+    {
+      "id": "s04",
+      "title": "Khoản lặt vặt",
+      "voice": "Điều bất ngờ là những khoản lặt vặt: cà phê, đồ ăn vặt, phí đăng ký. Cộng lại hết một triệu.",
+      "subtitles": [
+        "Điều bất ngờ là những khoản lặt vặt:",
+        "cà phê, đồ ăn vặt, phí đăng ký.",
+        "Cộng lại hết một triệu."
+      ],
+      "bg": "cream",
+      "transition": "slide-left",
+      "bi": {
+        "x": 500,
+        "y": 930,
+        "scale": 1.05,
+        "face": "thinking",
+        "pose": "shrug"
+      },
+      "actions": [
+        {
+          "name": "shrug",
+          "cue": "bất ngờ"
+        }
+      ],
+      "face_cues": [],
+      "items": [
+        {
+          "type": "pills",
+          "x": 1340,
+          "y": 330,
+          "gap": 140,
+          "texts": [
+            "Cà phê",
+            "Đồ ăn vặt",
+            "Phí đăng ký"
+          ],
+          "appears": [
+            "cà phê",
+            "đồ ăn vặt",
+            "phí đăng ký"
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Cộng lại: 1.000.000đ",
+          "x": 1340,
+          "y": 790,
+          "size": 64,
+          "color": "bad",
+          "appear": "Cộng lại"
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "title": "Xe hỏng",
+      "voice": "Rồi xe hỏng, sửa hết ba triệu rưỡi. Chỉ còn hai triệu rưỡi cho nửa tháng. Thế là phải xoay xở!",
+      "subtitles": [
+        "Rồi xe hỏng, sửa hết ba triệu rưỡi.",
+        "Chỉ còn hai triệu rưỡi cho nửa tháng.",
+        "Thế là phải xoay xở!"
+      ],
+      "bg": "blue",
+      "transition": "cut",
+      "bi": {
+        "x": 620,
+        "y": 1615,
+        "scale": 2.4,
+        "face": "worried",
+        "pose": "cheek",
+        "frontArms": "R"
+      },
+      "actions": [
+        {
+          "name": "cheek",
+          "cue": "Rồi xe hỏng",
+          "stay": true
+        }
+      ],
+      "face_cues": [],
+      "items": [
+        {
+          "type": "bill",
+          "x": 1460,
+          "y": 540,
+          "scale": 1.55,
+          "rot": 5,
+          "head": "HÓA ĐƠN",
+          "title": "Sửa xe",
+          "amount": "3.500.000đ",
+          "appear": "Rồi xe hỏng"
+        },
+        {
+          "type": "prop",
+          "img": "exclaim",
+          "x": 1060,
+          "y": 250,
+          "scale": 1.5,
+          "rot": -8,
+          "appear": "sửa hết"
+        },
+        {
+          "type": "prop",
+          "img": "sweat",
+          "x": 330,
+          "y": 330,
+          "scale": 1.5,
+          "rot": -10,
+          "appear": "Chỉ còn"
+        },
+        {
+          "type": "prop",
+          "img": "sweat",
+          "x": 305,
+          "y": 470,
+          "scale": 1.1,
+          "rot": -10,
+          "appear": "Chỉ còn"
+        },
+        {
+          "type": "text",
+          "text": "Còn lại: 2.500.000đ",
+          "x": 1430,
+          "y": 965,
+          "size": 56,
+          "color": "bad",
+          "appear": "hai triệu rưỡi"
+        }
+      ],
+      "subtitle_y": 1048,
+      "hold_after": 0.7
+    },
+    {
+      "id": "s06",
+      "title": "Thử chia lương",
+      "voice": "Mình thử chia lương: năm mươi phần trăm cho thiết yếu, ba mươi cho mong muốn, hai mươi để tiết kiệm hoặc trả nợ. Tỷ lệ có thể điều chỉnh.",
+      "subtitles": [
+        "Mình thử chia lương:",
+        "năm mươi phần trăm cho thiết yếu,",
+        "ba mươi cho mong muốn,",
+        "hai mươi để tiết kiệm hoặc trả nợ.",
+        "Tỷ lệ có thể điều chỉnh."
+      ],
+      "bg": "cream",
+      "transition": "slide-left",
+      "bi": {
+        "x": 500,
+        "y": 930,
+        "scale": 1.05,
+        "face": "happy",
+        "pose": "point"
+      },
+      "actions": [
+        {
+          "name": "point",
+          "cue": "chia lương",
+          "hold": 1.0
+        }
+      ],
+      "face_cues": [
+        {
+          "cue": "Mình thử",
+          "face": "happy"
+        }
+      ],
+      "items": [
+        {
+          "type": "pie",
+          "x": 1020,
+          "y": 520,
+          "scale": 1.25,
+          "appear": "Mình thử",
+          "parts": [
+            {
+              "value": 50,
+              "color": "blue"
+            },
+            {
+              "value": 30,
+              "color": "yellow"
+            },
+            {
+              "value": 20,
+              "color": "teal"
+            }
+          ]
+        },
+        {
+          "type": "legend",
+          "x": 1600,
+          "y": 380,
+          "gap": 120,
+          "size": 42,
+          "rows": [
+            {
+              "color": "blue",
+              "text": "50% · Thiết yếu",
+              "appear": "năm mươi"
+            },
+            {
+              "color": "yellow",
+              "text": "30% · Mong muốn",
+              "appear": "ba mươi"
+            },
+            {
+              "color": "teal",
+              "text": "20% · Tiết kiệm, trả nợ",
+              "appear": "hai mươi"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Khung tham khảo, trên lương thực nhận",
+          "x": 1400,
+          "y": 800,
+          "size": 40,
+          "color": "dark",
+          "appear": "Tỷ lệ"
+        }
+      ],
+      "hold_after": 0.9
+    },
+    {
+      "id": "s07",
+      "title": "Áp dụng với 15 triệu",
+      "voice": "Với lương thực nhận mười lăm triệu, ba phần là bảy triệu rưỡi, bốn triệu rưỡi và ba triệu.",
+      "subtitles": [
+        "Với lương thực nhận mười lăm triệu,",
+        "ba phần là bảy triệu rưỡi,",
+        "bốn triệu rưỡi và ba triệu."
+      ],
+      "bg": "cream",
+      "transition": "slide-left",
+      "bi": {
+        "x": 500,
+        "y": 930,
+        "scale": 1.05,
+        "face": "happy",
+        "pose": "phone"
+      },
+      "holds": [
+        {
+          "side": "R",
+          "prop": "calculator",
+          "scale": 0.55,
+          "pivot": [
+            115,
+            305
+          ]
+        }
+      ],
+      "rest": "phone",
+      "actions": [],
+      "face_cues": [],
+      "items": [
+        {
+          "type": "prop",
+          "img": "board",
+          "x": 1400,
+          "y": 540,
+          "scale": 1.0,
+          "appear": 0.2
+        },
+        {
+          "type": "text",
+          "text": "Thực nhận 15.000.000đ",
+          "x": 1400,
+          "y": 320,
+          "size": 56,
+          "color": "dark",
+          "appear": "mười lăm"
+        },
+        {
+          "type": "legend",
+          "x": 1470,
+          "y": 440,
+          "gap": 110,
+          "size": 40,
+          "rows": [
+            {
+              "color": "blue",
+              "text": "Thiết yếu · 7.500.000đ",
+              "appear": "bảy triệu rưỡi"
+            },
+            {
+              "color": "yellow",
+              "text": "Mong muốn · 4.500.000đ",
+              "appear": "bốn triệu rưỡi"
+            },
+            {
+              "color": "teal",
+              "text": "Tiết kiệm, trả nợ · 3.000.000đ",
+              "appear": "ba triệu"
+            }
+          ]
+        }
+      ],
+      "hold_after": 0.9
+    },
+    {
+      "id": "s08",
+      "title": "Kỳ lương sau",
+      "voice": "Kỳ lương sau, mình đặt mục tiêu để riêng ba triệu ngay khi nhận lương, rồi chi trong phần còn lại.",
+      "subtitles": [
+        "Kỳ lương sau, mình đặt mục tiêu",
+        "để riêng ba triệu ngay khi nhận lương,",
+        "rồi chi trong phần còn lại."
+      ],
+      "bg": "cream",
+      "transition": "slide-left",
+      "bi": {
+        "x": 500,
+        "y": 930,
+        "scale": 1.05,
+        "face": "happy",
+        "pose": "point"
+      },
+      "actions": [
+        {
+          "name": "point",
+          "cue": "để riêng",
+          "hold": 1.4
+        }
+      ],
+      "face_cues": [],
+      "items": [
+        {
+          "type": "text",
+          "text": "Kỳ lương sau: để riêng trước",
+          "x": 1380,
+          "y": 170,
+          "size": 56,
+          "color": "good",
+          "appear": "Kỳ lương sau"
+        },
+        {
+          "type": "prop",
+          "img": "arrow_down",
+          "x": 1380,
+          "y": 300,
+          "scale": 1.0,
+          "appear": "để riêng"
+        },
+        {
+          "type": "prop",
+          "img": "jar",
+          "x": 1380,
+          "y": 650,
+          "scale": 1.6,
+          "appear": 0.4
+        },
+        {
+          "type": "prop",
+          "img": "coin",
+          "x": 1250,
+          "y": 330,
+          "scale": 1.1,
+          "rot": 10,
+          "appear": "ba triệu"
+        },
+        {
+          "type": "prop",
+          "img": "coin",
+          "x": 1520,
+          "y": 360,
+          "scale": 0.9,
+          "rot": -12,
+          "appear": "ba triệu"
+        },
+        {
+          "type": "text",
+          "text": "3.000.000đ",
+          "x": 1380,
+          "y": 960,
+          "size": 56,
+          "color": "good",
+          "appear": "ba triệu"
+        }
+      ]
+    },
+    {
+      "id": "s09",
+      "title": "Kết",
+      "voice": "Từ hôm nay, hãy ghi lại từng khoản và chia lương ngay khi nhận. Tiền của bạn sẽ biết rõ chỗ đi!",
+      "subtitles": [
+        "Từ hôm nay, hãy ghi lại từng khoản",
+        "và chia lương ngay khi nhận.",
+        "Tiền của bạn sẽ biết rõ chỗ đi!"
+      ],
+      "bg": "cream",
+      "transition": "fade-out",
+      "bi": {
+        "x": 500,
+        "y": 930,
+        "scale": 1.05,
+        "face": "happy",
+        "pose": "cheer"
+      },
+      "actions": [
+        {
+          "name": "nod",
+          "cue": "Từ hôm nay"
+        },
+        {
+          "name": "cheer",
+          "cue": "Tiền của bạn"
+        }
+      ],
+      "face_cues": [],
+      "items": [
+        {
+          "type": "text",
+          "text": "1 · Ghi lại từng khoản",
+          "x": 1400,
+          "y": 380,
+          "size": 64,
+          "color": "dark",
+          "appear": "ghi lại"
+        },
+        {
+          "type": "text",
+          "text": "2 · Chia lương ngay khi nhận",
+          "x": 1400,
+          "y": 500,
+          "size": 64,
+          "color": "dark",
+          "appear": "chia lương"
+        },
+        {
+          "type": "text",
+          "text": "3 · Tiết kiệm trước",
+          "x": 1400,
+          "y": 620,
+          "size": 64,
+          "color": "good",
+          "appear": "Tiền của bạn"
+        },
+        {
+          "type": "prop",
+          "img": "sparkle",
+          "x": 1000,
+          "y": 250,
+          "scale": 1.0,
+          "appear": "Tiền của bạn"
+        },
+        {
+          "type": "prop",
+          "img": "sparkle",
+          "x": 1780,
+          "y": 760,
+          "scale": 0.8,
+          "appear": "biết rõ"
+        }
+      ],
+      "hold_after": 1.4
+    }
+  ]
+}

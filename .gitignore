@@ -1,0 +1,37 @@
+# secrets and credentials: never committed
+.env
+.env.*
+!.env.example
+phase2/config.json
+**/*token*
+**/*secret*
+telegram_state/
+# caches, outputs, big/derived data
+work/
+output/
+**/output/
+node_modules/
+.remotion/
+**/remotion/out/
+**/remotion/_spike/
+**/remotion/public/
+**/llm_cache/
+**/export/
+**/.locks/
+**/_work/
+**/jobs/
+**/render/
+**/previews/
+**/previews_tmp/
+**/audio/
+**/voice_cache/
+**/ai_assets/
+**/characters/*/png/
+**/assets/png/
+**/assets/svg/
+*.zip
+*.mp4
+*.wav
+*.mp3
+__pycache__/
+*.pyc

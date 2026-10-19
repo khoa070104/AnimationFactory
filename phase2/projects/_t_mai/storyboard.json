@@ -1,0 +1,128 @@
+{
+  "project": "_t_mai",
+  "title": "Thử nhân vật Mai",
+  "version": 2,
+  "status": "chưa có kịch bản - chờ AI chuẩn bị",
+  "audience": "người đi làm trẻ, mới bắt đầu quản lý tiền",
+  "message": "",
+  "voice": {
+    "provider": "edge",
+    "voice_id": "edge_vi-VN-HoaiMyNeural",
+    "speed": 1.0
+  },
+  "timing": {
+    "lead": 0.15,
+    "tail": 0.3,
+    "word_pad": 0.15
+  },
+  "export": {
+    "fade_out": 0.4
+  },
+  "character": {
+    "shirt": "#F26B21"
+  },
+  "review_points": [
+    "Nội dung và thứ tự các cảnh.",
+    "Lời đọc từng cảnh (đây là văn bản sẽ gửi API).",
+    "Số liệu minh họa.",
+    "Giọng đọc."
+  ],
+  "scenes": [
+    {
+      "id": "s01",
+      "title": "Mai và chiếc ví",
+      "voice": "Mai mở ví ra và thấy tiền vơi nhanh quá. Cô ấy chỉ vào hóa đơn rồi mỉm cười, vì đã tìm ra cách giữ tiền.",
+      "subtitles": "auto",
+      "bg": "cream",
+      "transition": "fade-out",
+      "bi": {
+        "char": "mai",
+        "x": 520,
+        "y": 960,
+        "scale": 1,
+        "face": "worried",
+        "pose": "idle"
+      },
+      "actions": [
+        {
+          "name": "enter",
+          "at": 0
+        },
+        {
+          "name": "point",
+          "cue": "chỉ vào hóa đơn",
+          "hold": 0.8
+        },
+        {
+          "name": "cheer",
+          "cue": "giữ tiền",
+          "hold": 0.6
+        }
+      ],
+      "face_cues": [
+        {
+          "cue": "mỉm cười",
+          "face": "happy"
+        }
+      ],
+      "cast": [
+        {
+          "char": "bi",
+          "x": 1500,
+          "y": 960,
+          "scale": 0.9,
+          "face": "neutral",
+          "pose": "idle",
+          "flip": true,
+          "actions": [
+            {
+              "name": "nod",
+              "cue": "tìm ra cách"
+            }
+          ],
+          "face_cues": []
+        },
+        {
+          "char": "bi",
+          "x": 1500,
+          "y": 960,
+          "scale": 1,
+          "flip": true,
+          "face": "neutral",
+          "pose": "idle",
+          "actions": [],
+          "face_cues": []
+        }
+      ],
+      "items": [
+        {
+          "type": "prop",
+          "img": "wallet",
+          "x": 1000,
+          "y": 700,
+          "scale": 0.9,
+          "appear": "mở ví"
+        },
+        {
+          "type": "text",
+          "text": "Tiền đi đâu?",
+          "x": 1000,
+          "y": 420,
+          "size": 64,
+          "color": "dark",
+          "appear": "tiền vơi"
+        }
+      ]
+    }
+  ],
+  "targets": {
+    "duration": [
+      5,
+      30
+    ],
+    "scenes": [
+      1,
+      3
+    ]
+  }
+}

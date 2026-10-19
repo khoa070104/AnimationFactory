@@ -1,0 +1,86 @@
+{
+  "assets": [
+    {
+      "id": "bg_kitchen_messy_fridge",
+      "kind": "background",
+      "prompt": "Cozy warm kitchen corner with an open refrigerator showing wilted vegetables and spoiled food on shelves, warm cream wall background, no people, 16:9 flat 2D cartoon illustration",
+      "rationale": "Establishes Minh's messy kitchen and open spoiled fridge setting.",
+      "scenes": [
+        "s01"
+      ],
+      "placement": {
+        "scene": "s01",
+        "mode": "bg",
+        "x": 1400,
+        "y": 560,
+        "scale": 1.0,
+        "appear": 0.3
+      },
+      "refs": [],
+      "reuse": null
+    },
+    {
+      "id": "bg_kitchen_dining_table",
+      "kind": "background",
+      "prompt": "Cozy kitchen dining table setting with warm ambient lighting, wooden chairs and shelves, no people, 16:9 flat 2D vector style",
+      "rationale": "Sets the kitchen table scene where Linh and Minh sit to plan their meals.",
+      "scenes": [
+        "s02"
+      ],
+      "placement": {
+        "scene": "s02",
+        "mode": "bg",
+        "x": 1400,
+        "y": 560,
+        "scale": 1.0,
+        "appear": 0.3
+      },
+      "refs": [],
+      "reuse": null
+    },
+    {
+      "id": "prop_notepad_pencil",
+      "kind": "prop",
+      "prompt": "Blank sheet of paper on desk with a yellow pencil, clean stationery on white background",
+      "rationale": "Shows the paper sheet used for listing meals and planning.",
+      "scenes": [
+        "s02"
+      ],
+      "placement": {
+        "scene": "s02",
+        "mode": "item",
+        "x": 1400,
+        "y": 550,
+        "scale": 1,
+        "appear": "Cô lấy tờ giấy trắng"
+      },
+      "refs": [
+        "D:\\AnimationFactory\\phase2\\approved\\bi_v2.1\\frames\\frame01.png"
+      ],
+      "reuse": null
+    },
+    {
+      "id": "prop_shopping_list",
+      "kind": "prop",
+      "prompt": "Neat paper grocery shopping checklist with checkmarks, on plain white background",
+      "rationale": "Visualizes the written grocery shopping list Minh holds when shopping.",
+      "scenes": [
+        "s03"
+      ],
+      "placement": {
+        "scene": "s03",
+        "mode": "item",
+        "x": 1380,
+        "y": 500,
+        "scale": 1,
+        "appear": "Minh cầm danh sách ra chợ"
+      },
+      "refs": [
+        "D:\\AnimationFactory\\phase2\\approved\\bi_v2.1\\frames\\frame01.png"
+      ],
+      "reuse": null
+    }
+  ],
+  "created": "2026-10-19 12:17:05",
+  "images_remaining_at_planning": 14
+}

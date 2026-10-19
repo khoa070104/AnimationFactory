@@ -1,0 +1,64 @@
+{
+  "project": "sample_a_thuc_don_tuan",
+  "storyboard_version": 17,
+  "state": "failed_at_video",
+  "approved": {
+    "content": {
+      "version": 17,
+      "by": "Khoa",
+      "on": "2026-10-20"
+    },
+    "script": {
+      "version": 17,
+      "by": "Khoa",
+      "on": "2026-10-20"
+    },
+    "storyboard": {
+      "version": 17,
+      "by": "Khoa",
+      "on": "2026-10-20"
+    }
+  },
+  "voice_generated": true,
+  "api_calls": 8,
+  "credits_spent": 858,
+  "steps": {
+    "validate": {
+      "state": "ok",
+      "seconds": 0.3
+    },
+    "storyboard": {
+      "state": "ok",
+      "seconds": 7.6
+    },
+    "voice": {
+      "state": "ok",
+      "seconds": 0.4
+    },
+    "video": {
+      "state": "failed",
+      "seconds": 6.6,
+      "error": "[00:41:34] FAIL duration within 60-90 s - 92.6s\n[00:41:34] PASS scene count within 6-10 - 8 scenes\n[00:41:34] PASS subtitles: inside scene, in order, no overlap, <= 56 chars\n[00:41:34] PASS actions start within 0.7 s of their spoken cue (planned vs actual start, after non-overlap scheduling) - 22 actions\n[00:41:34] PASS motion QA on all characters (joint limits, no snaps/flips, arms never through torso)\n[00:41:34] DONE D:\\AnimationFactory\\phase2\\projects\\sample_a_thuc_don_tuan\\output\\sample_a_thuc_don_tuan_v17_preview.mp4 92.6s | rendered - | reused ['s01', 's02', 's03', 's04', 's05', 's06', 's07', 's08']"
+    }
+  },
+  "code_hash": "00ec81da40ebf5d2",
+  "last_build": {
+    "renderer": "remotion",
+    "draft": false,
+    "output": "D:\\AnimationFactory\\phase2\\projects\\sample_a_thuc_don_tuan\\output\\sample_a_thuc_don_tuan_v17_preview.mp4",
+    "seconds": 92.6,
+    "rendered": [],
+    "reused": [
+      "s01",
+      "s02",
+      "s03",
+      "s04",
+      "s05",
+      "s06",
+      "s07",
+      "s08"
+    ],
+    "built_in_s": 6.4,
+    "placeholders": []
+  }
+}

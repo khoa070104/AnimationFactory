@@ -1,0 +1,50 @@
+[16:13:26] plan: 9 scene(s) to generate (831 chars, est. ~602 credits), 0 unchanged (no API call)
+[16:13:30] plan: 9 scene(s) to generate (831 chars, est. ~602 credits), 0 unchanged (no API call)
+[16:13:30] CALL s01 (68 chars) -> paid API job
+[16:13:41] OK   s01 (11.2s) 14 words | last word 6.42s, audio 7.23s
+[16:13:41] CALL s02 (71 chars) -> paid API job
+[16:13:49] OK   s02 (8.1s) 15 words | last word 4.96s, audio 5.80s
+[16:13:49] CALL s03 (86 chars) -> paid API job
+[16:13:55] OK   s03 (5.9s) 18 words | last word 5.95s, audio 6.77s
+[16:13:55] CALL s04 (92 chars) -> paid API job
+[16:14:02] OK   s04 (6.5s) 21 words | last word 6.55s, audio 7.37s
+[16:14:02] CALL s05 (94 chars) -> paid API job
+[16:14:52] OK   s05 (50.7s) 21 words | last word 7.51s, audio 8.33s
+[16:14:52] CALL s06 (137 chars) -> paid API job
+[16:14:58] OK   s06 (6.2s) 30 words | last word 8.35s, audio 9.17s
+[16:14:58] CALL s07 (90 chars) -> paid API job
+[16:15:04] OK   s07 (5.9s) 19 words | last word 5.01s, audio 5.83s
+[16:15:04] CALL s08 (98 chars) -> paid API job
+[16:15:11] OK   s08 (6.8s) 21 words | last word 5.16s, audio 5.97s
+[16:15:11] CALL s09 (95 chars) -> paid API job
+[16:15:17] OK   s09 (6.3s) 22 words | last word 6.19s, audio 7.00s
+[16:52:36] plan: 0 scene(s) to generate (0 chars, est. ~0 credits), 9 unchanged (no API call)
+[16:52:37] SKIP s01: text/voice/speed unchanged, reusing audio (no API call)
+[16:52:37] SKIP s02: text/voice/speed unchanged, reusing audio (no API call)
+[16:52:37] SKIP s03: text/voice/speed unchanged, reusing audio (no API call)
+[16:52:37] SKIP s04: text/voice/speed unchanged, reusing audio (no API call)
+[16:52:37] SKIP s05: text/voice/speed unchanged, reusing audio (no API call)
+[16:52:37] SKIP s06: text/voice/speed unchanged, reusing audio (no API call)
+[16:52:37] SKIP s07: text/voice/speed unchanged, reusing audio (no API call)
+[16:52:37] SKIP s08: text/voice/speed unchanged, reusing audio (no API call)
+[16:52:37] SKIP s09: text/voice/speed unchanged, reusing audio (no API call)
+[17:16:41] plan: 0 scene(s) to generate (0 chars, est. ~0 credits), 9 unchanged (no API call)
+[17:16:42] SKIP s01: text/voice/speed unchanged, reusing audio (no API call)
+[17:16:42] SKIP s02: text/voice/speed unchanged, reusing audio (no API call)
+[17:16:42] SKIP s03: text/voice/speed unchanged, reusing audio (no API call)
+[17:16:42] SKIP s04: text/voice/speed unchanged, reusing audio (no API call)
+[17:16:42] SKIP s05: text/voice/speed unchanged, reusing audio (no API call)
+[17:16:42] SKIP s06: text/voice/speed unchanged, reusing audio (no API call)
+[17:16:42] SKIP s07: text/voice/speed unchanged, reusing audio (no API call)
+[17:16:42] SKIP s08: text/voice/speed unchanged, reusing audio (no API call)
+[17:16:42] SKIP s09: text/voice/speed unchanged, reusing audio (no API call)
+[18:30:46] plan: 0 scene(s) to generate (0 chars, est. ~0 credits), 0 from the shared voice cache (no API call), 9 unchanged (no API call)
+[18:30:46] SKIP s01: text/voice/speed unchanged, reusing audio (no API call)
+[18:30:46] SKIP s02: text/voice/speed unchanged, reusing audio (no API call)
+[18:30:46] SKIP s03: text/voice/speed unchanged, reusing audio (no API call)
+[18:30:46] SKIP s04: text/voice/speed unchanged, reusing audio (no API call)
+[18:30:46] SKIP s05: text/voice/speed unchanged, reusing audio (no API call)
+[18:30:46] SKIP s06: text/voice/speed unchanged, reusing audio (no API call)
+[18:30:46] SKIP s07: text/voice/speed unchanged, reusing audio (no API call)
+[18:30:46] SKIP s08: text/voice/speed unchanged, reusing audio (no API call)
+[18:30:46] SKIP s09: text/voice/speed unchanged, reusing audio (no API call)

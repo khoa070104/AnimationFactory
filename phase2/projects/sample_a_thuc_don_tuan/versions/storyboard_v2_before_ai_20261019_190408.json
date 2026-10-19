@@ -1,0 +1,724 @@
+{
+  "project": "sample_a_thuc_don_tuan",
+  "title": "Lên thực đơn tuần để đỡ tốn tiền ăn",
+  "version": 2,
+  "status": "bản nháp do AI soạn - chờ duyệt",
+  "audience": "người đi làm trẻ, mới bắt đầu quản lý tiền",
+  "message": "Quyết định bữa ăn trước khi đi chợ giúp tiết kiệm tiền và đỡ bỏ đồ ăn hỏng",
+  "voice": {
+    "provider": "edge",
+    "voice_id": "edge_vi-VN-HoaiMyNeural",
+    "speed": 1.0
+  },
+  "timing": {
+    "lead": 0.15,
+    "tail": 0.3,
+    "word_pad": 0.15
+  },
+  "export": {
+    "fade_out": 0.4
+  },
+  "character": {
+    "shirt": "#F26B21"
+  },
+  "targets": {
+    "duration": [
+      60,
+      90
+    ],
+    "scenes": [
+      6,
+      10
+    ]
+  },
+  "review_points": [
+    "Mạch kể và thứ tự các cảnh.",
+    "Lời đọc từng cảnh (đây là văn bản sẽ gửi API giọng đọc).",
+    "Thông tin cần kiểm chứng (nếu có).",
+    "Hình ảnh, hành động từng cảnh."
+  ],
+  "scenes": [
+    {
+      "id": "s01",
+      "title": "Tủ lạnh đầy mà vẫn không có gì ăn",
+      "voice": "Tuấn mở tủ lạnh, nhìn vào... rau héo, thịt quên rã đông, hộp đồ ăn thừa không rõ mua hồi nào. Cuối tuần lại phải đổ bỏ. Tiền đi đâu hết vậy?",
+      "subtitles": "auto",
+      "bg": "cream",
+      "transition": "cut",
+      "bi": {
+        "char": "tuan",
+        "face": "worried",
+        "pose": "cheek",
+        "scale": 1,
+        "x": 520,
+        "y": 960
+      },
+      "actions": [
+        {
+          "at": 0,
+          "name": "enter"
+        },
+        {
+          "cue": "nhìn vào",
+          "hold": 2.5,
+          "name": "cheek"
+        },
+        {
+          "cue": "Tiền đi đâu",
+          "name": "shrug"
+        }
+      ],
+      "face_cues": [
+        {
+          "cue": "rau héo",
+          "face": "worried"
+        },
+        {
+          "cue": "Tiền đi đâu",
+          "face": "surprised"
+        }
+      ],
+      "items": [
+        {
+          "appear": "Tiền đi đâu",
+          "img": "exclaim",
+          "scale": 1.1,
+          "type": "prop",
+          "x": 1480,
+          "y": 280
+        },
+        {
+          "appear": "rau héo",
+          "color": "bad",
+          "size": 52,
+          "text": "🥦 Rau héo",
+          "type": "text",
+          "x": 1100,
+          "y": 380
+        },
+        {
+          "appear": "thịt quên",
+          "color": "bad",
+          "size": 52,
+          "text": "🍖 Thịt quên rã đông",
+          "type": "text",
+          "x": 1100,
+          "y": 490
+        },
+        {
+          "appear": "hộp đồ ăn thừa",
+          "color": "bad",
+          "size": 52,
+          "text": "📦 Hộp đồ ăn thừa…",
+          "type": "text",
+          "x": 1100,
+          "y": 600
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "title": "Vòng lặp quen thuộc",
+      "voice": "Tuấn hay ghé siêu thị sau giờ làm, thấy gì rẻ mua nấy, về nhà không biết nấu gì. Vài ngày sau, đồ ăn hỏng, lại đặt đồ ăn ngoài. Rồi lại mua. Rồi lại bỏ.",
+      "subtitles": "auto",
+      "bg": "cream",
+      "transition": "cut",
+      "bi": {
+        "char": "tuan",
+        "face": "neutral",
+        "pose": "idle",
+        "scale": 1,
+        "x": 520,
+        "y": 960
+      },
+      "actions": [
+        {
+          "cue": "lại đặt đồ ăn ngoài",
+          "hold": 1.5,
+          "name": "hold_phone"
+        },
+        {
+          "cue": "Rồi lại bỏ",
+          "name": "shrug"
+        }
+      ],
+      "face_cues": [
+        {
+          "cue": "không biết nấu gì",
+          "face": "thinking"
+        },
+        {
+          "cue": "Rồi lại bỏ",
+          "face": "worried"
+        }
+      ],
+      "items": [
+        {
+          "appears": [
+            "thấy gì rẻ mua nấy",
+            "đồ ăn hỏng",
+            "lại đặt đồ ăn ngoài"
+          ],
+          "gap": 120,
+          "marker": "dot",
+          "size": 48,
+          "texts": [
+            "Mua theo cảm hứng 🛒",
+            "Đồ ăn hỏng 🗑️",
+            "Đặt đồ ăn ngoài 📱"
+          ],
+          "type": "pills",
+          "x": 1150,
+          "y": 380
+        },
+        {
+          "appear": "Rồi lại bỏ",
+          "img": "sweat",
+          "scale": 0.9,
+          "type": "prop",
+          "x": 1600,
+          "y": 310
+        }
+      ]
+    },
+    {
+      "id": "s03",
+      "title": "Bạn cùng nhà có mẹo hay",
+      "voice": "Một buổi tối, Linh, bạn cùng nhà, đang ngồi viết gì đó ở bàn. Tuấn hỏi. Linh cười: lập thực đơn tuần đấy, mất có mười phút thôi.",
+      "subtitles": "auto",
+      "bg": "cream",
+      "transition": "cut",
+      "bi": {
+        "char": "tuan",
+        "face": "thinking",
+        "pose": "idle",
+        "scale": 1,
+        "x": 300,
+        "y": 960
+      },
+      "actions": [
+        {
+          "cue": "mười phút thôi",
+          "name": "nod"
+        }
+      ],
+      "face_cues": [
+        {
+          "cue": "Tuấn hỏi",
+          "face": "thinking"
+        },
+        {
+          "cue": "mười phút thôi",
+          "face": "surprised"
+        }
+      ],
+      "items": [
+        {
+          "appear": "lập thực đơn tuần",
+          "img": "board",
+          "scale": 0.8,
+          "type": "prop",
+          "x": 980,
+          "y": 480
+        },
+        {
+          "appear": "lập thực đơn tuần",
+          "color": "good",
+          "size": 58,
+          "text": "Thực đơn tuần",
+          "type": "text",
+          "x": 980,
+          "y": 310
+        },
+        {
+          "amount": "10 phút",
+          "appear": "mười phút thôi",
+          "caption": "Lên kế hoạch bữa ăn cả tuần!",
+          "type": "notice",
+          "x": 980,
+          "y": 760
+        }
+      ],
+      "cast": [
+        {
+          "actions": [
+            {
+              "at": 0.2,
+              "name": "enter"
+            },
+            {
+              "cue": "lập thực đơn tuần",
+              "hold": 2,
+              "name": "point"
+            },
+            {
+              "cue": "mười phút thôi",
+              "hold": 1,
+              "name": "cheer"
+            }
+          ],
+          "char": "linh",
+          "face": "happy",
+          "face_cues": [
+            {
+              "cue": "lập thực đơn tuần",
+              "face": "happy"
+            }
+          ],
+          "flip": true,
+          "pose": "point",
+          "scale": 1,
+          "x": 1480,
+          "y": 960
+        }
+      ]
+    },
+    {
+      "id": "s04",
+      "title": "Bước một: kiểm tra tủ lạnh trước",
+      "voice": "Linh giải thích: trước hết, mở tủ lạnh xem còn gì. Trứng còn ba quả, cà rốt còn một nửa, đậu hũ chưa mở. Ghi lại hết. Đây là nguyên liệu sẵn có, không cần mua thêm.",
+      "subtitles": "auto",
+      "bg": "cream",
+      "transition": "cut",
+      "bi": {
+        "char": "tuan",
+        "face": "neutral",
+        "pose": "idle",
+        "scale": 1,
+        "x": 300,
+        "y": 960
+      },
+      "actions": [
+        {
+          "cue": "Ghi lại hết",
+          "name": "nod"
+        },
+        {
+          "cue": "nguyên liệu sẵn có",
+          "hold": 1.5,
+          "name": "point"
+        }
+      ],
+      "face_cues": [
+        {
+          "cue": "Ghi lại hết",
+          "face": "happy"
+        }
+      ],
+      "items": [
+        {
+          "gap": 90,
+          "rows": [
+            {
+              "appear": "Trứng còn ba quả",
+              "color": "yellow",
+              "text": "🥚 Trứng — còn 3 quả"
+            },
+            {
+              "appear": "cà rốt còn một nửa",
+              "color": "teal",
+              "text": "🥕 Cà rốt — còn một nửa"
+            },
+            {
+              "appear": "đậu hũ chưa mở",
+              "color": "blue",
+              "text": "🧊 Đậu hũ — chưa mở"
+            }
+          ],
+          "size": 50,
+          "type": "legend",
+          "x": 1020,
+          "y": 340
+        },
+        {
+          "appear": "nguyên liệu sẵn có",
+          "color": "good",
+          "size": 52,
+          "text": "✔ Không cần mua thêm",
+          "type": "text",
+          "x": 1020,
+          "y": 680
+        }
+      ],
+      "cast": [
+        {
+          "actions": [
+            {
+              "at": 0,
+              "name": "enter"
+            },
+            {
+              "cues": [
+                "Trứng còn ba quả",
+                "cà rốt còn một nửa",
+                "đậu hũ chưa mở"
+              ],
+              "hold": 0.8,
+              "name": "point_seq"
+            }
+          ],
+          "char": "linh",
+          "face": "happy",
+          "face_cues": [
+            {
+              "cue": "nguyên liệu sẵn có",
+              "face": "happy"
+            }
+          ],
+          "flip": true,
+          "pose": "point",
+          "scale": 1,
+          "x": 1480,
+          "y": 960
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "title": "Bước hai: đặt bữa ăn vào khung tuần",
+      "voice": "Tiếp theo, Linh kẻ bảy ô tương ứng bảy ngày, điền bữa tối vào từng ô. Không cần cầu kỳ: thứ Hai trứng sốt cà, thứ Ba đậu hũ xào rau, thứ Tư canh. Đơn giản là được.",
+      "subtitles": "auto",
+      "bg": "cream",
+      "transition": "cut",
+      "bi": {
+        "char": "tuan",
+        "face": "neutral",
+        "pose": "idle",
+        "scale": 1,
+        "x": 300,
+        "y": 960
+      },
+      "actions": [
+        {
+          "cue": "Đơn giản là được",
+          "name": "nod"
+        }
+      ],
+      "face_cues": [
+        {
+          "cue": "Đơn giản là được",
+          "face": "happy"
+        }
+      ],
+      "items": [
+        {
+          "appear": 0.3,
+          "bars": [
+            {
+              "appear": "thứ Hai trứng sốt cà",
+              "color": "yellow",
+              "label": "T.2",
+              "text": "Trứng sốt cà",
+              "value": 3
+            },
+            {
+              "appear": "thứ Ba đậu hũ xào rau",
+              "color": "teal",
+              "label": "T.3",
+              "text": "Đậu hũ xào rau",
+              "value": 3
+            },
+            {
+              "appear": "thứ Tư canh",
+              "color": "blue",
+              "label": "T.4",
+              "text": "Canh",
+              "value": 3
+            }
+          ],
+          "scale": 0.8,
+          "title": "Thực đơn 7 ngày",
+          "type": "chart",
+          "unit_h": 28,
+          "x": 1050,
+          "y": 640
+        },
+        {
+          "appear": 0.2,
+          "color": "dark",
+          "size": 54,
+          "text": "Bảy ô – Bảy ngày 📅",
+          "type": "text",
+          "x": 1050,
+          "y": 250
+        }
+      ],
+      "cast": [
+        {
+          "actions": [
+            {
+              "cues": [
+                "thứ Hai trứng sốt cà",
+                "thứ Ba đậu hũ xào rau",
+                "thứ Tư canh"
+              ],
+              "hold": 0.8,
+              "name": "point_seq"
+            }
+          ],
+          "char": "linh",
+          "face": "happy",
+          "face_cues": [],
+          "flip": true,
+          "pose": "point",
+          "scale": 1,
+          "x": 1480,
+          "y": 960
+        }
+      ]
+    },
+    {
+      "id": "s06",
+      "title": "Bước ba: viết danh sách chợ từ thực đơn",
+      "voice": "Từ thực đơn đó, Linh lập danh sách mua đúng những gì còn thiếu. Không mua theo cảm hứng nữa. Có danh sách, vào chợ ra nhanh, không mua thừa, không bỏ phí.",
+      "subtitles": "auto",
+      "bg": "cream",
+      "transition": "cut",
+      "bi": {
+        "char": "tuan",
+        "face": "neutral",
+        "pose": "idle",
+        "scale": 1,
+        "x": 520,
+        "y": 960
+      },
+      "actions": [
+        {
+          "cue": "Không mua theo cảm hứng",
+          "name": "nod"
+        },
+        {
+          "cue": "không bỏ phí",
+          "hold": 1.2,
+          "name": "cheer"
+        }
+      ],
+      "face_cues": [
+        {
+          "cue": "không bỏ phí",
+          "face": "happy"
+        }
+      ],
+      "items": [
+        {
+          "amount": "0 đồng lãng phí",
+          "appear": "lập danh sách mua",
+          "head": "📋 Danh sách chợ",
+          "scale": 1,
+          "title": "Mua đúng – Đủ dùng",
+          "type": "bill",
+          "x": 1000,
+          "y": 480
+        },
+        {
+          "appear": "không bỏ phí",
+          "img": "sparkle",
+          "scale": 0.9,
+          "type": "prop",
+          "x": 1450,
+          "y": 310
+        }
+      ],
+      "cast": [
+        {
+          "actions": [
+            {
+              "at": 0,
+              "name": "enter"
+            },
+            {
+              "cues": [
+                "lập danh sách mua",
+                "không mua thừa",
+                "không bỏ phí"
+              ],
+              "hold": 0.8,
+              "name": "point_seq"
+            }
+          ],
+          "char": "linh",
+          "face": "happy",
+          "face_cues": [
+            {
+              "cue": "không bỏ phí",
+              "face": "happy"
+            }
+          ],
+          "flip": true,
+          "pose": "point",
+          "scale": 1,
+          "x": 1480,
+          "y": 960
+        }
+      ]
+    },
+    {
+      "id": "s07",
+      "title": "Tuấn thử áp dụng",
+      "voice": "Cuối tuần, Tuấn tự làm thực đơn lần đầu. Mười phút xong. Cầm danh sách ra chợ, mua đúng, về xếp đồ vào tủ gọn gàng. Cảm giác khác hẳn.",
+      "subtitles": "auto",
+      "bg": "cream",
+      "transition": "cut",
+      "bi": {
+        "char": "tuan",
+        "face": "neutral",
+        "pose": "idle",
+        "scale": 1,
+        "x": 450,
+        "y": 960
+      },
+      "actions": [
+        {
+          "at": 0,
+          "name": "enter"
+        },
+        {
+          "cue": "Mười phút xong",
+          "hold": 1,
+          "name": "point"
+        },
+        {
+          "cue": "Cầm danh sách ra chợ",
+          "hold": 1.5,
+          "name": "hold_phone"
+        },
+        {
+          "cue": "Cảm giác khác hẳn",
+          "hold": 1.5,
+          "name": "cheer"
+        }
+      ],
+      "face_cues": [
+        {
+          "cue": "Mười phút xong",
+          "face": "happy"
+        },
+        {
+          "cue": "Cảm giác khác hẳn",
+          "face": "happy"
+        }
+      ],
+      "items": [
+        {
+          "appear": "Tuấn tự làm thực đơn",
+          "img": "board",
+          "scale": 0.8,
+          "type": "prop",
+          "x": 1150,
+          "y": 340
+        },
+        {
+          "amount": "10 phút",
+          "appear": "Mười phút xong",
+          "caption": "Thực đơn tuần hoàn thành ✔",
+          "type": "notice",
+          "x": 1150,
+          "y": 690
+        },
+        {
+          "appear": "Cảm giác khác hẳn",
+          "img": "sparkle",
+          "scale": 1,
+          "type": "prop",
+          "x": 1530,
+          "y": 310
+        }
+      ],
+      "camera": "push_in"
+    },
+    {
+      "id": "s08",
+      "title": "Kết quả và thông điệp chốt",
+      "voice": "Quyết định bữa ăn trước khi đi chợ giúp mình mua đúng, nấu đủ, bỏ ít hơn. Chỉ mười phút lập thực đơn, cả tuần bớt lo chuyện ăn uống và bớt thấy tiền không cánh mà bay.",
+      "subtitles": "auto",
+      "bg": "blue",
+      "transition": "fade-out",
+      "bi": {
+        "char": "tuan",
+        "face": "happy",
+        "pose": "cheer",
+        "scale": 1,
+        "x": 300,
+        "y": 960
+      },
+      "actions": [
+        {
+          "cue": "mua đúng",
+          "hold": 1.5,
+          "name": "cheer"
+        },
+        {
+          "cue": "bớt lo chuyện ăn uống",
+          "name": "nod"
+        }
+      ],
+      "face_cues": [
+        {
+          "cue": "mua đúng",
+          "face": "happy"
+        }
+      ],
+      "items": [
+        {
+          "appear": "mua đúng",
+          "color": "white",
+          "size": 52,
+          "text": "✅ Mua đúng – Nấu đủ – Bỏ ít hơn",
+          "type": "text",
+          "x": 1050,
+          "y": 300
+        },
+        {
+          "appears": [
+            "Chỉ mười phút",
+            "lập thực đơn",
+            "bớt lo chuyện ăn uống"
+          ],
+          "gap": 90,
+          "marker": "dot",
+          "size": 42,
+          "texts": [
+            "Lập thực đơn 10 phút",
+            "Đi chợ đúng danh sách",
+            "Cả tuần bớt lo"
+          ],
+          "type": "pills",
+          "x": 1050,
+          "y": 480
+        },
+        {
+          "appear": "bớt thấy tiền không cánh mà bay",
+          "img": "sparkle",
+          "scale": 1.1,
+          "type": "prop",
+          "x": 1680,
+          "y": 280
+        }
+      ],
+      "cast": [
+        {
+          "actions": [
+            {
+              "at": 0.3,
+              "name": "enter"
+            },
+            {
+              "cue": "bớt thấy tiền không cánh mà bay",
+              "hold": 1.5,
+              "name": "cheer"
+            }
+          ],
+          "char": "linh",
+          "face": "happy",
+          "face_cues": [],
+          "flip": true,
+          "pose": "cheer",
+          "scale": 1,
+          "x": 1480,
+          "y": 960
+        }
+      ]
+    }
+  ],
+  "origin": "ai"
+}

@@ -1,0 +1,15 @@
+[14:19:51] config: shirt=#2E86DE pointSpeed=0.3 out=D:\AnimationFactory\acceptance\out_variant\variant_blue_fast.mp4 work=D:\AnimationFactory\acceptance\work1
+[14:19:51] SKIP voice scene1: text/voice unchanged, reusing audio (no API call)
+[14:19:51] SKIP voice scene2: text/voice unchanged, reusing audio (no API call)
+[14:19:51] START assets (VectorCraft)
+[14:19:52] OK   assets (VectorCraft) (0.6s)
+[14:19:52] START scenes (EffectCraft)
+[14:20:01] OK   scenes (EffectCraft) (9.4s)
+[14:20:01] START assembly (FilmCraft)
+[14:20:14] OK   assembly (FilmCraft) (12.7s)
+[14:20:14] PASS Scene1: no duplicate layer names (15 layers)
+[14:20:14] PASS Scene2: no duplicate layer names (20 layers)
+[14:20:14] PASS timeline has exactly 2 video + 2 audio clips (video 2, audio 2)
+[14:20:14] PASS output 1920x1080 with audio 
+[14:20:14] PASS duration within 20-30 s (25.8s)
+[14:20:14] OUTPUT D:\AnimationFactory\acceptance\out_variant\variant_blue_fast.mp4 25.8s  log: D:\AnimationFactory\acceptance\out_variant\logs\run_20261018_141951.log

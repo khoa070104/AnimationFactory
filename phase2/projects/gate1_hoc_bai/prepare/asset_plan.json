@@ -1,0 +1,67 @@
+{
+  "assets": [
+    {
+      "id": "study_room_bg",
+      "kind": "background",
+      "prompt": "A warm and cozy study room corner with a wooden desk, a neat bookshelf, soft morning window light, and indoor potted plant, calm 16:9 composition, no people",
+      "rationale": "Creates an authentic and relatable learning environment for the opening study scenario.",
+      "scenes": [
+        "s01"
+      ],
+      "placement": {
+        "scene": "s01",
+        "mode": "bg",
+        "x": 1400,
+        "y": 560,
+        "scale": 1.0,
+        "appear": 0.3
+      },
+      "refs": [],
+      "reuse": null
+    },
+    {
+      "id": "pomodoro_timer",
+      "kind": "prop",
+      "prompt": "A cute rounded mechanical desk timer set to twenty minutes, single object on plain white background",
+      "rationale": "Directly illustrates the tip of studying in structured twenty-minute intervals.",
+      "scenes": [
+        "s02"
+      ],
+      "placement": {
+        "scene": "s02",
+        "mode": "item",
+        "x": 1350,
+        "y": 480,
+        "scale": 1,
+        "appear": "hai mươi phút rồi dừng"
+      },
+      "refs": [
+        "D:\\AnimationFactory\\phase2\\approved\\bi_v2.1\\frames\\frame01.png"
+      ],
+      "reuse": null
+    },
+    {
+      "id": "glass_of_water",
+      "kind": "prop",
+      "prompt": "A clean clear glass of fresh water with a simple straw, single object on plain white background",
+      "rationale": "Clearly represents the habit of taking an actual refreshing break to drink water.",
+      "scenes": [
+        "s02"
+      ],
+      "placement": {
+        "scene": "s02",
+        "mode": "item",
+        "x": 1550,
+        "y": 520,
+        "scale": 0.95,
+        "appear": "uống nước"
+      },
+      "refs": [
+        "D:\\AnimationFactory\\phase2\\approved\\bi_v2.1\\frames\\frame01.png"
+      ],
+      "reuse": null
+    }
+  ],
+  "created": "2026-10-18 22:06:56",
+  "images_remaining_at_planning": 10
+}

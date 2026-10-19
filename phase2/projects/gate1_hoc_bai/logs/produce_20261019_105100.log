@@ -1,0 +1,8 @@
+[10:51:01] produce gate1_hoc_bai until=video code_hash=2e15dfec341e8aef
+[10:51:01]    ERROR   s01: main character 'minh' is 'draft': sheets {'parts': 'draft', 'faces': 'draft'}: the owner must approve both pictures; only approved characters can be used in scenes
+[10:51:01]    ERROR   s01: cast[0] character 'chi_lan' is 'draft': sheets {'parts': 'draft', 'faces': 'draft'}: the owner must approve both pictures; only approved characters can be used in scenes
+[10:51:01]    ERROR   s02: main character 'chi_lan' is 'draft': sheets {'parts': 'draft', 'faces': 'draft'}: the owner must approve both pictures; only approved characters can be used in scenes
+[10:51:01]    ERROR   s03: main character 'minh' is 'draft': sheets {'parts': 'draft', 'faces': 'draft'}: the owner must approve both pictures; only approved characters can be used in scenes
+[10:51:01]    ERROR   s03: cast[0] character 'chi_lan' is 'draft': sheets {'parts': 'draft', 'faces': 'draft'}: the owner must approve both pictures; only approved characters can be used in scenes
+[10:51:01]    5 error(s), 0 warning(s)
+[10:51:01] FAIL validate (0.5s)

@@ -1,0 +1,73 @@
+{
+  "assets": [
+    {
+      "id": "piggy_ai",
+      "kind": "prop",
+      "prompt": "a small savings piggy bank (pink pig with a coin slot on its back and one gold coin dropping in)",
+      "rationale": "",
+      "scenes": [
+        "s04"
+      ],
+      "placement": {
+        "scene": "s04",
+        "mode": "item",
+        "x": 1450,
+        "y": 500,
+        "scale": 1.1,
+        "appear": "và một phần để dành"
+      },
+      "refs": [
+        "D:\\AnimationFactory\\phase2\\approved\\bi_v2.1\\frames\\frame01.png"
+      ],
+      "reuse": {
+        "project": "video2_quy_khan_cap",
+        "asset": "piggy_ai"
+      }
+    },
+    {
+      "id": "calm_room_ai",
+      "kind": "background",
+      "prompt": "a calm flat living room corner: a plain wall, a window, a small sofa and a floor lamp, soft cream and pale blue shapes",
+      "rationale": "",
+      "scenes": [
+        "s07"
+      ],
+      "placement": {
+        "scene": "s07",
+        "mode": "bg",
+        "x": 960,
+        "y": 540,
+        "scale": 1.0,
+        "appear": 0.3
+      },
+      "refs": [],
+      "reuse": {
+        "project": "video2_quy_khan_cap",
+        "asset": "calm_room_ai"
+      }
+    },
+    {
+      "id": "notebook_ai",
+      "kind": "prop",
+      "prompt": "an open blue notebook with an extra thick hardcover and blank lined pages, completely isolated on a pure white background with no pencil",
+      "rationale": "",
+      "scenes": [
+        "s03"
+      ],
+      "placement": {
+        "scene": "s03",
+        "mode": "item",
+        "x": 1350,
+        "y": 550,
+        "scale": 1,
+        "appear": "một tờ giấy là đủ"
+      },
+      "refs": [
+        "D:\\AnimationFactory\\phase2\\approved\\bi_v2.1\\frames\\frame01.png"
+      ],
+      "reuse": null
+    }
+  ],
+  "created": "restored from manifest",
+  "note": "plan reconstructed after an unintended re-plan (fixed in prepare.py)"
+}

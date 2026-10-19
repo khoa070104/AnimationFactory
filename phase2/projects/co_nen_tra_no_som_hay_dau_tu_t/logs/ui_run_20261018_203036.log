@@ -1,0 +1,8 @@
+[20:30:37] produce co_nen_tra_no_som_hay_dau_tu_t until=storyboard code_hash=ef8284a7aea7db60
+[20:30:37]    0 error(s), 0 warning(s)
+[20:30:37] OK   validate (0.1s)
+[20:30:41]    saved D:/AnimationFactory/phase2/projects/co_nen_tra_no_som_hay_dau_tu_t/previews/storyboard_preview.ecproj scenes=8
+[20:30:41]    
+[20:30:41]    scenes 8 total {'chars': 1109, 'sec': 78.8, 'credits': 791}
+[20:30:41] OK   storyboard (4.0s)
+[20:30:41] estimate: 1109 chars, ~78.8 s, ~791 credits

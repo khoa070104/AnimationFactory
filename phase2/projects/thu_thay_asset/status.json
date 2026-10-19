@@ -1,0 +1,60 @@
+{
+  "project": "lap_ngan_sach_chi_tieu_hang_th",
+  "storyboard_version": 6,
+  "state": "content_approved",
+  "approved": {
+    "content": {
+      "version": 6,
+      "by": "Claude (kiểm thử, không phải chủ dự án)",
+      "on": "2026-10-18"
+    },
+    "script": {
+      "version": 6,
+      "by": "Claude (kiểm thử, không phải chủ dự án)",
+      "on": "2026-10-18"
+    },
+    "storyboard": {
+      "version": 4,
+      "by": "Khoa",
+      "on": "2026-10-18"
+    }
+  },
+  "voice_generated": true,
+  "api_calls": 7,
+  "credits_spent": 743,
+  "steps": {
+    "validate": {
+      "state": "ok",
+      "seconds": 0.2
+    },
+    "storyboard": {
+      "state": "ok",
+      "seconds": 4.6
+    },
+    "voice": {
+      "state": "ok",
+      "seconds": 0.4
+    },
+    "video": {
+      "state": "ok",
+      "seconds": 33.9
+    }
+  },
+  "code_hash": "c6b9058ca5256084",
+  "last_build": {
+    "output": "D:\\AnimationFactory\\phase2\\projects\\thu_thay_asset\\output\\thu_thay_asset_v5_preview.mp4",
+    "seconds": 80.2,
+    "rendered": [
+      "s03"
+    ],
+    "reused": [
+      "s01",
+      "s02",
+      "s04",
+      "s05",
+      "s06",
+      "s07"
+    ],
+    "built_in_s": 55.2
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "project": "ui_demo",
+  "title": "Quỹ khẩn cấp - bản thử qua giao diện",
+  "version": 1,
+  "status": "draft - chờ duyệt nội dung",
+  "audience": "người đi làm trẻ",
+  "message": "Thử quy trình qua giao diện: nhập, duyệt, dựng.",
+  "voice": {
+    "provider": "edge",
+    "voice_id": "edge_vi-VN-HoaiMyNeural",
+    "speed": 1.0
+  },
+  "timing": {
+    "lead": 0.15,
+    "tail": 0.3,
+    "word_pad": 0.15
+  },
+  "export": {
+    "fade_out": 0.4
+  },
+  "character": {
+    "shirt": "#F26B21"
+  },
+  "review_points": [
+    "Nội dung và thứ tự các cảnh.",
+    "Lời đọc từng cảnh (đây là văn bản sẽ gửi API).",
+    "Số liệu minh họa.",
+    "Giọng đọc."
+  ],
+  "scenes": [
+    {
+      "id": "s01",
+      "title": "Cảnh mở đầu",
+      "voice": "Đây là câu thoại mẫu của cảnh một.",
+      "subtitles": [
+        "Đây là câu thoại mẫu của cảnh một."
+      ],
+      "bg": "cream",
+      "transition": "cut",
+      "bi": {
+        "x": 500,
+        "y": 930,
+        "scale": 1.05,
+        "face": "happy",
+        "pose": "idle"
+      },
+      "actions": [
+        {
+          "name": "enter",
+          "at": 0.0
+        }
+      ],
+      "face_cues": [],
+      "items": [
+        {
+          "type": "text",
+          "text": "Chữ trên màn hình",
+          "x": 1380,
+          "y": 500,
+          "size": 64,
+          "color": "dark",
+          "appear": "câu thoại"
+        }
+      ]
+    }
+  ]
+}

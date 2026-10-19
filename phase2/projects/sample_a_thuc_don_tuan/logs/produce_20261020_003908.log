@@ -1,0 +1,34 @@
+[00:39:08] produce sample_a_thuc_don_tuan until=video code_hash=00ec81da40ebf5d2
+[00:39:09]    WARNING s03: cast1 holds a prop in a hand that action 'wave' also moves: the prop will swing with the arm; choose another action or drop the prop
+[00:39:09]    WARNING s05: cast1 holds a prop in a hand that action 'point_seq' also moves: the prop will swing with the arm; choose another action or drop the prop
+[00:39:09]    WARNING s06: cast1 holds a prop in a hand that action 'point' also moves: the prop will swing with the arm; choose another action or drop the prop
+[00:39:09]    0 error(s), 3 warning(s)
+[00:39:09] OK   validate (0.3s)
+[00:39:16]    saved D:/AnimationFactory/phase2/projects/sample_a_thuc_don_tuan/previews/storyboard_preview.ecproj scenes=8
+[00:39:16]    
+[00:39:16]    scenes 8 total {'chars': 1191, 'sec': 82.6, 'credits': 853}
+[00:39:16] OK   storyboard (7.9s)
+[00:39:16] estimate: 1191 chars, ~82.6 s, ~853 credits
+[00:39:28]    [00:39:17] plan: 2 scene(s) to generate (300 chars, est. ~218 credits), 0 from the shared voice cache (no API call), 6 unchanged (no API call)
+[00:39:28]    [00:39:17] SKIP s01: text/voice/speed unchanged, reusing audio (no API call)
+[00:39:28]    [00:39:17] SKIP s02: text/voice/speed unchanged, reusing audio (no API call)
+[00:39:28]    [00:39:17] SKIP s03: text/voice/speed unchanged, reusing audio (no API call)
+[00:39:28]    [00:39:17] SKIP s04: text/voice/speed unchanged, reusing audio (no API call)
+[00:39:28]    [00:39:17] SKIP s05: text/voice/speed unchanged, reusing audio (no API call)
+[00:39:28]    [00:39:17] SKIP s06: text/voice/speed unchanged, reusing audio (no API call)
+[00:39:28]    [00:39:17] CALL s07 (133 chars) -> paid API job
+[00:39:28]    [00:39:19] OK   s07 (1.9s) 29 words | last word 11.03s, audio 11.87s
+[00:39:28]    [00:39:19] CALL s08 (167 chars) -> paid API job
+[00:39:28]    [00:39:28] OK   s08 (8.9s) 38 words | last word 9.95s, audio 10.77s
+[00:39:28] OK   voice (11.2s)
+[00:41:06]    [00:39:28] export scene data
+[00:41:06]    [00:39:34] render (incremental) 92.5 s, voice real
+[00:41:06]    [00:41:06] PASS video 1920x1080 with audio
+[00:41:06]    [00:41:06] PASS pass/fail criteria were fixed before the build (not loosened since) - locked {'duration': [60, 90], 'scenes': [6, 10], 'cue_tolerance': 0.7}
+[00:41:06]    [00:41:06] FAIL duration within 60-90 s - 92.6s
+[00:41:06]    [00:41:06] PASS scene count within 6-10 - 8 scenes
+[00:41:06]    [00:41:06] PASS subtitles: inside scene, in order, no overlap, <= 56 chars
+[00:41:06]    [00:41:06] PASS actions start within 0.7 s of their spoken cue (planned vs actual start, after non-overlap scheduling) - 22 actions
+[00:41:06]    [00:41:06] PASS motion QA on all characters (joint limits, no snaps/flips, arms never through torso)
+[00:41:06]    [00:41:06] DONE D:\AnimationFactory\phase2\projects\sample_a_thuc_don_tuan\output\sample_a_thuc_don_tuan_v17_preview.mp4 92.6s | rendered ['s01', 's02', 's03', 's04', 's05', 's06', 's07', 's08'] | reused -
+[00:41:06] FAIL video (98.7s)

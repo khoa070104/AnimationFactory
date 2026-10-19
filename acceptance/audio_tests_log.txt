@@ -1,0 +1,13 @@
+test_good_passes (__main__.T.test_good_passes) ... ok
+test_missing_audio_fails (__main__.T.test_missing_audio_fails) ... ok
+test_truncated_audio_fails (__main__.T.test_truncated_audio_fails) ... ok
+test_words_beyond_audio_fails (__main__.T.test_words_beyond_audio_fails) ... ok
+test_wrong_text_fails (__main__.T.test_wrong_text_fails) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 3.844s
+
+OK
+FAIL scene1: 20 words | last word ends 9.14s, file 1.27s | FAIL: audio CUT OFF: last word ends 9.14s but file is 1.27s
+PASS scene2: 35 words | last word ends 12.03s, file 12.83s
+AUDIO CHECK FAILED

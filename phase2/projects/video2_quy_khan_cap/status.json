@@ -1,0 +1,53 @@
+{
+  "project": "video2_quy_khan_cap",
+  "storyboard_version": 3,
+  "state": "preview_built",
+  "approved": {
+    "content": {
+      "version": 3,
+      "by": "chủ dự án (qua chat 2026-10-18)",
+      "on": "2026-10-18"
+    }
+  },
+  "voice_generated": true,
+  "api_calls": 9,
+  "credits_spent": 653,
+  "steps": {
+    "validate": {
+      "state": "ok",
+      "seconds": 0.1
+    },
+    "storyboard": {
+      "state": "ok",
+      "seconds": 4.5
+    },
+    "voice": {
+      "state": "ok",
+      "seconds": 0.3
+    },
+    "video": {
+      "state": "ok",
+      "seconds": 104.4
+    }
+  },
+  "code_hash": "11701db21ad47fec",
+  "frozen_code_hash": "11701db21ad47fec",
+  "code_changed_since_freeze": false,
+  "last_build": {
+    "output": "D:\\AnimationFactory\\phase2\\projects\\video2_quy_khan_cap\\output\\video2_quy_khan_cap_v3_preview.mp4",
+    "seconds": 62.1,
+    "rendered": [],
+    "reused": [
+      "s01",
+      "s02",
+      "s03",
+      "s04",
+      "s04b",
+      "s05",
+      "s06",
+      "s07",
+      "s08"
+    ],
+    "built_in_s": 27.3
+  }
+}

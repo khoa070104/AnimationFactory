@@ -1,0 +1,57 @@
+{
+  "scenes": [
+    {
+      "id": "s01",
+      "chars": 148,
+      "sec": 10.3,
+      "credits": 106
+    },
+    {
+      "id": "s02",
+      "chars": 113,
+      "sec": 8.0,
+      "credits": 81
+    },
+    {
+      "id": "s03",
+      "chars": 139,
+      "sec": 9.7,
+      "credits": 100
+    },
+    {
+      "id": "s04",
+      "chars": 137,
+      "sec": 9.6,
+      "credits": 98
+    },
+    {
+      "id": "s05",
+      "chars": 178,
+      "sec": 12.2,
+      "credits": 127
+    },
+    {
+      "id": "s06",
+      "chars": 155,
+      "sec": 10.7,
+      "credits": 111
+    },
+    {
+      "id": "s07",
+      "chars": 164,
+      "sec": 12.2,
+      "credits": 117
+    }
+  ],
+  "total": {
+    "chars": 1034,
+    "sec": 72.7,
+    "credits": 740
+  },
+  "assumptions": {
+    "chars_per_sec": 15.28,
+    "credits_per_char": 0.716,
+    "basis": "25 real Edge-voice jobs (2778 chars, 1989 credits incl. word timings); 3059 chars over 200 s of speech",
+    "note": "estimate for the Edge voice incl. word timings; other voices/providers may price differently; credits, not money"
+  }
+}

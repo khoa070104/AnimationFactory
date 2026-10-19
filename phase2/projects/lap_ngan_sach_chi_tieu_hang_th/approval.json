@@ -1,0 +1,53 @@
+{
+  "scenes": {
+    "s01": {
+      "voice_sha256": "ed88a3fd8b7d57ca29291014f3f59743a2a199e138a4da216d5cfa11eddf8233",
+      "scene_sha256": "6a79464dc2d35c4951a8f835e03b1cd85233a46ec824e521a637d2f5c9a26582"
+    },
+    "s02": {
+      "voice_sha256": "1fedaaa5608428cadd176c82d0315045504988c114563c2b38b7d7059aab6f5a",
+      "scene_sha256": "20ba9f89c9c850455492f6e1cac7c09bab9d64c476dc3b91a74b1e60d21816be"
+    },
+    "s03": {
+      "voice_sha256": "3eb3224096cedfd2c452955528ddd83b4b15cce1f495cecfd3662eaa581817d3",
+      "scene_sha256": "61620fdb47f5fe184ac4a92c90befad9f3c66a218e0892d8c62c7b255d90af20"
+    },
+    "s04": {
+      "voice_sha256": "3d1b63825bc2fbb1c7b36ecdab01c99567a78230f12fdd3847ea4c39a4853c29",
+      "scene_sha256": "f8eb728a91da4c31ae1a4af4d3bee634aca14f09f13edc004e09b276cec8eb93"
+    },
+    "s05": {
+      "voice_sha256": "304b96ff803c7d5dc96f195965ba0df1888ace15ac5154a75c688a433ffe9626",
+      "scene_sha256": "6f89e4db32896cc414bec3a080f5dcb4a13eeef6077acd529e851a2a135e8907"
+    },
+    "s06": {
+      "voice_sha256": "4a39cd735f26a53c6ff1a2bb761e38fb1d1b3fa9de21a1d3cbabdb80388f4b36",
+      "scene_sha256": "ee8b8f58ec41045538609e5ec34d75278583846bb256800f0dfec71ca1c5f9ac"
+    },
+    "s07": {
+      "voice_sha256": "a7248e4d3d86776d03f1bdcb693c056f5b1cd3f30ee98cf026a592ebe891ed5c",
+      "scene_sha256": "77c7f06c5d85821ce5141f20fc406e57a424f8b0578d02950a87ca07b29c484e"
+    }
+  },
+  "kinds": {
+    "script": {
+      "version": 4,
+      "by": "Khoa",
+      "on": "2026-10-18",
+      "note": ""
+    },
+    "storyboard": {
+      "version": 4,
+      "by": "Khoa",
+      "on": "2026-10-18",
+      "note": ""
+    }
+  },
+  "project": "lap_ngan_sach_chi_tieu_hang_th",
+  "storyboard_version": 4,
+  "approved_by": "Khoa",
+  "approved_on": "2026-10-18",
+  "note": "",
+  "recorded_by": "ghi nhận qua công cụ theo người duyệt",
+  "scope": "nội dung (lời đọc, cảnh, số liệu) và giọng đọc/tốc độ; chưa gồm chuyển động và video"
+}

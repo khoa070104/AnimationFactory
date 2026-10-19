@@ -1,0 +1,12 @@
+{
+  "mode": "no",
+  "decision": {
+    "needs_research": false,
+    "reason": "owner chose no research"
+  },
+  "queries": [],
+  "facts": [],
+  "references": [],
+  "searched": false,
+  "created": "2026-10-18 20:33:59"
+}

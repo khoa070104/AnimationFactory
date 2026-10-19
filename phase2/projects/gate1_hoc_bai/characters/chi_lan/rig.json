@@ -1,0 +1,98 @@
+{
+  "id": "chi_lan",
+  "kinds": [
+    "happy",
+    "neutral",
+    "worried",
+    "surprised",
+    "thinking"
+  ],
+  "handK": 1.0549,
+  "height": 540,
+  "scale": 0.17665,
+  "shadow": {
+    "img": "ch_chi_lan_shadow",
+    "pivot": [
+      120.06,
+      19.21
+    ]
+  },
+  "leg": {
+    "img": "ch_chi_lan_leg",
+    "pivot": [
+      52.2,
+      37.76
+    ]
+  },
+  "torso": {
+    "img": "ch_chi_lan_torso",
+    "pivot": [
+      89.03,
+      191.28
+    ]
+  },
+  "armUpper": {
+    "img": "ch_chi_lan_arm_upper",
+    "pivot": [
+      13.62,
+      13.62
+    ]
+  },
+  "armLower": {
+    "img": "ch_chi_lan_arm_lower",
+    "pivot": [
+      11.61,
+      10.64
+    ]
+  },
+  "head": null,
+  "face": {
+    "pattern": "ch_chi_lan_face_{k}",
+    "pivot": [
+      49.82,
+      116.73
+    ]
+  },
+  "armScale": 0.5038,
+  "hip": {
+    "x": 57.42,
+    "y": -231.98
+  },
+  "waistY": -231.98,
+  "shoulder": {
+    "x": 76.57,
+    "y": -155.94
+  },
+  "L1": 79.75,
+  "L2": 99.58,
+  "neck": {
+    "y": -187.13
+  },
+  "parts": {
+    "torso": [
+      1008,
+      1177
+    ],
+    "arm_upper": [
+      306,
+      1202
+    ],
+    "arm_lower": [
+      295,
+      1376
+    ],
+    "leg": [
+      591,
+      1527
+    ],
+    "head": [
+      564,
+      703
+    ]
+  },
+  "sources": {
+    "parts": "25dcf13cbb8f9146d47482d9cd69db8c8a97bb72ac3dc2a8e9f18a7705ee6aee",
+    "faces": "565cdf746900207d554009b8e69dc01f43b095eee71af7627fcba433a3f49b3c"
+  },
+  "built": "2026-10-19 10:40:42"
+}

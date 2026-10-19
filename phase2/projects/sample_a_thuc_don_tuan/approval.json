@@ -1,0 +1,69 @@
+{
+  "scenes": {
+    "s01": {
+      "voice_sha256": "05af9aec6b11182d9195816e3390e0fda53616f06678c24ab04c455136c3bfcf",
+      "scene_sha256": "8b001e9b82619a648f60a91a731d6a1d277d6a7f9205c0618f724a9edb4d922a"
+    },
+    "s02": {
+      "voice_sha256": "c0b3ed7baaddaf922fb4989d21cfaa4a43ab15014bce60e3d2d0a73ad1e733ca",
+      "scene_sha256": "fb346aea6ea9e4acec55fe3ecc73b663f356d60e5893409625403599edbc425c"
+    },
+    "s03": {
+      "voice_sha256": "13cc6201aba9a8ef222a3258a36875c8ec287ce51d834ed0d527f1756177384c",
+      "scene_sha256": "d372f77779cfea340d0075f023f65f0fa7501729f258aad556053d39d1cd4553"
+    },
+    "s04": {
+      "voice_sha256": "799d1145bbf7d984d5181b0fff07e5438edc17185904b9f9e9bea1139421c722",
+      "scene_sha256": "1c13b0ae144a65ebef22aeccc8db0e52987767b11181f35c83d092c318860040"
+    },
+    "s05": {
+      "voice_sha256": "d06e4cc803f699c27cf9ea2484c4960d0be6522e5e58449e8451b17841facc7c",
+      "scene_sha256": "977b7f77ab13a281c2be6a76b25bd1b9f1b3bdb76221acf927c29ae7c5d0b224"
+    },
+    "s06": {
+      "voice_sha256": "f0783eed3323533ab2e189cb047927474bf97fd016f3ad30d4bd01ee9e365c8b",
+      "scene_sha256": "89547d191156ca204e60c38d37cb9e6865d01b8f11a4d599aa4c009055a69a20"
+    },
+    "s07": {
+      "voice_sha256": "c637c4197dd7fbcde86d06a0eb7c5a0b1ea34140658bda022fa6da0ae709e4d3",
+      "scene_sha256": "3ee1f0c99aa7a174a0a981fab0d91d523279924329027f619e59d4919b45ff46"
+    },
+    "s08": {
+      "voice_sha256": "8aec312af1c0068aade411aefc92ad35fdf0b7536fe24611a2d30bc6b7a4e514",
+      "scene_sha256": "483280156024a0291293afadb665481933f1667ae0f7f0927dbed007d2bd0f66"
+    }
+  },
+  "kinds": {
+    "script": {
+      "version": 17,
+      "by": "Khoa",
+      "on": "2026-10-20",
+      "note": "Chủ dự án duyệt lời cuối storyboard v17 và trần 1200 credit qua chat (Claude ghi lại)",
+      "actor": {
+        "type": "human",
+        "via": "chat",
+        "label": "Khoa",
+        "verified": false
+      }
+    },
+    "storyboard": {
+      "version": 17,
+      "by": "Khoa",
+      "on": "2026-10-20",
+      "note": "Chủ dự án duyệt lời cuối storyboard v17 và trần 1200 credit qua chat (Claude ghi lại)",
+      "actor": {
+        "type": "human",
+        "via": "chat",
+        "label": "Khoa",
+        "verified": false
+      }
+    }
+  },
+  "project": "sample_a_thuc_don_tuan",
+  "storyboard_version": 17,
+  "approved_by": "Khoa",
+  "approved_on": "2026-10-20",
+  "note": "Chủ dự án duyệt lời cuối storyboard v17 và trần 1200 credit qua chat (Claude ghi lại)",
+  "recorded_by": "ghi nhận qua công cụ theo người duyệt",
+  "scope": "nội dung (lời đọc, cảnh, số liệu) và giọng đọc/tốc độ; chưa gồm chuyển động và video"
+}

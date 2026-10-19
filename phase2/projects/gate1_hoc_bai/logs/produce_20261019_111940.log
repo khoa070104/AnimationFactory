@@ -1,0 +1,27 @@
+[11:19:40] produce gate1_hoc_bai until=video code_hash=e08a86f8c396826a
+[11:19:40]    WARNING s01: main character 'minh' is 'draft' (design only: it must be approved before the video is built)
+[11:19:40]    WARNING s01: cast[0] character 'chi_lan' is 'draft' (design only: it must be approved before the video is built)
+[11:19:40]    WARNING s02: main character 'chi_lan' is 'draft' (design only: it must be approved before the video is built)
+[11:19:40]    WARNING s03: main character 'minh' is 'draft' (design only: it must be approved before the video is built)
+[11:19:40]    WARNING s03: cast[0] character 'chi_lan' is 'draft' (design only: it must be approved before the video is built)
+[11:19:40]    0 error(s), 5 warning(s)
+[11:19:40] OK   validate (0.2s)
+[11:19:43]    saved D:/AnimationFactory/phase2/projects/gate1_hoc_bai/previews/storyboard_preview.ecproj scenes=3
+[11:19:43]    
+[11:19:43]    scenes 3 total {'chars': 515, 'sec': 36.2, 'credits': 368}
+[11:19:43] OK   storyboard (2.9s)
+[11:19:43] draft voice (no paid call) for: ['s03']
+[11:20:29]    [11:20:04] PASS duration within 20-40 s - 36.3s
+[11:20:29]    [11:20:04] PASS scene count within 2-3 - 3 scenes
+[11:20:29]    [11:20:04] PASS timeline has exactly one video and one audio clip per scene (no duplicates) - video 3, audio 3
+[11:20:29]    [11:20:04] PASS video clips are contiguous (no gaps/overlaps) - max |gap| 0.000s
+[11:20:29]    [11:20:04] PASS each voice clip starts `lead` s into its scene and ends inside it
+[11:20:29]    [11:20:04] PASS silence between scenes <= 0.85 s (<= 1.5 s after scenes that hold a chart/summary) - gaps [0.67, 0.68]
+[11:20:29]    [11:20:04] PASS no speech trimmed: every voice clip keeps >= 0.1 s after the last word - []
+[11:20:29]    [11:20:04] PASS subtitles: inside scene, in order, no overlap, <= 56 chars
+[11:20:29]    [11:20:04] PASS all cue-driven actions/appear times fall inside their scene
+[11:20:29]    [11:20:04] PASS actions start within 0.7 s of their spoken cue (planned vs actual start, after non-overlap scheduling) - 14 actions, worst shift 0.64s
+[11:20:29]    [11:20:29] PASS motion QA on all scenes (joint limits, no snaps/flips, arms never through torso)
+[11:20:29]    [11:20:29] DONE D:\AnimationFactory\phase2\projects\gate1_hoc_bai\output\gate1_hoc_bai_v5_draft.mp4 36.3s | rendered ['s03'] | reused ['s01', 's02'] | log D:\AnimationFactory\phase2\projects\gate1_hoc_bai\logs\build_20261019_111943.log
+[11:20:29] OK   video (46.0s)
+[11:20:29] DONE (draft: stub voice)

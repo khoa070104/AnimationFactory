@@ -1,0 +1,65 @@
+{
+  "steps": {
+    "research": {
+      "state": "ok",
+      "inputs": "46afe17c35cf373d",
+      "error": null,
+      "started": "22:04:47",
+      "owner": null,
+      "calls_before": 0,
+      "finished": "22:04:47",
+      "llm_calls": 0
+    },
+    "script": {
+      "state": "ok",
+      "inputs": "f5946fac39d49a90",
+      "error": null,
+      "started": "22:08:27",
+      "owner": null,
+      "calls_before": 7,
+      "finished": "22:08:46",
+      "llm_calls": 1
+    },
+    "characters": {
+      "state": "ok",
+      "inputs": "61f4ba7b801e33d1",
+      "error": null,
+      "started": "22:08:46",
+      "owner": null,
+      "calls_before": 8,
+      "finished": "22:09:03",
+      "llm_calls": 1
+    },
+    "storyboard": {
+      "state": "ok",
+      "inputs": "f647b88e695a1631",
+      "error": "AI call 'storyboard_repair' failed after the allowed attempts (spy). Nothing was changed; fix the cause and run the step again (finished steps are not repeated).",
+      "started": "10:28:03",
+      "owner": null,
+      "calls_before": 22,
+      "finished": "10:29:55",
+      "llm_calls": 3
+    },
+    "assetplan": {
+      "state": "ok",
+      "inputs": "b9e1b54fdd27d419",
+      "error": null,
+      "started": "22:06:29",
+      "owner": null,
+      "calls_before": 4,
+      "finished": "22:06:56",
+      "llm_calls": 1
+    },
+    "chargen": {
+      "state": "ok",
+      "inputs": "d544f3c56ed1abf9",
+      "error": null,
+      "started": "10:30:58",
+      "owner": null,
+      "calls_before": 25,
+      "finished": "10:50:47",
+      "llm_calls": 0
+    }
+  },
+  "updated": "2026-10-19 10:50:47"
+}

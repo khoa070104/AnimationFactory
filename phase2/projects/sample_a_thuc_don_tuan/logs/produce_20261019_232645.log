@@ -1,0 +1,21 @@
+[23:26:45] produce sample_a_thuc_don_tuan until=video code_hash=e78edec7d1b052a7
+[23:26:46]    WARNING s04: layout: prop #3 (ai:prop_messy_fridge) and cast 1 overlap partly (19% of the smaller one); move or resize one of them
+[23:26:46]    0 error(s), 1 warning(s)
+[23:26:46] OK   validate (0.2s)
+[23:26:53]    saved D:/AnimationFactory/phase2/projects/sample_a_thuc_don_tuan/previews/storyboard_preview.ecproj scenes=8
+[23:26:53]    
+[23:26:53]    scenes 8 total {'chars': 1200, 'sec': 83.3, 'credits': 860}
+[23:26:53] OK   storyboard (7.3s)
+[23:26:53] draft voice (no paid call) for: nothing (already stubbed or real)
+[23:27:38]    [23:26:53] export scene data
+[23:27:38]    [23:26:59] render (incremental) 83.7 s, voice stub
+[23:27:38]    [23:27:38] PASS video 1920x1080 with audio
+[23:27:38]    [23:27:38] PASS pass/fail criteria were fixed before the build (not loosened since) - locked {'duration': [60, 90], 'scenes': [6, 10], 'cue_tolerance': 0.7}
+[23:27:38]    [23:27:38] PASS duration within 60-90 s - 83.8s
+[23:27:38]    [23:27:38] PASS scene count within 6-10 - 8 scenes
+[23:27:38]    [23:27:38] PASS subtitles: inside scene, in order, no overlap, <= 56 chars
+[23:27:38]    [23:27:38] PASS actions start within 0.7 s of their spoken cue (planned vs actual start, after non-overlap scheduling) - 23 actions
+[23:27:38]    [23:27:38] PASS motion QA on all characters (joint limits, no snaps/flips, arms never through torso)
+[23:27:38]    [23:27:38] DONE D:\AnimationFactory\phase2\projects\sample_a_thuc_don_tuan\output\sample_a_thuc_don_tuan_v8_draft.mp4 83.8s | rendered ['s02', 's05', 's08'] | reused ['s01', 's03', 's04', 's06', 's07']
+[23:27:38] OK   video (44.7s)
+[23:27:38] DONE (draft: stub voice)

@@ -1,0 +1,16 @@
+Same new tests run against the reviewer's copies of agy_jobs.py and build_storyboard.py (D:\Downloads, before the fixes); agy_image.py is the new one.
+== test_same_request_in_two_projects_while_running
+    jb = J.submit(b, self.req, runner=RUNNER)                       # used to hit `_inflight` of project a (and TypeError on a missing record)
+TypeError: 'NoneType' object is not a mapping
+FAILED (errors=1)
+== test_old_job_never_returns_the_newer_request_result
+AssertionError: 'succeeded' != 'superseded'
+FAILED (failures=1)
+== test_cache_does_not_claim_success_for_a_missing_or_changed_file
+    with self.assertRaises(J.JobError) as e:
+AssertionError: JobError not raised
+FAILED (failures=1)
+== test_approval_is_bound_to_the_image_hash
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+FAILED (errors=1)

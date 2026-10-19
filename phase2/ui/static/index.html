@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Animation Factory</title>
+<style>
+  :root { --bg:#fff6e5; --card:#ffffff; --ink:#1d1d1f; --mut:#6b6b73; --line:#e3d9c6; --acc:#f26b21; --ok:#2e9e5b; --bad:#d64545; --warn:#c98a00; --blue:#3b6fd8; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#1b1a17; --card:#26241f; --ink:#f3efe6; --mut:#a8a396; --line:#3a372f; } }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.5 "Segoe UI", system-ui, sans-serif; }
+  header { display:flex; gap:12px; align-items:center; flex-wrap:wrap; padding:10px 20px; border-bottom:1px solid var(--line); background:var(--card); position:sticky; top:0; z-index:5; }
+  header h1 { font-size:18px; margin:0 8px 0 0; color:var(--acc); }
+  select, input, textarea, button { font:inherit; color:inherit; }
+  select, input, textarea { background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:6px 9px; }
+  input[type=number] { width:96px; }
+  textarea { width:100%; }
+  button { background:var(--acc); color:#fff; border:0; border-radius:8px; padding:7px 13px; cursor:pointer; font-weight:600; }
+  button.sec { background:transparent; color:var(--ink); border:1px solid var(--line); }
+  button.ok { background:var(--ok); } button.bad { background:var(--bad); } button.sm { padding:3px 9px; font-size:13px; }
+  button:disabled { opacity:.45; cursor:not-allowed; }
+  nav { display:flex; gap:2px; padding:0 20px; background:var(--card); border-bottom:1px solid var(--line); overflow-x:auto; }
+  nav button { background:transparent; color:var(--mut); border-radius:0; border-bottom:3px solid transparent; padding:11px 14px; white-space:nowrap; }
+  nav button.on { color:var(--ink); border-bottom-color:var(--acc); }
+  main { padding:20px; max-width:1280px; margin:0 auto; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; margin-bottom:16px; }
+  .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(360px, 1fr)); gap:16px; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px 16px; } @media (max-width:800px) { .grid2 { grid-template-columns:1fr; } }
+  .badge { display:inline-block; padding:2px 9px; border-radius:99px; font-size:12px; font-weight:600; background:var(--line); color:var(--ink); }
+  .badge.ok { background:var(--ok); color:#fff; } .badge.bad { background:var(--bad); color:#fff; } .badge.warn { background:var(--warn); color:#fff; } .badge.run { background:var(--blue); color:#fff; }
+  .mut { color:var(--mut); font-size:13px; }
+  img.prev { width:100%; border-radius:8px; border:1px solid var(--line); background:#fff; display:block; }
+  img.big { max-width:100%; cursor:zoom-in; }
+  video { width:100%; max-height:70vh; background:#000; border-radius:10px; }
+  pre.log { background:#15130f; color:#e8e2d0; padding:12px; border-radius:8px; max-height:300px; overflow:auto; font-size:12px; white-space:pre-wrap; }
+  .msg { padding:10px 14px; border-radius:8px; margin-bottom:12px; }
+  .msg.err { background:rgba(214,69,69,.15); border:1px solid var(--bad); } .msg.good { background:rgba(46,158,91,.15); border:1px solid var(--ok); } .msg.warn { background:rgba(201,138,0,.15); border:1px solid var(--warn); }
+  table { border-collapse:collapse; width:100%; } td, th { text-align:left; padding:6px 8px; border-bottom:1px solid var(--line); font-size:14px; vertical-align:top; }
+  .fb { border-left:3px solid var(--acc); padding:2px 10px; margin:6px 0; font-size:13px; }
+  .fb.done { border-left-color:var(--ok); opacity:.6; }
+  dialog { border:1px solid var(--line); border-radius:12px; background:var(--card); color:var(--ink); padding:20px; width:min(640px, 94vw); max-height:90vh; overflow:auto; }
+  label { display:block; font-size:13px; color:var(--mut); margin:9px 0 3px; }
+  .hide { display:none; }
+  .diff td:nth-child(2) { background:rgba(214,69,69,.10); } .diff td:nth-child(3) { background:rgba(46,158,91,.12); }
+  .item { border:1px solid var(--line); border-radius:8px; padding:8px 10px; margin:6px 0; }
+  .item .grid2 { gap:4px 12px; }
+  .step { display:flex; gap:8px; align-items:center; padding:3px 0; }
+  details > summary { cursor:pointer; color:var(--mut); }
+  .sec-h { margin:0 0 8px; font-size:16px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Animation Factory</h1>
+  <select id="proj" aria-label="Dự án"></select>
+  <button class="sec" id="btnNew">+ Dự án mới</button>
+  <input id="who" placeholder="Người duyệt (tên bạn)" title="Tên ghi vào lịch sử duyệt" style="width:170px">
+  <span id="state" class="badge"></span><span id="runflag" class="badge run hide"></span>
+</header>
+<nav id="tabs">
+  <button data-t="ov" class="on">Tổng quan</button><button data-t="script">Kịch bản</button><button data-t="board">Storyboard</button><button data-t="assets">Asset</button>
+  <button data-t="prod">Sản xuất</button><button data-t="result">Kết quả</button><button data-t="channel">Hồ sơ kênh</button>
+</nav>
+<main>
+  <div id="notice"></div>
+  <section id="t-ov"></section><section id="t-script" class="hide"></section><section id="t-board" class="hide"></section><section id="t-assets" class="hide"></section>
+  <section id="t-prod" class="hide"></section><section id="t-result" class="hide"></section><section id="t-channel" class="hide"></section>
+</main>
+<dialog id="dlgNew">
+  <h3 style="margin-top:0">Dự án mới</h3>
+  <label>Chủ đề / tiêu đề video *</label><input id="nTitle" style="width:100%" placeholder="vd: Quỹ khẩn cấp là gì, nên có bao nhiêu?">
+  <label>Mục tiêu (người xem làm được gì sau video)</label><input id="nGoal" style="width:100%">
+  <label>Thông điệp chính</label><textarea id="nMsg" rows="2"></textarea>
+  <div class="grid2"><div><label>Đối tượng xem (để trống = theo hồ sơ kênh)</label><input id="nAud" style="width:100%"></div>
+    <div><label>Thời lượng mong muốn (giây)</label><input id="nDur" type="number" min="20" max="300" placeholder="75"></div>
+    <div><label>Hồ sơ kênh</label><select id="nChan" style="width:100%"></select></div>
+    <div><label>Nghiên cứu nguồn</label><select id="nRes" style="width:100%"><option value="auto">Tự quyết định</option><option value="yes">Luôn tra cứu</option><option value="no">Không tra cứu</option></select></div></div>
+  <label>Tài liệu tham khảo (link hoặc ghi chú, mỗi dòng một mục)</label><textarea id="nRef" rows="2"></textarea>
+  <label>Kịch bản có sẵn (tùy chọn; mỗi đoạn cách nhau một dòng trống = một cảnh; AI sẽ không viết lại)</label><textarea id="nScript" rows="4"></textarea>
+  <label>Hướng dẫn câu chuyện (tùy chọn)</label><textarea id="nGuide" rows="2"></textarea>
+  <div class="grid2"><div><label>Nhân vật</label><select id="nCharMode" style="width:100%"><option value="ai">AI thiết kế nhân vật mới</option><option value="bi">Dùng nhân vật Bi có sẵn</option></select></div>
+    <div><label>Dùng lại hình</label><select id="nPolicy" style="width:100%"><option value="new">Tạo mới toàn bộ</option><option value="series">Tiếp series</option><option value="library">Chỉ asset tôi chọn</option></select></div>
+    <div><label>Series: dự án gốc</label><input id="nSeries" style="width:100%"></div></div>
+  <label>Mô tả nhân vật chính (tùy chọn)</label><textarea id="nCharHint" rows="2"></textarea>
+  <details><summary>Ngân sách dự án (để trống = mặc định)</summary>
+    <div class="grid2"><div><label>Số lượt gọi AI tối đa</label><input id="nBCalls" type="number" min="1"></div><div><label>Số lượt tạo ảnh tối đa</label><input id="nBImg" type="number" min="0"></div>
+    <div><label>Credit giọng đọc tối đa</label><input id="nBVoice" type="number" min="0"></div></div></details>
+  <div class="row" style="margin-top:14px"><button id="nOk">Tạo</button><button class="sec" id="nCancel">Hủy</button></div>
+</dialog>
+<dialog id="dlgImg"><img id="bigimg" class="big" style="cursor:default"><div class="row" style="margin-top:8px"><button class="sec" id="imgClose">Đóng</button></div></dialog>
+<script>
+const TOKEN = "__TOKEN__";
+let P = null, PREP = null, PROD = null, CAP = null, CHARS = { characters: [], plan: {} }, cur = null, tab = "ov", poll = null;
+const DRAFT = {};                      // scene id -> draft object being edited in the storyboard form
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const clone = o => JSON.parse(JSON.stringify(o));
+const TABS = ["ov", "script", "board", "assets", "prod", "result", "channel"];
+const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* private mode */ } } };
+
+async function api(method, path, body) {
+  const r = await fetch("/api" + path, { method, headers: { "X-AF-Token": TOKEN, "Content-Type": "application/json" }, body: body ? JSON.stringify(body) : undefined });
+  const j = await r.json().catch(() => ({ error: "bad response" }));
+  if (!r.ok) { const e = new Error(j.error || r.statusText); e.data = j; throw e; }
+  return j;
+}
+function notice(msg, kind) { $("#notice").innerHTML = msg ? `<div class="msg ${kind || ""}">${msg}</div>` : ""; if (msg) window.scrollTo({ top: 0, behavior: "smooth" }); }
+function fail(e) {
+  let html = esc(e.message);
+  if (e.data && e.data.errors) html += "<ul>" + e.data.errors.map(x => `<li>${esc(x)}</li>`).join("") + "</ul>";
+  notice(html, "err");
+}
+const who = () => $("#who").value.trim();
+function needWho() { if (!who()) { notice("Nhập tên người duyệt ở ô trên cùng (ghi vào lịch sử duyệt).", "err"); $("#who").focus(); return false; } return true; }
+const badge = (s, map) => { const m = map || { ok: "ok", failed: "bad", interrupted: "bad", waiting: "warn", running: "run", stale: "warn", skipped: "ok" }; return `<span class="badge ${m[s] || ""}">${esc(s || "—")}</span>`; };
+const STATE_VI = { ok: "xong", failed: "lỗi", running: "đang chạy", pending: "chưa chạy", waiting: "chờ duyệt", interrupted: "bị ngắt", skipped: "đã có (không gọi lại)" };
+const stBadge = s => `<span class="badge ${({ ok: "ok", skipped: "ok", failed: "bad", interrupted: "bad", waiting: "warn", running: "run" })[s] || ""}">${esc(STATE_VI[s] || s || "—")}</span>`;
+
+// ------------------------------------------------------------------ loading
+async function loadList(select) {
+  const { projects } = await api("GET", "/projects");
+  $("#proj").innerHTML = projects.map(p => `<option value="${p.name}">${esc(p.name)} · ${esc(p.title)} (v${p.version})</option>`).join("");
+  const want = select || store.get("af_proj");
+  if (want && projects.some(p => p.name === want)) $("#proj").value = want;
+  cur = $("#proj").value || null;
+  if (cur) store.set("af_proj", cur);
+}
+async function load(only) {
+  if (!cur) { P = null; return render(); }
+  const [p, prep, prod, chars] = await Promise.all([api("GET", "/project/" + cur), api("GET", `/project/${cur}/prepare`), api("GET", `/project/${cur}/production`), api("GET", `/project/${cur}/characters`)]);
+  P = p; PREP = prep; PROD = prod; CHARS = chars;
+  if (!CAP) CAP = await api("GET", "/capabilities?project=" + cur); else if (P) CAP = await api("GET", "/capabilities?project=" + cur);
+  render(only);
+  schedule();
+}
+function busy() { return P && (P.running || (PROD && PROD.jobs.some(j => ["queued", "running"].includes(j.state))) || (PREP && Object.values(PREP.overview.steps).some(s => s.state === "running"))); }
+function schedule() { clearTimeout(poll); if (busy()) poll = setTimeout(tick, 2500); }
+async function tick() {
+  try { const [p, prep, prod, chars] = await Promise.all([api("GET", "/project/" + cur), api("GET", `/project/${cur}/prepare`), api("GET", `/project/${cur}/production`), api("GET", `/project/${cur}/characters`)]);
+    const wasRun = busy(); P = p; PREP = prep; PROD = prod; CHARS = chars; stateBadge(); renderOv(); renderProd(); renderResult();
+    if (tab === "assets" && !$("#t-assets").contains(document.activeElement)) renderAssets();
+    if (wasRun && !busy()) { render(); notice("Công việc đã xong. Xem kết quả ở các tab.", "good"); }
+  } catch (e) { /* server restarting */ }
+  schedule();
+}
+function stateBadge() {
+  const st = P.status || {}; const s = $("#state");
+  s.textContent = st.state || "—"; s.className = "badge " + (/fail/.test(st.state || "") ? "bad" : /awaiting|brief/.test(st.state || "") ? "warn" : /ready|built|approved/.test(st.state || "") ? "ok" : "");
+  const rf = $("#runflag"); rf.classList.toggle("hide", !busy()); rf.textContent = P.running ? `đang chạy: ${P.running.kind}` : "đang xử lý job…";
+}
+function render(only) {
+  if (!P) { TABS.filter(t => t !== "channel").forEach(t => $("#t-" + t).innerHTML = '<div class="card">Chưa có dự án. Bấm “+ Dự án mới”.</div>'); renderChannel(); return; }
+  stateBadge();
+  const all = { ov: renderOv, script: renderScript, board: renderBoard, assets: renderAssets, prod: renderProd, result: renderResult, channel: renderChannel };
+  (only ? [only] : TABS).forEach(t => all[t]());
+}
+function goto(t) { $$("#tabs button").forEach(x => x.classList.toggle("on", x.dataset.t === t)); TABS.forEach(x => $("#t-" + x).classList.toggle("hide", x !== t)); tab = t; store.set("af_tab", t); location.hash = t; }
+async function run(kind, extra) {
+  try { await api("POST", `/project/${cur}/run`, { kind, ...extra }); notice("Đã bắt đầu chạy. Tiến độ ở tab Sản xuất.", "good"); await load(); } catch (e) { fail(e); }
+}
+const prepare = (step, force) => run("prepare", { step, force: force || [] });
+
+// ------------------------------------------------------------------ overview
+function briefForm() {
+  const b = P.brief || {}, bud = b.budget || {}, u = PROD.costs.usage, lim = PROD.costs.limits;
+  return `<div class="card"><h3 class="sec-h">Brief của dự án</h3>
+  <div class="grid2"><div><label>Tiêu đề / chủ đề</label><input id="bTitle" style="width:100%" value="${esc(b.title)}"></div><div><label>Hồ sơ kênh</label><select id="bChan" style="width:100%">${(window.CHANNELS || []).map(c => `<option value="${c.id}" ${c.id === (b.channel || "default") ? "selected" : ""}>${esc(c.name)} (${c.id})</option>`).join("")}</select></div>
+  <div><label>Mục tiêu</label><input id="bGoal" style="width:100%" value="${esc(b.goal)}"></div><div><label>Thời lượng mong muốn (giây)</label><input id="bDur" type="number" value="${esc(b.duration_seconds ?? "")}"></div></div>
+  <label>Thông điệp chính</label><textarea id="bMsg" rows="2">${esc(b.message)}</textarea>
+  <div class="grid2"><div><label>Đối tượng xem (trống = theo kênh)</label><input id="bAud" style="width:100%" value="${esc(b.audience)}"></div>
+  <div><label>Nghiên cứu nguồn</label><select id="bRes" style="width:100%">${["auto", "yes", "no"].map(v => `<option value="${v}" ${b.research === v ? "selected" : ""}>${({ auto: "Tự quyết định", yes: "Luôn tra cứu", no: "Không tra cứu" })[v]}</option>`).join("")}</select></div></div>
+  <label>Tài liệu tham khảo</label><textarea id="bRef" rows="2">${esc(b.references)}</textarea>
+  <label>Ghi chú cho người viết kịch bản</label><textarea id="bNotes" rows="2">${esc(b.notes)}</textarea>
+  <label>Kịch bản có sẵn (nếu có: AI không viết lại)</label><textarea id="bScript" rows="3">${esc(b.script_text)}</textarea>
+  <label>Hướng dẫn câu chuyện (thế giới truyện, cách kể, điều cần tránh)</label><textarea id="bGuide" rows="2">${esc(b.story_guideline)}</textarea>
+  <div class="grid2"><div><label>Nhân vật</label><select id="bCharMode" style="width:100%"><option value="ai" ${b.character_mode === "ai" ? "selected" : ""}>AI thiết kế nhân vật mới cho video này</option><option value="bi" ${b.character_mode !== "ai" ? "selected" : ""}>Dùng nhân vật Bi có sẵn</option></select></div>
+    <div><label>Chính sách dùng lại hình</label><select id="bPolicy" style="width:100%">${[["new", "Tạo mới toàn bộ cho dự án này"], ["series", "Tiếp series (dùng nhân vật/asset của dự án khác)"], ["library", "Chỉ dùng asset tôi chọn"], ["legacy", "Cũ: dùng lại asset đã duyệt tự do"]].map(([v, l]) => `<option value="${v}" ${b.asset_policy === v ? "selected" : ""}>${l}</option>`).join("")}</select></div>
+    <div><label>Series: tên dự án gốc (khi tiếp series)</label><input id="bSeries" style="width:100%" value="${esc(b.series_from)}"></div>
+    <div><label>Asset chọn dùng (mỗi dòng: dự án/asset_id)</label><textarea id="bLib" rows="2">${esc((b.library_assets || []).join("\n"))}</textarea></div></div>
+  <label>Mô tả nhân vật chính của bạn (tùy chọn; để trống = AI tự đề xuất theo câu chuyện)</label><textarea id="bCharHint" rows="2">${esc(b.character_hint)}</textarea>
+  <details style="margin-top:8px"><summary>Ngân sách (đã dùng / hạn mức)</summary><div class="grid2">
+    <div><label>Lượt gọi AI: ${u.llm_calls} / ${lim.llm_calls ?? "∞"}</label><input id="bgCalls" type="number" value="${esc(bud.llm_calls ?? "")}" placeholder="mặc định ${lim.llm_calls ?? ""}"></div>
+    <div><label>Lượt tạo ảnh: ${u.images} / ${lim.images ?? "∞"}</label><input id="bgImg" type="number" value="${esc(bud.images ?? "")}" placeholder="mặc định ${lim.images ?? ""}"></div>
+    <div><label>Credit giọng đọc: ${u.voice_credits} / ${lim.voice_credits ?? "∞"}</label><input id="bgVoice" type="number" value="${esc(bud.voice_credits ?? "")}" placeholder="mặc định ${lim.voice_credits ?? ""}"></div></div></details>
+  <div class="row" style="margin-top:10px"><button id="bSave">Lưu brief</button><span class="mut">Đổi brief làm các bước AI liên quan hết “mới” — chạy lại chỉ gọi AI cho bước có đầu vào thay đổi.</span></div></div>`;
+}
+function renderOv() {
+  const steps = PREP.overview.steps, todo = PROD.todo, prob = PROD.problems;
+  const flow = [["research", "Nghiên cứu nguồn"], ["script", "Kịch bản"], ["characters", "Nhân vật (AI thiết kế dàn diễn viên)"], ["storyboard", "Storyboard"], ["assetplan", "Kế hoạch asset"], ["assets", "Tạo asset (sau khi duyệt kế hoạch)"]];
+  $("#t-ov").innerHTML = `
+  <div class="card"><h3 class="sec-h">${esc(P.title)} <span class="mut">· storyboard v${P.version} · ${P.scenes.length} cảnh</span></h3>
+    <div class="row"><button id="aiAll" ${P.running ? "disabled" : ""}>AI chuẩn bị: nghiên cứu → kịch bản → storyboard → kế hoạch asset</button>
+      <span class="mut">Dừng lại ở bước bạn duyệt. Không bước nào tạo giọng (có phí) trước khi bạn duyệt lời đọc.</span></div>
+    <div style="margin-top:10px">${flow.map(([k, l]) => { const s = steps[k] || {}; return `<div class="step">${stBadge(s.state)} <b>${l}</b> <span class="mut">${s.llm_calls != null ? s.llm_calls + " lượt gọi AI" : ""} ${esc(s.error || "")}</span></div>`; }).join("")}</div></div>
+  <div class="card"><h3 class="sec-h">Cần bạn quyết định (${todo.length})</h3>${todo.length ? `<table>${todo.map(t => `<tr><td>${esc(t.label)}<div class="mut">${esc(t.detail)}</div></td><td><button class="sec sm" data-go="${t.tab}">Mở</button></td></tr>`).join("")}</table>` : '<div class="mut">Không có việc nào chờ bạn.</div>'}</div>
+  ${prob.length ? `<div class="card"><h3 class="sec-h">Lỗi / cần xử lý (${prob.length})</h3><table>${prob.map(x => `<tr><td><b>${esc(x.where)}</b></td><td>${esc(x.message)}</td></tr>`).join("")}</table>
+    <div class="row" style="margin-top:8px"><button id="resume">Chạy tiếp từ bước lỗi</button><span class="mut">Kết quả đã xong được giữ; không gọi lại AI/giọng/ảnh đã thành công.</span></div></div>` : ""}
+  ${oppCard()}
+  ${briefForm()}`;
+  $$("[data-go]", $("#t-ov")).forEach(b => b.onclick = () => goto(b.dataset.go));
+  $("#aiAll").onclick = () => prepare("all");
+  if ($("#resume")) $("#resume").onclick = resume;
+  $("#bSave").onclick = saveBrief;
+  $("#oppRun").onclick = () => prepare("opportunity", ["opportunity"]);
+  $$("[data-opp]", $("#t-ov")).forEach(b => b.onclick = async () => { const c = PREP.opportunities.candidates[+b.dataset.opp]; if (!confirm("Đặt chủ đề của dự án thành: " + c.topic + "?")) return;
+    try { await api("PUT", `/project/${cur}/brief`, { title: c.topic }); notice("Đã đặt chủ đề; các bước AI liên quan cần chạy lại.", "good"); await load(); } catch (e) { fail(e); } });
+}
+function oppCard() {
+  const o = PREP.opportunities, num = v => v == null ? "—" : Number(v).toLocaleString("vi-VN");
+  const body = !o ? '<div class="mut">Chưa tìm lần nào.</div>' : `<div class="mut">Số liệu đo từ trang YouTube (lúc ${esc(o.created)}). Không có: ${o.not_available.map(esc).join(", ")}. Phần “AI nhận định” là ý kiến của AI, không phải số đo.</div>
+    <table><tr><th>Chủ đề</th><th>Đã đo</th><th>AI nhận định</th><th></th></tr>${o.candidates.map((c, i) => `<tr><td><b>${esc(c.topic)}</b><div class="mut">${esc(c.angle)} · ${esc(c.why_now)}</div></td>
+    <td>${c.summary.videos_read}/${c.summary.videos_found} video · median ${num(c.summary.median_views)} · max ${num(c.summary.max_views)}<div class="mut">${esc(c.summary.note)}</div></td>
+    <td><span class="badge">AI</span> phù hợp ${esc(c.judgement.fit)}/10 — ${esc(c.judgement.difference)}<div class="mut">Rủi ro: ${esc(c.judgement.risk)}</div></td><td><button class="sec sm" data-opp="${i}">Dùng làm chủ đề</button></td></tr>`).join("")}</table>`;
+  return `<div class="card"><h3 class="sec-h">Chọn chủ đề</h3><div class="row"><button class="sec" id="oppRun" ${P.running ? "disabled" : ""}>Tìm cơ hội chủ đề (YouTube)</button><span class="mut">Dùng AI giá rẻ + tự mở trang video để đo; chỉ chạy khi bạn bấm.</span></div>${body}</div>`;
+}
+async function resume() {
+  const failed = Object.entries(PREP.overview.steps).find(([k, s]) => ["failed", "interrupted"].includes(s.state));
+  if (failed) return prepare(failed[0] === "assets" ? "assets" : "all");
+  return run("all");
+}
+async function saveBrief() {
+  const num = id => $(id).value === "" ? null : Number($(id).value);
+  const budget = {}; [["llm_calls", "#bgCalls"], ["images", "#bgImg"], ["voice_credits", "#bgVoice"]].forEach(([k, id]) => { if ($(id).value !== "") budget[k] = Number($(id).value); });
+  try { await api("PUT", `/project/${cur}/brief`, { title: $("#bTitle").value, goal: $("#bGoal").value, message: $("#bMsg").value, audience: $("#bAud").value, duration_seconds: num("#bDur"), channel: $("#bChan").value,
+      research: $("#bRes").value, references: $("#bRef").value, notes: $("#bNotes").value, script_text: $("#bScript").value, budget,
+      story_guideline: $("#bGuide").value, character_mode: $("#bCharMode").value, character_hint: $("#bCharHint").value, asset_policy: $("#bPolicy").value, series_from: $("#bSeries").value, library_assets: $("#bLib").value });
+    notice("Đã lưu brief.", "good"); await load(); } catch (e) { fail(e); }
+}
+
+// ------------------------------------------------------------------ script
+function proposalHtml(p) {
+  if (!p) return "";
+  const rows = p.diff.map(d => `<tr><td class="mut">${esc(d.path)}</td><td>${esc(typeof d.before === "object" ? JSON.stringify(d.before) : d.before)}</td><td>${esc(typeof d.after === "object" ? JSON.stringify(d.after) : d.after)}</td></tr>`).join("");
+  return `<div class="card" style="border-color:var(--blue)"><b>Đề xuất của AI cho ${p.type === "asset" ? "asset" : "cảnh"} ${esc(p.target)}</b> <span class="mut">· ${esc(p.model || "")}</span>
+    <div>${esc(p.summary)}</div>
+    ${p.errors.length ? `<div class="msg err">Không áp dụng được: ${p.errors.map(esc).join("; ")}</div>` : ""}
+    <table class="diff"><tr><th>Trường</th><th>Hiện tại</th><th>Đề xuất</th></tr>${rows || '<tr><td colspan="3" class="mut">Không có thay đổi.</td></tr>'}</table>
+    ${(p.realigned || []).length ? `<div class="mut">Mốc/phụ đề tự chỉnh theo lời mới: ${p.realigned.map(c => `${esc(c.old)} → ${esc(c.new)} (${c.kind})`).join("; ")}</div>` : ""}
+    ${p.voice_changed ? '<div class="mut">Đổi lời đọc: phải duyệt lại lời và tạo lại giọng của cảnh này.</div>' : ""}
+    <div class="row" style="margin-top:6px"><button class="ok" data-papply="${p.id}" ${p.errors.length ? "disabled" : ""}>Áp dụng</button><button class="sec" data-preject="${p.id}">Bỏ đề xuất</button></div></div>`;
+}
+function wireProposals(root) {
+  $$("[data-papply]", root).forEach(b => b.onclick = async () => { try { const r = await api("POST", `/project/${cur}/ai/proposal/${b.dataset.papply}/apply`, {}); notice(r.type === "asset" ? "Đã gửi job tạo lại ảnh (1 lượt, tính vào hạn mức)." : `Đã áp dụng, storyboard v${r.result.version}. Cần duyệt lại phần thay đổi.`, "good"); await load(); } catch (e) { fail(e); } });
+  $$("[data-preject]", root).forEach(b => b.onclick = async () => { await api("POST", `/project/${cur}/ai/proposal/${b.dataset.preject}/reject`, {}); await load(); });
+}
+function renderScript() {
+  const r = PREP.research, sc = PREP.script, steps = PREP.overview.steps;
+  const pend = PREP.proposals.filter(p => p.status === "pending");
+  const e = P.estimate || {}, tg = P.targets.duration;
+  const facts = r && r.facts.length ? `<table><tr><th>Thông tin</th><th>Nguồn</th><th>Trạng thái</th><th></th></tr>${r.facts.map(f => `<tr><td>${esc(f.claim)}<div class="mut">“${esc(f.quote)}”</div></td>
+      <td><a href="${esc(f.final_url || f.url)}" target="_blank" rel="noopener">${esc((f.final_url || f.url).slice(0, 60))}</a><div class="mut">truy cập ${esc(f.accessed_at)}</div></td>
+      <td>${f.verified ? '<span class="badge ok">đã đối chiếu nguồn</span>' : `<span class="badge warn">thiếu căn cứ</span><div class="mut">${f.reasons.map(esc).join("; ")}</div>`} ${f.decision ? `<span class="badge">${f.decision === "accept" ? "bạn chấp nhận" : "bạn loại"}</span>` : ""}</td>
+      <td>${f.needs_check ? `<button class="sec sm" data-fact="${f.id}" data-d="accept">Chấp nhận</button> <button class="sec sm" data-fact="${f.id}" data-d="remove">Loại</button>` : ""}</td></tr>`).join("")}</table>` : '<div class="mut">Chưa có thông tin tra cứu' + (r && r.decision ? ` (${esc(r.decision.reason)})` : "") + ".</div>";
+  const claims = sc && sc.claims_to_verify && sc.claims_to_verify.length ? `<div class="msg warn"><b>AI đánh dấu cần kiểm chứng:</b><ul>${sc.claims_to_verify.map(c => `<li>${esc(c.text)} <span class="mut">${esc(c.reason || "")}</span></li>`).join("")}</ul></div>` : "";
+  $("#t-script").innerHTML = `
+  <div class="card"><div class="row"><b>Kịch bản</b> ${stBadge((steps.script || {}).state)} <span class="mut">${sc ? `nguồn: ${sc.source === "user" ? "bạn nhập" : "AI (" + esc(sc.model || "") + ")"}` : ""}</span>
+    <button class="sec" id="rewriteAll" ${P.running ? "disabled" : ""}>AI viết lại cả kịch bản</button><span class="mut">(thay storyboard hiện tại; bản cũ được giữ trong versions/)</span></div>
+    <div class="mut" style="margin-top:6px">${P.scenes.length} cảnh · ${e.chars ?? "—"} ký tự · khoảng ${e.sec ?? "—"} giây (mục tiêu ${tg[0]}–${tg[1]} s) · dự toán giọng ~${e.credits ?? "—"} credit</div></div>
+  ${claims}
+  <div class="card"><b>Nguồn đã tra cứu</b><div style="margin-top:6px">${facts}</div>${r && r.references.length ? `<div class="mut" style="margin-top:6px">Tài liệu bạn đưa: ${r.references.map(x => `${esc(x.url)} (${x.reachable ? "đã đọc" : "không mở được"})`).join("; ")}</div>` : ""}</div>
+  ${pend.filter(p => p.type === "scene").map(proposalHtml).join("")}
+  ${P.has_storyboard ? P.scenes.map(s => `<div class="card" id="sc-${s.id}"><div class="row" style="justify-content:space-between"><b><span class="badge">${s.id}</span> ${esc(s.title)} <span class="mut">${esc(s.section || "")}</span></b>
+      <span>${s.voice_changed ? '<span class="badge warn">lời đã đổi sau khi duyệt</span> ' : ""}${s.audio_ready ? '<span class="badge ok">có giọng</span>' : '<span class="badge">chưa có giọng</span>'}</span></div>
+    ${s.notes ? `<div class="mut">Ghi chú hình: ${esc(s.notes)}</div>` : ""}
+    <label>Lời đọc (${s.chars} ký tự · ~${s.est_seconds ?? "—"} s)</label><textarea id="v-${s.id}" rows="3">${esc(s.voice)}</textarea>
+    <div class="row" style="margin:6px 0"><button class="sec sm" data-voice="${s.id}">Lưu lời</button>
+      <input id="ai-${s.id}" style="flex:1;min-width:220px" placeholder="Yêu cầu AI viết lại cảnh này, vd: rút ngắn, giọng vui hơn"><button class="sm" data-ai="${s.id}">Nhờ AI sửa</button></div>
+    <div id="rl-${s.id}" class="mut"></div>
+    <div class="mut">Phụ đề: ${s.subtitles.map(esc).join(" / ")}</div>
+    <div class="row"><input id="f-${s.id}" style="flex:1" placeholder="Góp ý cho cảnh này"><button class="sec sm" data-fb="${s.id}">Ghi góp ý</button></div>
+    ${s.feedback.map(f => `<div class="fb ${f.status}">${esc(f.text)} <span class="mut">· v${f.storyboard_version} · ${esc(f.at)}</span> ${f.status === "open" ? `<a href="#" data-done="${f.id}">xong</a>` : ""}</div>`).join("")}</div>`).join("")
+    : '<div class="card mut">Chưa có kịch bản. Bấm “AI chuẩn bị” ở Tổng quan (hoặc nhập kịch bản có sẵn trong brief).</div>'}
+  <div class="card"><b>Góp ý chung cho cả bài</b><div class="row"><input id="f-all" style="flex:1" placeholder="vd: giọng văn nên thân mật hơn"><button class="sec sm" data-fb="_all">Ghi góp ý</button></div>
+    ${P.feedback.filter(f => f.scene === "_all").map(f => `<div class="fb ${f.status}">${esc(f.text)} <span class="mut">· v${f.storyboard_version} · ${esc(f.at)}</span> ${f.status === "open" ? `<a href="#" data-done="${f.id}">xong</a>` : ""}</div>`).join("")}</div>
+  <div class="card"><b>Duyệt kịch bản</b> ${approvalBadge("script")}
+    <div class="row" style="margin-top:8px"><input id="appNoteS" style="flex:1" placeholder="Ghi chú (tùy chọn)"><button class="ok" id="apScript" ${P.has_storyboard ? "" : "disabled"}>Duyệt lời đọc (v${P.version})</button></div>
+    <div class="mut">Duyệt gắn với đúng nội dung đang hiển thị. Lời đọc đổi sau đó → chỉ cảnh đổi cần duyệt lại và chỉ cảnh đó bị tạo lại giọng.</div></div>`;
+  wireScript();
+}
+function approvalBadge(kind) {
+  const a = P.approval, ch = P.changes_since_approval, k = a && a.kinds && a.kinds[kind];
+  if (!k) return '<span class="badge warn">chưa duyệt</span>';
+  const bad = kind === "script" ? ch.voice : ch.scene;
+  return bad.length ? `<span class="badge warn">đã duyệt v${k.version} — ${bad.length} cảnh đổi sau duyệt: ${bad.join(", ")}</span>` : `<span class="badge ok">đã duyệt v${k.version}</span> <span class="mut">${esc(k.by)} · ${esc(k.on)}</span>`;
+}
+function wireScript() {
+  const root = $("#t-script");
+  $("#rewriteAll").onclick = () => { if (confirm("AI sẽ viết lại kịch bản và storyboard (tốn lượt gọi AI). Bản hiện tại được giữ trong versions/. Tiếp tục?")) prepare("all", ["script", "storyboard"]); };
+  $$("[data-fact]", root).forEach(b => b.onclick = async () => { await api("POST", `/project/${cur}/prepare/fact/${b.dataset.fact}`, { decision: b.dataset.d }); await load("script"); });
+  $$("[data-voice]", root).forEach(b => b.onclick = async () => {
+    try { const id = b.dataset.voice; const r = await api("PUT", `/project/${cur}/scene/${id}/voice`, { text: $("#v-" + id).value });
+      const ch = r.realigned || [];
+      notice(r.changed ? `Đã lưu lời cảnh ${id} (v${r.version}). Phụ đề tạo lại tự động${ch.length ? `; đã tự chỉnh ${ch.length} mốc: ` + [...new Set(ch.map(c => `“${esc(c.old)}” → ${esc(c.new)} (${c.kind})`))].join("; ") : "; các mốc hành động vẫn khớp"}. Cần duyệt lại lời cảnh này.` : "Không có thay đổi.", "good");
+      await load(); } catch (e) { fail(e); } });
+  $$("[data-ai]", root).forEach(b => b.onclick = async () => {
+    const id = b.dataset.ai, t = $("#ai-" + id).value.trim(); if (!t) return notice("Mô tả điều cần sửa.", "err");
+    b.disabled = true; b.textContent = "AI đang đề xuất…";
+    try { await api("POST", `/project/${cur}/ai/revise`, { type: "scene", target: id, instruction: t }); await load("script"); notice("AI đã đề xuất — xem phần thay đổi rồi bấm Áp dụng hoặc Bỏ.", "good"); } catch (e) { fail(e); b.disabled = false; b.textContent = "Nhờ AI sửa"; } });
+  $$("[data-fb]", root).forEach(b => b.onclick = async () => { const id = b.dataset.fb, el = $("#f-" + (id === "_all" ? "all" : id)); const t = el.value.trim(); if (!t) return;
+    try { await api("POST", `/project/${cur}/feedback`, { scene: id, text: t }); await load(); } catch (e) { fail(e); } });
+  $$("[data-done]", root).forEach(a => a.onclick = async ev => { ev.preventDefault(); await api("POST", `/project/${cur}/feedback/${a.dataset.done}/done`, {}); await load(); });
+  $("#apScript").onclick = () => approveKind("script", $("#appNoteS").value);
+  wireProposals(root);
+}
+async function approveKind(kind, note) {
+  if (!needWho()) return;
+  try { await api("POST", `/project/${cur}/approve`, { by: who(), kind, note: note || "", expect_hash: P.storyboard_hash }); notice("Đã ghi nhận duyệt: " + (kind === "script" ? "lời đọc" : kind === "storyboard" ? "storyboard" : "tất cả"), "good"); await load(); } catch (e) { fail(e); }
+}
+
+// ------------------------------------------------------------------ storyboard form
+const num = v => (v === "" || v === null || isNaN(Number(v))) ? v : Number(v);
+function setPath(o, path, val) { const ks = path.split("."); let t = o; ks.slice(0, -1).forEach(k => t = t[k]); t[ks[ks.length - 1]] = val; }
+function getPath(o, path) { return path.split(".").reduce((t, k) => (t == null ? t : t[k]), o); }
+function ctl(path, kind, val, opts) {
+  const v = val ?? "";
+  if (kind === "select") return `<select data-p="${path}" data-k="str">${opts.map(o => `<option value="${esc(o)}" ${o === v ? "selected" : ""}>${esc(o)}</option>`).join("")}</select>`;
+  if (kind === "number") return `<input type="number" step="any" data-p="${path}" data-k="num" value="${esc(v)}">`;
+  if (kind === "appear") return `<input data-p="${path}" data-k="appear" value="${esc(v)}" placeholder="giây hoặc cụm từ trong lời" style="width:100%">`;
+  if (kind === "lines") return `<textarea rows="3" data-p="${path}" data-k="lines">${esc((val || []).join("\n"))}</textarea>`;
+  return `<input data-p="${path}" data-k="str" value="${esc(v)}" style="width:100%">`;
+}
+function fieldCtl(path, f, val) {
+  const t = f.type;
+  if (t === "number") return ctl(path, "number", val);
+  if (t === "appear") return ctl(path, "appear", val);
+  if (t === "text_color") return ctl(path, "select", val ?? "dark", CAP.text_colors);
+  if (t === "accent") return ctl(path, "select", val ?? CAP.accent_colors[0], CAP.accent_colors);
+  if (t === "prop_img") return ctl(path, "select", val ?? CAP.props[0], [...CAP.props, ...CAP.ai_assets.filter(a => a.usable).map(a => "ai:" + a.id), ...(val && !CAP.props.includes(val) && !String(val).startsWith("ai:") ? [val] : [])]);
+  if (t === "list:string" || t === "list:appear") return ctl(path, "lines", null, null).replace(/>[^<]*<\/textarea>/, `>${esc((val || []).join("\n"))}</textarea>`);
+  return ctl(path, "str", val);
+}
+function itemForm(sid, it, i) {
+  const spec = CAP.item_types[it.type]; if (!spec) return `<div class="item mut">Loại mục không hỗ trợ: ${esc(it.type)}</div>`;
+  const fields = spec.fields.map(f => {
+    if (f.type.startsWith("list:") && !["list:string", "list:appear"].includes(f.type)) {
+      const sub = f.type.slice(5), arr = it[f.name] || [], sf = CAP.sub_fields[sub];
+      return `<div style="grid-column:1/-1"><label>${f.name}</label>${arr.map((row, j) => `<div class="row">${sf.map(s => `<span class="mut">${s.name}</span>${fieldCtl(`items.${i}.${f.name}.${j}.${s.name}`, s, row[s.name])}`).join(" ")}<button class="sec sm" data-sub-del="items.${i}.${f.name}|${j}">×</button></div>`).join("")}
+        <button class="sec sm" data-sub-add="items.${i}.${f.name}|${sub}">+ thêm dòng</button></div>`;
+    }
+    return `<div><label>${f.name}${f.required ? " *" : ""}</label>${fieldCtl(`items.${i}.${f.name}`, f, it[f.name])}</div>`;
+  }).join("");
+  return `<div class="item"><div class="row"><b>${esc(it.type)}</b><span class="mut">${esc(spec.hint)}</span><button class="sec sm" data-item-del="${i}" style="margin-left:auto">Xóa mục</button></div><div class="grid2">${fields}</div></div>`;
+}
+function sceneForm(sc, sid) {
+  const bgs = ["cream", "blue", ...CAP.ai_assets.filter(a => a.usable && a.kind === "background").map(a => "ai:" + a.id)];
+  const bgv = sc.bg;
+  const cams = ["", ...CAP.camera_presets];
+  const actRows = (path, list) => (list || []).map((a, i) => `<div class="row"><select data-p="${path}.${i}.name" data-k="str">${CAP.actions.map(x => `<option value="${x.name}" ${x.name === a.name ? "selected" : ""} title="${esc(x.note)}">${x.name} — ${esc(x.label)}</option>`).join("")}</select>
+      <span class="mut">${a.name === "point_seq" ? "cues" : "cue"}</span>${a.cues ? `<input data-p="${path}.${i}.cues" data-k="csv" value="${esc(a.cues.join(", "))}" placeholder="cụm 1, cụm 2">` : `<input data-p="${path}.${i}.cue" data-k="str" value="${esc(a.cue ?? "")}" placeholder="cụm trong lời">`}
+      <span class="mut">hoặc lúc (s)</span><input type="number" step="any" data-p="${path}.${i}.at" data-k="optnum" value="${esc(a.at ?? "")}"><span class="mut">giữ (s)</span><input type="number" step="any" data-p="${path}.${i}.hold" data-k="optnum" value="${esc(a.hold ?? "")}">
+      <button class="sec sm" data-act-del="${path}|${i}">×</button></div>`).join("") + `<button class="sec sm" data-act-add="${path}">+ thêm hành động</button>`;
+  const fcRows = (path, list) => (list || []).map((f, i) => `<div class="row"><span class="mut">khi đọc</span><input data-p="${path}.${i}.cue" data-k="str" value="${esc(f.cue)}"><span class="mut">mặt</span>${ctl(`${path}.${i}.face`, "select", f.face, CAP.faces)}<button class="sec sm" data-fc-del="${path}|${i}">×</button></div>`).join("") + `<button class="sec sm" data-fc-add="${path}">+ thêm</button>`;
+  const charIds = CAP.characters.map(c => c.id);
+  const charSel = (path, val) => ctl(path, "select", val || "bi", [...new Set([...charIds, val || "bi"])]);
+  const act = actRows("actions", sc.actions), fcs = fcRows("face_cues", sc.face_cues);
+  const castHtml = (sc.cast || []).map((c, i) => `<div class="item"><div class="row"><b>Nhân vật phụ ${i + 1}</b>${charSel(`cast.${i}.char`, c.char)}<span class="mut">x·y·tỉ lệ</span>${ctl(`cast.${i}.x`, "number", c.x)}${ctl(`cast.${i}.y`, "number", c.y)}${ctl(`cast.${i}.scale`, "number", c.scale)}
+      <label style="display:inline;margin:0"><input type="checkbox" data-p="cast.${i}.flip" data-k="bool" ${c.flip ? "checked" : ""}> quay mặt sang trái</label>${ctl(`cast.${i}.face`, "select", c.face, CAP.faces)}${ctl(`cast.${i}.pose`, "select", c.pose, CAP.poses)}
+      <button class="sec sm" data-cast-del="${i}" style="margin-left:auto">Xóa</button></div>
+      <label>Hành động</label>${actRows(`cast.${i}.actions`, c.actions)}<label>Đổi biểu cảm</label>${fcRows(`cast.${i}.face_cues`, c.face_cues)}</div>`).join("");
+  return `
+  <div class="grid2"><div><label>Tiêu đề cảnh</label>${ctl("title", "str", sc.title)}</div>
+    <div><label>Nền</label><select data-p="bg" data-k="str">${[...new Set([...bgs, bgv])].map(o => `<option ${o === bgv ? "selected" : ""}>${esc(o)}</option>`).join("")}</select> <span class="mut">hoặc mã #RRGGBB:</span> <input data-p="bg" data-k="str" placeholder="#FFF6E5" style="width:90px" value="${/^#/.test(bgv) ? esc(bgv) : ""}"></div></div>
+  <label>Lời đọc</label><textarea rows="3" data-p="voice" data-k="str">${esc(sc.voice)}</textarea><div class="mut">Sửa lời ở đây: các mốc hành động/phụ đề được tự cập nhật khi lưu.</div>
+  <div class="grid2"><div><label>Nhân vật chính: ai · vị trí x · y · tỉ lệ</label><div class="row">${charSel("bi.char", sc.bi.char)}${ctl("bi.x", "number", sc.bi.x)}${ctl("bi.y", "number", sc.bi.y)}${ctl("bi.scale", "number", sc.bi.scale)}</div></div>
+    <div><label>Biểu cảm đầu cảnh · tư thế đầu cảnh</label><div class="row">${ctl("bi.face", "select", sc.bi.face, CAP.faces)}${ctl("bi.pose", "select", sc.bi.pose, CAP.poses)}</div></div>
+    <div><label>Giữ hình sau lời (s) · camera</label><div class="row"><input type="number" step="any" data-p="hold_after" data-k="optnum" value="${esc(sc.hold_after ?? "")}">${ctl("camera", "select", sc.camera ?? "", cams)}</div></div>
+    <div><label>Chuyển cảnh</label>${ctl("transition", "select", sc.transition ?? "cut", CAP.transitions)}</div></div>
+  <label>Hành động của nhân vật chính</label>${act}
+  <label>Đổi biểu cảm theo lời</label>${fcs}
+  <label>Nhân vật phụ (tối đa 3; mỗi người có hành động riêng)</label>${castHtml}<button class="sec sm" data-cast-add="1">+ thêm nhân vật phụ</button>
+  <label>Hình / chữ / biểu đồ trên màn hình</label>${(sc.items || []).map((it, i) => itemForm(sid, it, i)).join("")}
+  <div class="row"><select id="addType-${sid}">${Object.keys(CAP.item_types).map(t => `<option value="${t}">${t} — ${esc(CAP.item_types[t].hint)}</option>`).join("")}</select><button class="sec sm" data-item-add="1">+ thêm mục</button></div>`;
+}
+function renderBoard() {
+  if (!P.has_storyboard) { $("#t-board").innerHTML = '<div class="card mut">Chưa có storyboard. Chạy “AI chuẩn bị” ở Tổng quan, hoặc <button class="sec sm" id="addFirst">thêm cảnh đầu tiên</button>.</div>'; if ($("#addFirst")) $("#addFirst").onclick = () => addScene(null); return; }
+  api("GET", `/project/${cur}/scenes`).then(r => {
+    r.scenes.forEach(s => { if (!DRAFT[s.id] || DRAFT[s.id].__base !== JSON.stringify(s)) DRAFT[s.id] = Object.assign(clone(s), {}); DRAFT[s.id].__base = JSON.stringify(s); });
+    Object.keys(DRAFT).forEach(k => { if (!r.scenes.some(s => s.id === k)) delete DRAFT[k]; });
+    const ps = P.scenes;
+    $("#t-board").innerHTML = `<div class="card"><div class="row"><button id="prevAll" ${P.running ? "disabled" : ""}>Tạo ảnh xem trước</button><span class="mut">Dựng khung hình đầu mỗi cảnh từ dữ liệu storyboard hiện tại.</span>
+      <button class="ok" id="apBoard" style="margin-left:auto">Duyệt storyboard (v${P.version})</button></div><div style="margin-top:6px">${approvalBadge("storyboard")}</div></div>
+      <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(540px,1fr))">${r.scenes.map((s, i) => { const v = ps.find(x => x.id === s.id) || {}; return `<div class="card" id="bs-${s.id}" data-sid="${s.id}">
+        <div class="row" style="justify-content:space-between"><b><span class="badge">${s.id}</span> ${esc(s.title)}</b><span>${v.scene_changed ? '<span class="badge warn">đổi sau khi duyệt</span> ' : ""}<span class="mut">~${v.est_seconds ?? "—"} s · ${v.chars ?? 0} ký tự</span></span></div>
+        ${v.preview ? `<img class="prev" src="${v.preview}" alt="${s.id}" style="margin:8px 0">` : '<div class="mut" style="margin:8px 0">Chưa có ảnh xem trước.</div>'}
+        <div class="sform">${sceneForm(DRAFT[s.id], s.id)}</div>
+        <div class="row" style="margin-top:8px"><button data-save="${s.id}">Lưu cảnh</button><button class="sec sm" data-mv="up|${s.id}">↑</button><button class="sec sm" data-mv="down|${s.id}">↓</button>
+          <button class="sec sm" data-addafter="${s.id}">+ cảnh sau</button><button class="bad sm" data-delsc="${s.id}">Xóa cảnh</button>
+          <button class="sec sm" data-scene="${s.id}" ${v.audio_ready ? "" : "disabled"} title="${v.audio_ready ? "" : "cần có giọng trước"}">Dựng lại cảnh</button></div><div class="sres"></div></div>`; }).join("")}</div>`;
+    wireBoard();
+  }).catch(fail);
+}
+function wireBoard() {
+  const root = $("#t-board");
+  $("#prevAll").onclick = () => run("storyboard");
+  $("#apBoard").onclick = () => approveKind("storyboard", "");
+  $$(".card[data-sid]", root).forEach(card => {
+    const sid = card.dataset.sid, d = DRAFT[sid];
+    const rerender = () => { card.querySelector(".sform").innerHTML = sceneForm(d, sid); wireForm(); };
+    const wireForm = () => {
+      $$("[data-p]", card).forEach(el => { el.oninput = el.onchange = () => {
+        const k = el.dataset.k; let v = el.value;
+        if (k === "bool") v = el.checked; else if (k === "num") v = num(v); else if (k === "optnum") { if (v === "") { const p = el.dataset.p.split("."); const last = p.pop(); const o = getPath(d, p.join(".")); if (o) delete o[last]; return; } v = Number(v); }
+        else if (k === "appear") v = (v !== "" && !isNaN(Number(v))) ? Number(v) : v; else if (k === "lines") v = v.split("\n").map(x => x.trim()).filter(Boolean).map(x => (isNaN(Number(x)) ? x : Number(x)));
+        else if (k === "csv") v = v.split(",").map(x => x.trim()).filter(Boolean);
+        if (el.dataset.p === "camera" && v === "") { delete d.camera; return; }
+        if (el.dataset.p === "bg" && v === "") return;
+        if (el.dataset.p === "bi.char" && (v === "bi" || v === "")) { delete d.bi.char; card.querySelector(".sres").innerHTML = '<span class="badge warn">chưa lưu</span>'; return; }
+        setPath(d, el.dataset.p, v); card.querySelector(".sres").innerHTML = '<span class="badge warn">chưa lưu</span>';
+      }; });
+      const listAt = (path) => { const ks = path.split("."); let t = d; ks.forEach(k => { if (t[k] == null) t[k] = (k === "actions" || k === "face_cues" || k === "cast") ? [] : {}; t = t[k]; }); return t; };
+      $$("[data-act-del]", card).forEach(b => b.onclick = () => { const [p, i] = b.dataset.actDel.split("|"); listAt(p).splice(+i, 1); rerender(); });
+      $$("[data-act-add]", card).forEach(b => b.onclick = () => { listAt(b.dataset.actAdd).push({ name: CAP.actions[0].name, at: 0.5 }); rerender(); });
+      $$("[data-fc-del]", card).forEach(b => b.onclick = () => { const [p, i] = b.dataset.fcDel.split("|"); listAt(p).splice(+i, 1); rerender(); });
+      $$("[data-fc-add]", card).forEach(b => b.onclick = () => { listAt(b.dataset.fcAdd).push({ cue: "", face: CAP.faces[0] }); rerender(); });
+      $$("[data-cast-add]", card).forEach(b => b.onclick = () => { const used = new Set([d.bi.char || "bi", ...(d.cast || []).map(c => c.char)]); const other = CAP.characters.find(c => !used.has(c.id)) || CAP.characters[0];
+        (d.cast = d.cast || []).push({ char: other.id, x: 1500, y: 960, scale: 1.0, flip: true, face: "neutral", pose: "idle", actions: [], face_cues: [] }); rerender(); });
+      $$("[data-cast-del]", card).forEach(b => b.onclick = () => { d.cast.splice(+b.dataset.castDel, 1); if (!d.cast.length) delete d.cast; rerender(); });
+      $$("[data-item-del]", card).forEach(b => b.onclick = () => { d.items.splice(+b.dataset.itemDel, 1); rerender(); });
+      $$("[data-item-add]", card).forEach(b => b.onclick = () => { const t = $("#addType-" + sid).value, it = { type: t };
+        CAP.item_types[t].fields.forEach(f => { if (!f.required) return; it[f.name] = f.type === "number" ? (f.name === "x" ? 1400 : f.name === "y" ? 540 : f.name === "scale" ? 1 : f.name === "size" ? 56 : f.name === "gap" ? 110 : 1) : f.type === "prop_img" ? CAP.props[0] : f.type.startsWith("list:") ? (f.type === "list:string" ? ["Mục 1"] : [{}]) : f.type === "text_color" ? "dark" : "…"; });
+        if (t === "chart") it.bars = [{ label: "A", value: 3, text: "3", color: CAP.accent_colors[0] }, { label: "B", value: 6, text: "6", color: CAP.accent_colors[1] }];
+        if (t === "pie") it.parts = [{ value: 60, color: CAP.accent_colors[0] }, { value: 40, color: CAP.accent_colors[1] }];
+        if (t === "legend") it.rows = [{ text: "Mục 1", color: CAP.accent_colors[0] }];
+        (d.items = d.items || []).push(it); rerender(); });
+      $$("[data-sub-del]", card).forEach(b => b.onclick = () => { const [p, j] = b.dataset.subDel.split("|"); getPath(d, p).splice(+j, 1); rerender(); });
+      $$("[data-sub-add]", card).forEach(b => b.onclick = () => { const [p, sub] = b.dataset.subAdd.split("|"); const row = {}; CAP.sub_fields[sub].forEach(s => { if (s.required) row[s.name] = s.type === "number" ? 1 : s.type === "accent" ? CAP.accent_colors[0] : "…"; }); getPath(d, p).push(row); rerender(); });
+    };
+    wireForm();
+    card.querySelector("[data-save]").onclick = async () => {
+      const out = clone(d); delete out.__base;
+      try { const r = await api("PUT", `/project/${cur}/scene/${sid}`, { scene: out });
+        const ch = r.realigned || [];
+        notice(r.changed ? `Đã lưu cảnh ${sid} (v${r.version}). ${ch.length ? "Đã tự chỉnh mốc theo lời mới: " + [...new Set(ch.map(c => `“${esc(c.old)}” → ${esc(c.new)}`))].join("; ") + ". " : ""}Cần duyệt lại phần thay đổi.${(r.warnings || []).length ? "<br>Cảnh báo: " + r.warnings.map(esc).join("<br>") : ""}` : "Không có thay đổi.", "good");
+        delete DRAFT[sid]; await load(); } catch (e) { card.querySelector(".sres").innerHTML = `<div class="msg err">${esc(e.message)}${(e.data && e.data.errors || []).map(x => "<br>" + esc(x)).join("")}</div>`; }
+    };
+    $$("[data-mv]", card).forEach(b => b.onclick = async () => { const [dir, id] = b.dataset.mv.split("|"); try { await api("POST", `/project/${cur}/scene/${id}/move`, { dir }); await load(); } catch (e) { fail(e); } });
+    $$("[data-addafter]", card).forEach(b => b.onclick = () => addScene(b.dataset.addafter));
+    $$("[data-delsc]", card).forEach(b => b.onclick = async () => { if (!confirm(`Xóa cảnh ${b.dataset.delsc}? (phiên bản trước vẫn được giữ)`)) return; try { await api("POST", `/project/${cur}/scene/${b.dataset.delsc}/delete`, {}); await load(); } catch (e) { fail(e); } });
+    $$("[data-scene]", card).forEach(b => b.onclick = () => run("scene", { scene: b.dataset.scene }));
+  });
+}
+async function addScene(after) { try { const r = await api("POST", `/project/${cur}/scenes`, { after }); notice(`Đã thêm cảnh ${r.scene} (v${r.version}).`, "good"); await load(); } catch (e) { fail(e); } }
+
+// ------------------------------------------------------------------ assets
+function assetCards() {
+  const plan = PREP.plan, applied = (PREP.asset_state || {}).applied || [];
+  const jobs = PROD.jobs;
+  return P.ai_assets.map(a => {
+    const pe = plan && plan.assets.find(x => x.id === a.id), props = PREP.proposals.filter(p => p.type === "asset" && p.target === a.id && p.status === "pending");
+    const used = pe ? pe.scenes.join(", ") : "";
+    return `<div class="card" id="as-${a.id}">${a.url ? `<img class="prev big" data-big="${a.url}" src="${a.url}" style="max-height:260px;object-fit:contain" alt="${esc(a.id)}">` : '<div class="mut">chưa có ảnh</div>'}
+    <div class="row" style="margin-top:6px"><b>${esc(a.id)}</b> <span class="badge ${a.status === "approved" ? "ok" : /failed|rejected|changed|missing/.test(a.status) ? "bad" : "warn"}">${esc(a.status)}</span> <span class="mut">${esc(a.kind)}${a.model ? " · " + esc(a.model) : ""}${a.reused_from ? " · dùng lại từ " + esc(a.reused_from.project) : ""}</span>${applied.includes(a.id) ? '<span class="badge ok">đã đưa vào cảnh</span>' : ""}</div>
+    <div class="mut">${esc(a.prompt || "")}</div>${used ? `<div class="mut">Cảnh dùng: ${esc(used)}</div>` : ""}${a.error ? `<div class="mut">${esc(a.error)}</div>` : ""}
+    <div class="row" style="margin-top:6px"><button class="sec sm" data-comp="${a.id}">Xem trong cảnh</button>
+      ${["draft", "changed_after_approval"].includes(a.status) ? `<button class="ok sm" data-aa="${a.id}">Duyệt</button> <button class="bad sm" data-ar="${a.id}">Loại</button>` : ""}
+      <button class="sec sm" data-regen="${a.id}">Tạo lại nguyên prompt (1 lượt ảnh)</button></div>
+    <div class="row" style="margin-top:6px"><input id="afb-${a.id}" style="flex:1;min-width:200px" placeholder="Góp ý về ảnh, vd: lá xanh hơn, tròn hơn"><button class="sm" data-afb="${a.id}">AI đề xuất prompt mới</button></div>
+    <div class="cmp" id="comp-${a.id}"></div>${props.map(proposalHtml).join("")}</div>`;
+  }).join("") || '<div class="mut">Chưa có asset.</div>';
+}
+function planTable() {
+  const plan = PREP.plan;
+  if (!plan) return '<div class="mut">Chưa có kế hoạch asset (AI lập ở bước “Kế hoạch asset”).</div>';
+  if (!plan.assets.length) return '<div class="mut">AI không đề xuất asset mới (hoặc hạn mức ảnh bằng 0).</div>';
+  return `<table><tr><th>Asset</th><th>Prompt (sửa được)</th><th>Cảnh · cách dùng</th><th></th></tr>${plan.assets.map(a => `<tr><td><b>${esc(a.id)}</b><div class="mut">${esc(a.kind)}${a.reuse ? `<br>dùng lại ${esc(a.reuse.project)}/${esc(a.reuse.asset)}` : ""}</div></td>
+    <td><textarea rows="3" id="pp-${a.id}">${esc(a.prompt)}</textarea><div class="mut">${esc(a.rationale || "")}</div></td>
+    <td class="mut">${a.scenes.join(", ")} · ${a.placement.mode === "bg" ? "làm nền" : `hình tại (${a.placement.x}, ${a.placement.y}) tỉ lệ ${a.placement.scale}`}${a.refs.length ? "<br>có ảnh tham khảo phong cách" : ""}</td>
+    <td><button class="sec sm" data-pp-save="${a.id}">Lưu prompt</button> <button class="sec sm" data-pp-del="${a.id}">Bỏ</button>${a.reuse ? ` <button class="sec sm" data-pp-new="${a.id}" title="tạo ảnh mới (tốn 1 lượt ảnh) thay vì dùng lại ảnh đã duyệt ở dự án khác">Tạo mới</button>` : ""}</td></tr>`).join("")}</table>`;
+}
+function charCards() {
+  if (!CHARS.characters.length) return `<div class="mut">Chưa có nhân vật AI (${(PREP.overview.steps.characters || {}).state === "ok" ? "dự án này dùng nhân vật có sẵn" : "AI sẽ đề xuất ở bước Nhân vật"}).</div>`;
+  const stCls = s => ({ approved: "ok", draft: "warn", stale: "bad", missing: "bad" })[s] || "";
+  return CHARS.characters.map(c => `<div class="card" id="ch-${c.id}"><div class="row"><b>${esc(c.profile.name)}</b> <span class="mut">${esc(c.id)} · ${c.profile.role === "main" ? "chính" : "phụ"}</span> <span class="badge ${stCls(c.state)}">${esc(c.state)}</span>
+      ${c.used ? '<span class="badge">có trong storyboard</span>' : '<span class="badge">chưa dùng trong cảnh nào</span>'}</div>
+    <div class="mut">${esc(c.why || "")}</div>
+    <label>Mô tả ngoại hình</label><textarea id="chd-${c.id}" rows="3">${esc(c.profile.description)}</textarea><label>Trang phục</label><input id="cho-${c.id}" style="width:100%" value="${esc(c.profile.outfit || "")}">
+    <div class="row" style="margin-top:6px"><button class="sec sm" data-chsave="${c.id}">Lưu mô tả</button> <span class="mut">Đổi mô tả làm kế hoạch cần duyệt lại và ảnh nhân vật cần tạo lại.</span></div>
+    <div class="grid2" style="margin-top:8px"><div>${c.sheets.parts.url ? `<img class="prev big" data-big="${c.sheets.parts.url}" src="${c.sheets.parts.url}" style="max-height:170px;object-fit:contain"><div class="mut">Bộ phận cơ thể · ${esc(c.sheets.parts.status)}</div>` : '<div class="mut">Chưa có ảnh bộ phận</div>'}</div>
+      <div>${c.sheets.faces.url ? `<img class="prev big" data-big="${c.sheets.faces.url}" src="${c.sheets.faces.url}" style="max-height:170px;object-fit:contain"><div class="mut">5 biểu cảm · ${esc(c.sheets.faces.status)}</div>` : '<div class="mut">Chưa có ảnh biểu cảm</div>'}</div></div>
+    <div class="row" style="margin-top:8px"><button class="sec sm" data-chgen="${c.id}" ${PREP.overview.plan_approved && !P.running ? "" : "disabled"} title="${PREP.overview.plan_approved ? "tạo/dựng lại ảnh nhân vật (tốn lượt ảnh)" : "cần duyệt kế hoạch trước"}">Tạo ảnh nhân vật</button>
+      <button class="sec sm" data-chbuild="${c.id}" ${c.sheets.parts.url && c.sheets.faces.url ? "" : "disabled"}>Dựng khung xương từ 2 ảnh</button>
+      <button class="sec sm" data-chprev="${c.id}" ${c.rig ? "" : "disabled"}>Xem nhân vật chuyển động</button>
+      <button class="ok sm" data-chok="${c.id}" ${c.state === "draft" && c.rig ? "" : "disabled"}>Duyệt nhân vật</button></div>
+    ${c.rig ? `<div class="mut">Khung xương: tay ${c.rig.L1}+${c.rig.L2}px (đã chuẩn hóa ×${c.rig.armScale}), cao ${c.rig.height}px, dựng lúc ${esc(c.rig.built)}</div>` : ""}<div id="chp-${c.id}"></div></div>`).join("");
+}
+function renderAssets() {
+  const ov = PREP.overview, steps = ov.steps;
+  const sel = (document.activeElement && $("#t-assets").contains(document.activeElement)) ? document.activeElement.id : null;
+  $("#t-assets").innerHTML = `
+  <div class="card"><h3 class="sec-h">Nhân vật AI</h3><div class="mut">Mỗi nhân vật là 2 ảnh do Antigravity vẽ (bộ phận + 5 biểu cảm), được cắt thành khung xương và chuyển động bằng chính thư viện hành động của Bi. Chỉ nhân vật đã duyệt mới dựng vào video; xem thử không giọng thì được dùng bản nháp.</div></div>
+  <div class="grid">${charCards()}</div>
+  <div class="card"><h3 class="sec-h">Kế hoạch tạo asset ${stBadge((steps.assetplan || {}).state)} ${ov.plan_approved ? '<span class="badge ok">đã duyệt kế hoạch</span>' : '<span class="badge warn">chưa duyệt kế hoạch</span>'}</h3>
+    ${planTable()}
+    <div class="row" style="margin-top:8px"><button class="ok" id="apPlan" ${PREP.plan && PREP.plan.assets.length ? "" : "disabled"}>Duyệt kế hoạch</button>
+      <button id="genAssets" ${ov.plan_approved && !P.running ? "" : "disabled"} title="${ov.plan_approved ? "" : "cần duyệt kế hoạch trước"}">Tạo asset theo kế hoạch ${stBadge((steps.assets || {}).state)}</button>
+      <button class="sec" id="applyAssets">Đưa asset đã duyệt vào cảnh</button><button class="sec" id="replan" ${P.running ? "disabled" : ""}>AI lập lại kế hoạch</button></div>
+    <div class="mut">Không có ảnh nào được tạo trước khi bạn duyệt kế hoạch. Ảnh mới là bản nháp: duyệt từng ảnh bên dưới; chỉ ảnh đã duyệt mới dùng được trong cảnh. Sửa ảnh sau khi duyệt → phải duyệt lại.</div></div>
+  <div class="card"><h3 class="sec-h">Ảnh đã tạo (${P.ai_assets.length})</h3><div class="mut">Giới hạn ảnh đồng thời trên máy: ${PROD.slots.length} (dùng chung UI/MCP). Đã dùng ${PROD.costs.usage.images}/${PROD.costs.limits.images ?? "∞"} lượt ảnh.</div></div>
+  <div class="grid">${assetCards()}</div>
+  <div class="card"><b>Tạo asset thủ công</b><div class="row"><input id="aid" placeholder="asset_id (a-z, 0-9, _)" style="width:170px"><select id="akind"><option>prop</option><option>background</option></select>
+      <input id="aprompt" placeholder="mô tả cần vẽ (tiếng Anh, chỉ nêu chủ thể)" style="flex:1;min-width:220px"><button id="ago">Gửi yêu cầu</button></div><div id="ajob" class="mut"></div></div>`;
+  if (sel && $("#" + sel)) $("#" + sel).focus();
+  const root = $("#t-assets");
+  $$("[data-chsave]", $("#t-assets")).forEach(b => b.onclick = async () => { const id = b.dataset.chsave; try { await api("PUT", `/project/${cur}/character/${id}`, { description: $("#chd-" + id).value, outfit: $("#cho-" + id).value }); notice("Đã lưu mô tả nhân vật; kế hoạch cần duyệt lại.", "good"); await load(); } catch (e) { fail(e); } });
+  $$("[data-chgen]", $("#t-assets")).forEach(b => b.onclick = () => prepare("chargen"));
+  $$("[data-chbuild]", $("#t-assets")).forEach(b => b.onclick = async () => { try { await api("POST", `/project/${cur}/character/${b.dataset.chbuild}/build`, {}); notice("Đã dựng khung xương từ 2 ảnh hiện có.", "good"); await load(); } catch (e) { fail(e); } });
+  $$("[data-chprev]", $("#t-assets")).forEach(b => b.onclick = async () => { b.disabled = true; try { const r = await api("GET", `/project/${cur}/character/${b.dataset.chprev}/preview`); $("#chp-" + b.dataset.chprev).innerHTML = `<img class="prev big" data-big="${r.url}" src="${r.url}" style="margin-top:6px"><div class="mut">4 tư thế (đứng, chỉ, giơ tay, tay đỡ má) và 5 biểu cảm, dựng bằng chính bộ dựng phim.</div>`;
+      $$("[data-big]", $("#chp-" + b.dataset.chprev)).forEach(im => im.onclick = () => { $("#bigimg").src = im.dataset.big; $("#dlgImg").showModal(); }); } catch (e) { fail(e); } b.disabled = false; });
+  $$("[data-chok]", $("#t-assets")).forEach(b => b.onclick = async () => { if (!needWho()) return; try { await api("POST", `/project/${cur}/character/${b.dataset.chok}/approve`, { by: who() }); notice("Đã duyệt nhân vật.", "good"); await load(); } catch (e) { fail(e); } });
+  $("#apPlan").onclick = async () => { if (!needWho()) return; try { await api("POST", `/project/${cur}/prepare/plan/approve`, { by: who(), expect_hash: PREP.overview.plan_hash }); notice("Đã duyệt kế hoạch asset.", "good"); await load(); } catch (e) { fail(e); } };
+  $("#genAssets").onclick = () => prepare("assets");
+  $("#replan").onclick = () => { if (confirm("AI lập lại kế hoạch (tốn 1 lượt gọi AI); kế hoạch cần duyệt lại. Tiếp tục?")) prepare("assetplan", ["assetplan"]); };
+  $("#applyAssets").onclick = async () => { try { await run("prepare", { step: "apply_assets" }); } catch (e) { fail(e); } };
+  $$("[data-pp-save]", root).forEach(b => b.onclick = async () => { try { await api("PUT", `/project/${cur}/prepare/plan/asset/${b.dataset.ppSave}`, { prompt: $("#pp-" + b.dataset.ppSave).value }); notice("Đã lưu prompt; kế hoạch cần duyệt lại.", "good"); await load(); } catch (e) { fail(e); } });
+  $$("[data-pp-new]", root).forEach(b => b.onclick = async () => { await api("PUT", `/project/${cur}/prepare/plan/asset/${b.dataset.ppNew}`, { reuse: "none" }); notice("Sẽ tạo ảnh mới cho asset này; kế hoạch cần duyệt lại.", "good"); await load(); });
+  $$("[data-pp-del]", root).forEach(b => b.onclick = async () => { await api("POST", `/project/${cur}/prepare/plan/asset/${b.dataset.ppDel}/remove`, {}); await load(); });
+  $$("[data-big]", root).forEach(im => im.onclick = () => { $("#bigimg").src = im.dataset.big; $("#dlgImg").showModal(); });
+  $$("[data-comp]", root).forEach(b => b.onclick = async () => { try { const r = await api("GET", `/project/${cur}/asset/${b.dataset.comp}/composite`); $("#comp-" + b.dataset.comp).innerHTML = `<img class="prev big" data-big="${r.url}" src="${r.url}" style="margin-top:6px"><div class="mut">Mô phỏng vị trí theo kế hoạch trên nền kem (chưa có nhân vật).</div>`;
+      $$("[data-big]", $("#comp-" + b.dataset.comp)).forEach(im => im.onclick = () => { $("#bigimg").src = im.dataset.big; $("#dlgImg").showModal(); }); } catch (e) { fail(e); } });
+  $$("[data-aa]", root).forEach(b => b.onclick = async () => { if (!needWho()) return; try { await api("POST", `/project/${cur}/asset/${b.dataset.aa}/approve`, { by: who() }); notice("Đã duyệt asset " + b.dataset.aa, "good"); await load(); } catch (e) { fail(e); } });
+  $$("[data-ar]", root).forEach(b => b.onclick = async () => { const note = prompt("Lý do loại (tùy chọn):") ?? ""; try { await api("POST", `/project/${cur}/asset/${b.dataset.ar}/reject`, { note }); await load(); } catch (e) { fail(e); } });
+  $$("[data-regen]", root).forEach(b => b.onclick = async () => { const a = P.ai_assets.find(x => x.id === b.dataset.regen); if (!confirm("Tạo lại ảnh (tính 1 lượt ảnh vào hạn mức). Tiếp tục?")) return;
+    try { const j = await api("POST", `/project/${cur}/ai_job`, { asset_id: a.id, kind: a.kind, prompt: a.prompt, regenerate: true, reference_images: ((PREP.plan && PREP.plan.assets.find(x => x.id === a.id)) || {}).refs || [] }); notice(`Job ${j.job_id}: ${j.state}`, "good"); await load(); } catch (e) { fail(e); } });
+  $$("[data-afb]", root).forEach(b => b.onclick = async () => { const t = $("#afb-" + b.dataset.afb).value.trim(); if (!t) return notice("Mô tả điều chưa ổn của ảnh.", "err");
+    b.disabled = true; b.textContent = "AI đang đề xuất…";
+    try { await api("POST", `/project/${cur}/ai/revise`, { type: "asset", target: b.dataset.afb, instruction: t }); await load(); notice("AI đã đề xuất prompt mới — xem rồi bấm Áp dụng để tạo lại ảnh.", "good"); } catch (e) { fail(e); b.disabled = false; b.textContent = "AI đề xuất prompt mới"; } });
+  wireProposals(root);
+  $("#ago").onclick = async () => { try { const j = await api("POST", `/project/${cur}/ai_job`, { asset_id: $("#aid").value, kind: $("#akind").value, prompt: $("#aprompt").value }); $("#ajob").textContent = `Job ${j.job_id}: ${j.state}${j.note ? " — " + j.note : ""}`; await load(); } catch (e) { fail(e); } };
+}
+
+// ------------------------------------------------------------------ production
+function renderProd() {
+  const pd = PROD, prep = pd.prepare.steps, st = pd.produce_steps || {}, c = pd.costs;
+  const row = (l, s) => `<tr><td>${l}</td><td>${stBadge(s.state)}</td><td class="mut">${s.seconds ?? ""}${s.reason ? " " + esc(s.reason) : ""}</td><td class="mut">${esc(s.error || "")}</td></tr>`;
+  const lim = c.limits, u = c.usage;
+  $("#t-prod").innerHTML = `
+  <div class="card"><div class="row"><button id="bSb" ${P.running ? "disabled" : ""}>1 · Tạo xem trước storyboard</button>
+    <button id="bAll" ${P.running ? "disabled" : ""}>2 · Chạy sản xuất (giọng → hoạt ảnh → phụ đề → MP4)</button><button class="sec" id="bResume" ${P.running ? "disabled" : ""}>Chạy tiếp bước bị lỗi</button>
+    <button class="sec" id="bDraft" ${P.running ? "disabled" : ""} title="giọng im lặng ước lượng thời gian: xem chuyển động, mốc, bố cục miễn phí, không gọi API giọng">Xem thử không giọng (miễn phí)</button></div>
+    <div class="mut" style="margin-top:6px">Giọng chỉ được tạo khi lời đọc đã duyệt (và vừa hạn mức credit); video chỉ dựng khi storyboard đã duyệt. Bước đã xong không bị gọi lại.${P.running ? ` Đang chạy: ${esc(P.running.kind)} từ ${esc(P.running.started)}.` : ""}</div></div>
+  <div class="grid"><div class="card"><b>Tiến độ</b><table>${["research", "script", "characters", "storyboard", "assetplan", "assets", "chargen"].map(k => row("AI · " + k, { ...(prep[k] || {}), error: (prep[k] || {}).error })).join("")}${["validate", "storyboard", "voice", "video"].map(k => row("Sản xuất · " + k, st[k] || {})).join("")}</table></div>
+  <div class="card"><b>Đang chờ bạn (${pd.todo.length})</b>${pd.todo.length ? `<table>${pd.todo.map(t => `<tr><td>${esc(t.label)}</td><td><button class="sec sm" data-go="${t.tab}">Mở</button></td></tr>`).join("")}</table>` : '<div class="mut">Không có.</div>'}
+    <b style="display:block;margin-top:10px">Lỗi (${pd.problems.length})</b>${pd.problems.length ? `<table>${pd.problems.map(x => `<tr><td><b>${esc(x.where)}</b></td><td>${esc(x.message)}</td></tr>`).join("")}</table>` : '<div class="mut">Không có.</div>'}</div></div>
+  <div class="card"><b>Chi phí & hạn mức</b><table>
+    <tr><td>Lượt gọi AI (LLM)</td><td>${u.llm_calls} / ${lim.llm_calls ?? "∞"}</td><td class="mut">${u.llm_tokens.toLocaleString()} token · ${c.cache_hits} lần dùng lại kết quả đã lưu (không tốn)</td></tr>
+    <tr><td>Lượt tạo ảnh</td><td>${u.images} / ${lim.images ?? "∞"}</td><td class="mut">agy chỉ báo token, không báo tiền</td></tr>
+    <tr><td>Credit giọng đọc</td><td>${u.voice_credits} / ${lim.voice_credits ?? "∞"}</td><td class="mut">${pd.api_calls} lượt gọi API giọng; dự toán toàn bộ ~${c.voice_estimate_credits ?? "—"} credit</td></tr>
+    <tr><td>Tiền (ước tính)</td><td>${c.money == null ? "chưa biết" : c.money}</td><td class="mut">${esc(c.money_note)}</td></tr></table>
+    <div class="mut" style="margin-top:6px">Mô hình đã dùng: ${Object.entries(c.llm_models).map(([m, v]) => `${esc(m)} (${v.calls} lượt, ${v.tokens.toLocaleString()} token${v.failed ? ", " + v.failed + " lỗi" : ""})`).join("; ") || "—"}</div></div>
+  <div class="card"><b>Job tạo ảnh</b> <span class="mut">(dùng chung UI/MCP; slot agy: ${pd.slots.map(s => s.busy ? "bận" : "rảnh").join(", ")})</span><table>${pd.jobs.map(j => `<tr><td>${esc(j.job_id)}</td><td>${stBadge(j.state)}</td><td class="mut">${esc(j.requested_at || "")} ${j.reused ? "· dùng lại" : ""}</td><td class="mut">${esc(j.error || "")}</td></tr>`).join("") || '<tr><td class="mut">Chưa có job.</td></tr>'}</table></div>
+  <div class="card"><b>Kiểm tra bản dựng gần nhất</b><table>${(P.checks || []).map(x => `<tr><td>${x.pass ? '<span class="badge ok">PASS</span>' : '<span class="badge bad">FAIL</span>'}</td><td>${esc(x.name)}</td><td class="mut">${esc(x.info)}</td></tr>`).join("") || '<tr><td class="mut">Chưa có.</td></tr>'}</table></div>
+  <div class="card"><b>Nhật ký</b> <span class="mut">${esc(pd.log.file || "")}</span><pre class="log" id="logpre">${esc(pd.log.lines.join("\n"))}</pre></div>`;
+  $("#bSb").onclick = () => run("storyboard"); $("#bAll").onclick = () => run("all"); $("#bResume").onclick = resume; $("#bDraft").onclick = () => run("draft");
+  $$("[data-go]", $("#t-prod")).forEach(b => b.onclick = () => goto(b.dataset.go));
+  const pre = $("#logpre"); if (pre) pre.scrollTop = pre.scrollHeight;
+}
+
+// ------------------------------------------------------------------ result / handover
+async function renderResult() {
+  const o = P.outputs[0];
+  let hist = []; try { hist = (await api("GET", `/project/${cur}/history`)).history; } catch (e) { /* ignore */ }
+  const base = `/files/${cur}`;
+  $("#t-result").innerHTML = `
+  <div class="card"><b>Video xem thử</b>${o ? `<video controls src="${o.url}"></video><div class="mut">${esc(o.name)} · ${(o.size / 1048576).toFixed(1)} MB · ${esc(o.mtime)}</div>` : '<div class="mut">Chưa có video.</div>'}
+    ${P.outputs.length > 1 ? "<div style='margin-top:8px'>" + P.outputs.slice(1).map(x => `<a href="${x.url}" target="_blank">${esc(x.name)}</a>`).join(" · ") + "</div>" : ""}</div>
+  <div class="card"><b>Góp ý theo cảnh sau khi xem</b><div class="mut">Ghi góp ý ở tab Kịch bản (từng cảnh hoặc chung) — hoặc nhờ AI sửa; chỉ cảnh bị ảnh hưởng được dựng lại.</div>
+    ${P.feedback.filter(f => f.status === "open").map(f => `<div class="fb">${esc(f.scene === "_all" ? "chung" : f.scene)}: ${esc(f.text)}</div>`).join("") || '<div class="mut">Không có góp ý đang mở.</div>'}</div>
+  <div class="card" id="tgcard"><b>Duyệt qua Telegram</b> <span id="tgst" class="mut"></span><div class="row" style="margin:6px 0"><button id="tgSend">Gửi video này qua Telegram</button><button class="sec" id="tgListen">Bật nhận phản hồi</button></div>
+    <div class="mut">Chỉ tài khoản/nhóm trong danh sách cho phép mới duyệt được. Nút gắn với đúng phiên bản storyboard đã gửi: sửa nội dung xong thì nút cũ hết hiệu lực. “Duyệt” ở Telegram là duyệt video này, không mở khóa bước tốn phí.</div><div id="tgbox"></div></div>
+  <div class="card"><b>Bàn giao</b><div class="row" style="margin:6px 0"><button id="exp">Xuất gói bàn giao (.zip)</button><span id="expres" class="mut"></span></div>
+    <div class="mut">Truy cập trực tiếp: <a href="${base}/storyboard.json" target="_blank">storyboard.json</a> · <a href="${base}/approvals_history.jsonl" target="_blank">lịch sử duyệt</a> · <a href="${base}/logs/ai_ledger.jsonl" target="_blank">nhật ký AI & chi phí</a> · <a href="${base}/prepare/script.json" target="_blank">kịch bản</a> · <a href="${base}/prepare/research.json" target="_blank">nghiên cứu</a>.
+    Project chỉnh sửa được: ${P.project_files.map(esc).join(", ") || "—"} (thư mục dự án, mở bằng EffectCraft/FilmCraft).</div></div>
+  <div class="card"><b>Lịch sử duyệt</b><table><tr><th>Lúc</th><th>Loại</th><th>Người duyệt</th><th>Chi tiết</th></tr>${hist.slice().reverse().map(h => `<tr><td class="mut">${esc(h.at)}</td><td>${esc(h.kind)}${h.status ? " · " + esc(h.status) : ""}</td><td>${esc(h.by || "—")}</td><td class="mut">${esc(h.id || (h.version ? "v" + h.version : ""))} ${esc(h.note || "")}</td></tr>`).join("") || '<tr><td colspan="4" class="mut">Chưa có.</td></tr>'}</table></div>`;
+  try {
+    const tg = await api("GET", `/project/${cur}/telegram`);
+    $("#tgst").textContent = tg.status.configured ? "đã cấu hình" : "CHƯA cấu hình: thiếu " + tg.status.missing.join("; ");
+    $("#tgSend").disabled = !tg.status.configured || !tg.video; $("#tgListen").disabled = !tg.status.configured;
+    $("#tgbox").innerHTML = tg.outbox.length ? `<table><tr><th>Lúc</th><th>Video</th><th>Trạng thái</th><th>Chi tiết</th></tr>${tg.outbox.slice().reverse().map(r => `<tr><td class="mut">${esc(r.created)}</td><td>${esc(r.video)}</td><td><span class="badge ${({ sent: "run", approved: "ok", rejected: "bad", failed: "bad", unknown: "warn", expired: "warn", changes_requested: "warn", blocked_size: "bad" })[r.status] || ""}">${esc(r.status)}</span></td><td class="mut">${esc(r.decided_by || r.error || "")}${r.hash12 !== tg.current_hash12 ? " · bản cũ" : ""}${r.needs_rebuild ? " · cần dựng lại" : ""}</td></tr>`).join("")}</table>` : '<div class="mut">Chưa gửi lần nào.</div>';
+    $("#tgSend").onclick = async () => { try { const r = await api("POST", `/project/${cur}/telegram/send`, {}); notice(`Telegram: ${r.status}${r.error ? " — " + esc(r.error) : ""}`, r.status === "sent" ? "good" : "warn"); await renderResult(); } catch (e) { fail(e); } };
+    $("#tgListen").onclick = async () => { try { const r = await api("POST", "/telegram/listen", { on: true }); notice(r.listening ? "Đang nhận phản hồi từ Telegram." : "Không bật được.", "good"); } catch (e) { fail(e); } };
+  } catch (e) { /* telegram card is optional */ }
+  $("#exp").onclick = async () => { try { const r = await api("POST", `/project/${cur}/export`, {}); $("#expres").innerHTML = `Đã tạo ${r.files} tệp (${(r.size / 1048576).toFixed(1)} MB): <a href="${r.url}">tải ${esc(r.file)}</a>`; } catch (e) { fail(e); } };
+}
+
+// ------------------------------------------------------------------ channel profile
+async function renderChannel() {
+  const list = (await api("GET", "/channels")).channels; window.CHANNELS = list;
+  const id = window.chanSel || (P && P.brief && P.brief.channel) || list[0].id;
+  const { profile: p } = await api("GET", "/channel/" + id);
+  $("#t-channel").innerHTML = `<div class="card"><h3 class="sec-h">Hồ sơ kênh</h3><div class="row"><select id="cSel">${list.map(c => `<option value="${c.id}" ${c.id === id ? "selected" : ""}>${esc(c.name)} (${c.id})</option>`).join("")}</select>
+    <input id="cNew" placeholder="mã kênh mới (a-z, 0-9, _)" style="width:180px"><button class="sec" id="cAdd">Tạo kênh từ hồ sơ này</button></div>
+    <div class="mut">Hồ sơ dùng lại giữa các video: đổi hồ sơ làm các bước AI (kịch bản, storyboard) của dự án dùng nó hết “mới”.</div>
+    <div class="grid2"><div><label>Tên kênh</label><input id="cName" style="width:100%" value="${esc(p.name)}"></div><div><label>Đối tượng xem</label><input id="cAud" style="width:100%" value="${esc(p.audience)}"></div>
+    <div><label>Giọng văn</label><input id="cTone" style="width:100%" value="${esc(p.tone)}"></div><div><label>Phong cách hình ảnh</label><input id="cVis" style="width:100%" value="${esc(p.visual_style)}"></div>
+    <div><label>Nhân vật mặc định: tên · màu áo</label><div class="row"><input id="cChar" value="${esc(p.character.name)}" style="width:120px"><input id="cShirt" value="${esc(p.character.shirt)}" style="width:100px"></div></div>
+    <div><label>Giọng đọc (voice_id) · tốc độ</label><div class="row"><input id="cVoice" value="${esc(p.voice.voice_id)}" style="flex:1"><input id="cSpeed" type="number" step="0.05" value="${esc(p.voice.speed)}"></div></div>
+    <div><label>Thời lượng mục tiêu (s): từ · đến</label><div class="row"><input id="cD0" type="number" value="${p.targets.duration[0]}"><input id="cD1" type="number" value="${p.targets.duration[1]}"></div></div>
+    <div><label>Số cảnh: từ · đến</label><div class="row"><input id="cS0" type="number" value="${p.targets.scenes[0]}"><input id="cS1" type="number" value="${p.targets.scenes[1]}"></div></div></div>
+    <label>Thông điệp định hướng của kênh</label><textarea id="cMsg" rows="2">${esc(p.guiding_message)}</textarea>
+    <label>Điều cần tránh (mỗi dòng một mục)</label><textarea id="cAvoid" rows="3">${esc((p.avoid || []).join("\n"))}</textarea>
+    <div class="row" style="margin-top:8px"><button id="cSave">Lưu hồ sơ</button></div></div>`;
+  const read = () => ({ name: $("#cName").value, audience: $("#cAud").value, tone: $("#cTone").value, visual_style: $("#cVis").value, guiding_message: $("#cMsg").value,
+    avoid: $("#cAvoid").value.split("\n").map(x => x.trim()).filter(Boolean), character: { name: $("#cChar").value, shirt: $("#cShirt").value }, language: p.language || "vi",
+    voice: { voice_id: $("#cVoice").value, speed: Number($("#cSpeed").value) }, targets: { duration: [Number($("#cD0").value), Number($("#cD1").value)], scenes: [Number($("#cS0").value), Number($("#cS1").value)] } });
+  $("#cSel").onchange = () => { window.chanSel = $("#cSel").value; renderChannel(); };
+  $("#cSave").onclick = async () => { try { await api("PUT", "/channel/" + $("#cSel").value, { profile: read() }); notice("Đã lưu hồ sơ kênh.", "good"); if (cur) await load(); } catch (e) { fail(e); } };
+  $("#cAdd").onclick = async () => { try { const nid = $("#cNew").value.trim(); await api("PUT", "/channel/" + nid, { profile: read() }); window.chanSel = nid; notice("Đã tạo kênh " + nid, "good"); renderChannel(); } catch (e) { fail(e); } };
+}
+
+// ------------------------------------------------------------------ wiring
+$("#tabs").onclick = ev => { const b = ev.target.closest("button"); if (!b) return; notice(""); goto(b.dataset.t); if (b.dataset.t === "board" && P) renderBoard(); if (b.dataset.t === "channel") renderChannel(); };
+$("#proj").onchange = async () => { cur = $("#proj").value; store.set("af_proj", cur); Object.keys(DRAFT).forEach(k => delete DRAFT[k]); await load(); };
+$("#who").value = store.get("af_who") || ""; $("#who").oninput = () => store.set("af_who", $("#who").value);
+$("#imgClose").onclick = () => $("#dlgImg").close();
+$("#btnNew").onclick = async () => { const list = (await api("GET", "/channels")).channels; $("#nChan").innerHTML = list.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join(""); $("#dlgNew").showModal(); };
+$("#nCancel").onclick = () => $("#dlgNew").close();
+$("#nOk").onclick = async () => {
+  const budget = {}; [["llm_calls", "#nBCalls"], ["images", "#nBImg"], ["voice_credits", "#nBVoice"]].forEach(([k, id]) => { if ($(id).value !== "") budget[k] = Number($(id).value); });
+  try { const r = await api("POST", "/projects", { title: $("#nTitle").value, goal: $("#nGoal").value, message: $("#nMsg").value, audience: $("#nAud").value, duration_seconds: $("#nDur").value === "" ? null : Number($("#nDur").value),
+      channel: $("#nChan").value, research: $("#nRes").value, references: $("#nRef").value, script_text: $("#nScript").value, budget,
+      story_guideline: $("#nGuide").value, character_mode: $("#nCharMode").value, character_hint: $("#nCharHint").value, asset_policy: $("#nPolicy").value, series_from: $("#nSeries").value });
+    $("#dlgNew").close(); await loadList(r.created); await load(); goto("ov"); notice(`Đã tạo dự án “${esc(r.created)}”. Bấm “AI chuẩn bị” để soạn kịch bản, hoặc chỉnh brief trước.`, "good"); } catch (e) { fail(e); } };
+(async () => {
+  try { window.CHANNELS = (await api("GET", "/channels")).channels; await loadList(); const t = (location.hash || "").slice(1) || store.get("af_tab") || "ov"; await load(); goto(TABS.includes(t) ? t : "ov"); if (tab === "channel") renderChannel(); } catch (e) { fail(e); }
+})();
+</script>
+</body>
+</html>

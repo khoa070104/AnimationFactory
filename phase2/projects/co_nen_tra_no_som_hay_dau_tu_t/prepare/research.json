@@ -1,0 +1,135 @@
+{
+  "mode": "yes",
+  "decision": {
+    "needs_research": true,
+    "reason": "Cần tra cứu mặt bằng lãi suất vay tiêu dùng/thế chấp thực tế hiện tại, tỷ suất sinh lời tham chiếu của các kênh đầu tư phổ biến tại Việt Nam, và quy định thực tế về phí phạt trả nợ trước hạn để đưa ra các con số minh họa chính xác, thực tế cho người xem."
+  },
+  "queries": [
+    "lãi suất vay cá nhân ngân hàng hiện nay",
+    "mức lợi nhuận kỳ vọng quỹ mở cổ phiếu việt nam",
+    "phí phạt trả nợ trước hạn ngân hàng quy định",
+    "quy tắc ưu tiên trả nợ hay đầu tư tài chính cá nhân"
+  ],
+  "facts": [
+    {
+      "id": "f1",
+      "claim": "Trước khi ưu tiên trả nợ hay đầu tư, người trẻ cần thiết lập quỹ khẩn cấp tương đương 3 đến 6 tháng chi phí sinh hoạt tối thiểu.",
+      "quote": "Trước khi trả nợ hay đầu tư, hãy giữ lại một khoản tiền mặt tương đương 3 đến 6 tháng chi phí sinh hoạt tối thiểu.",
+      "url": "https://topi.vn",
+      "final_url": "https://topi.vn",
+      "status": 200,
+      "accessed_at": "2026-10-18 20:26:52",
+      "verified": false,
+      "needs_check": true,
+      "reasons": [
+        "the quote/numbers were not found in the page text"
+      ],
+      "decision": null
+    },
+    {
+      "id": "f2",
+      "claim": "Các khoản nợ có lãi suất cao như nợ thẻ tín dụng hay vay tiêu dùng bắt buộc phải được ưu tiên thanh toán dứt điểm trước khi nghĩ đến đầu tư.",
+      "quote": "Nếu khoản nợ của bạn có lãi suất từ 6% - 8%/năm trở lên (đặc biệt là nợ thẻ tín dụng 20–30%/năm, nợ tiêu dùng tín chấp), bạn bắt buộc phải trả trước.",
+      "url": "https://cafef.vn",
+      "final_url": "https://cafef.vn",
+      "status": 200,
+      "accessed_at": "2026-10-18 20:26:52",
+      "verified": true,
+      "needs_check": false,
+      "reasons": [],
+      "decision": null
+    },
+    {
+      "id": "f3",
+      "claim": "Lãi suất cho vay thế chấp cá nhân tại các ngân hàng thường dao động từ 5,5% đến 10%/năm trong giai đoạn ưu đãi và thả nổi lên mức 8,5% đến 12%/năm sau đó.",
+      "quote": "Mức lãi suất ưu đãi ban đầu: Dao động từ 5.5% – 10%/năm (thường cố định trong giai đoạn đầu từ 3 tháng đến 24 tháng tùy ngân hàng). Sau thời gian ưu đãi (lãi suất thả nổi): Thường dao động từ 8.5% – 12%/năm",
+      "url": "https://vpbank.com.vn",
+      "final_url": "https://www.vpbank.com.vn/",
+      "status": 200,
+      "accessed_at": "2026-10-18 20:26:52",
+      "verified": false,
+      "needs_check": true,
+      "reasons": [
+        "the quote/numbers were not found in the page text"
+      ],
+      "decision": null
+    },
+    {
+      "id": "f4",
+      "claim": "Lãi suất vay tín chấp cá nhân không tài sản đảm bảo tại các ngân hàng thường nằm trong khoảng từ 9% đến 24%/năm.",
+      "quote": "Vay tín chấp cá nhân: Mức lãi suất: Dao động khá rộng, phổ biến từ 9.0% – 24%/năm",
+      "url": "https://techcombank.com",
+      "final_url": "https://techcombank.com",
+      "status": 200,
+      "accessed_at": "2026-10-18 20:26:53",
+      "verified": false,
+      "needs_check": true,
+      "reasons": [
+        "the quote/numbers were not found in the page text"
+      ],
+      "decision": null
+    },
+    {
+      "id": "f5",
+      "claim": "Mức lợi nhuận kỳ vọng dài hạn của các quỹ mở cổ phiếu tại Việt Nam thường dao động từ 12% đến 15%/năm nhưng đi kèm rủi ro biến động ngắn hạn.",
+      "quote": "Bạn nên kỳ vọng một mức lợi nhuận kỳ vọng dài hạn từ 12-15%/năm thay vì kỳ vọng làm giàu nhanh bằng các con số siêu lợi nhuận ngắn hạn.",
+      "url": "https://fmarket.vn",
+      "final_url": "https://fmarket.vn",
+      "status": 200,
+      "accessed_at": "2026-10-18 20:26:54",
+      "verified": false,
+      "needs_check": true,
+      "reasons": [
+        "the quote/numbers were not found in the page text"
+      ],
+      "decision": null
+    },
+    {
+      "id": "f6",
+      "claim": "Trong trung và dài hạn từ 3 đến 5 năm, tỷ suất sinh lời trung bình kép của các quỹ mở cổ phiếu uy tín tại Việt Nam duy trì ổn định ở mức khoảng 10% đến 15%/năm.",
+      "quote": "tỷ suất sinh lời trung bình kép (CAGR) trong dài hạn của các quỹ mở cổ phiếu uy tín thường duy trì ổn định ở mức khoảng 10% – 15%/năm",
+      "url": "https://tapchikinhtetaichinh.vn",
+      "final_url": "https://tapchikinhtetaichinh.vn",
+      "status": 200,
+      "accessed_at": "2026-10-18 20:27:00",
+      "verified": true,
+      "needs_check": false,
+      "reasons": [],
+      "decision": null
+    },
+    {
+      "id": "f7",
+      "claim": "Phí phạt trả nợ trước hạn tại các ngân hàng thường tính theo tỷ lệ phần trăm nhân với số tiền gốc thực tế trả trước hạn.",
+      "quote": "Phí phạt trả nợ trước hạn = % Phí phạt x Số tiền gốc trả trước hạn",
+      "url": "https://vib.com.vn",
+      "final_url": "https://vib.com.vn",
+      "status": 0,
+      "accessed_at": "2026-10-18 20:27:00",
+      "verified": false,
+      "needs_check": true,
+      "reasons": [
+        "source page could not be opened"
+      ],
+      "decision": null
+    },
+    {
+      "id": "f8",
+      "claim": "Mức phí phạt tất toán trước hạn cho các khoản vay trung và dài hạn thường dao động từ 0,5% đến 3% và giảm dần theo số năm vay, nhiều nơi miễn phí từ năm thứ 4 hoặc thứ 5 trở đi.",
+      "quote": "Năm thứ 1: Khoảng 1,5% – 3%... Từ năm thứ 4 hoặc năm thứ 5 trở đi: Thường được miễn phí hoàn toàn (hoặc dao động ở mức rất thấp tùy ngân hàng).",
+      "url": "https://vietcombank.com.vn",
+      "final_url": "https://vietcombank.com.vn",
+      "status": 200,
+      "accessed_at": "2026-10-18 20:27:01",
+      "verified": false,
+      "needs_check": true,
+      "reasons": [
+        "the quote/numbers were not found in the page text"
+      ],
+      "decision": null
+    }
+  ],
+  "references": [],
+  "searched": true,
+  "created": "2026-10-18 20:25:53",
+  "model": "Gemini 3.8 Flash (Low)"
+}

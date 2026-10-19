@@ -1,0 +1,21 @@
+{
+  "scenes": [
+    {
+      "id": "s01",
+      "chars": 104,
+      "sec": 7.4,
+      "credits": 74
+    }
+  ],
+  "total": {
+    "chars": 104,
+    "sec": 7.4,
+    "credits": 74
+  },
+  "assumptions": {
+    "chars_per_sec": 15.28,
+    "credits_per_char": 0.716,
+    "basis": "25 real Edge-voice jobs (2778 chars, 1989 credits incl. word timings); 3059 chars over 200 s of speech",
+    "note": "estimate for the Edge voice incl. word timings; other voices/providers may price differently; credits, not money"
+  }
+}

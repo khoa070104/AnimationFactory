@@ -1,0 +1,17 @@
+[21:55:36] since approval: voice text changed -; scene data/timing changed (flag for re-review) -
+[21:55:38] scenes resolved: 1; total audio 7.4s
+[21:55:39] EffectCraft project built (0.4s)
+[21:55:39] REUSE s01: inputs unchanged, clip not re-rendered
+[21:55:43] assembled + exported in 3.9s -> D:\AnimationFactory\phase2\projects\_t_mai\output\_t_mai_v1_draft.mp4
+[21:55:43] PASS video 1920x1080 with audio
+[21:55:43] PASS duration within 5-30 s - 7.7s
+[21:55:43] PASS scene count within 1-3 - 1 scenes
+[21:55:43] PASS timeline has exactly one video and one audio clip per scene (no duplicates) - video 1, audio 1
+[21:55:43] PASS video clips are contiguous (no gaps/overlaps) - max |gap| 0.000s
+[21:55:43] PASS each voice clip starts `lead` s into its scene and ends inside it
+[21:55:43] PASS silence between scenes <= 0.85 s (<= 1.5 s after scenes that hold a chart/summary) - gaps []
+[21:55:43] PASS no speech trimmed: every voice clip keeps >= 0.1 s after the last word - []
+[21:55:43] PASS subtitles: inside scene, in order, no overlap, <= 56 chars
+[21:55:43] PASS all cue-driven actions/appear times fall inside their scene
+[21:56:01] PASS motion QA on all scenes (joint limits, no snaps/flips, arms never through torso)
+[21:56:01] DONE D:\AnimationFactory\phase2\projects\_t_mai\output\_t_mai_v1_draft.mp4 7.7s | rendered - | reused ['s01'] | log D:\AnimationFactory\phase2\projects\_t_mai\logs\build_20261018_215536.log

@@ -1,0 +1,188 @@
+{
+  "project": "ui_demo",
+  "title": "Quỹ khẩn cấp - bản thử qua giao diện",
+  "version": 3,
+  "audience": "người đi làm trẻ",
+  "message": "Thử quy trình qua giao diện: nhập, duyệt, dựng.",
+  "voice": {
+    "provider": "edge",
+    "voice_id": "edge_vi-VN-HoaiMyNeural",
+    "speed": 1.0
+  },
+  "timing": {
+    "lead": 0.15,
+    "tail": 0.3,
+    "word_pad": 0.15
+  },
+  "export": {
+    "fade_out": 0.4
+  },
+  "character": {
+    "shirt": "#3B6FD8"
+  },
+  "targets": {
+    "duration": [
+      10,
+      120
+    ],
+    "scenes": [
+      1,
+      12
+    ]
+  },
+  "scenes": [
+    {
+      "id": "a1",
+      "title": "Mở đầu",
+      "voice": "Quỹ khẩn cấp không làm bạn giàu lên, nhưng giúp một bất ngờ không biến thành khủng hoảng.",
+      "bg": "blue",
+      "bi": {
+        "x": 1380,
+        "y": 930,
+        "scale": 1.05,
+        "face": "happy",
+        "pose": "cheer"
+      },
+      "camera": "push_in",
+      "actions": [
+        {
+          "name": "cheer",
+          "cue": "không làm"
+        }
+      ],
+      "items": [
+        {
+          "type": "prop",
+          "img": "jar",
+          "x": 520,
+          "y": 640,
+          "scale": 1.6,
+          "appear": 0.3
+        },
+        {
+          "type": "text",
+          "text": "Quỹ khẩn cấp",
+          "x": 520,
+          "y": 250,
+          "size": 64,
+          "color": "good",
+          "appear": "Quỹ khẩn cấp"
+        }
+      ]
+    },
+    {
+      "id": "a2",
+      "title": "Bắt đầu nhỏ",
+      "voice": "Chưa đủ ngay cũng không sao. Hãy bắt đầu bằng mục tiêu nhỏ, như một tháng chi tiêu, rồi tăng dần.",
+      "bg": "cream",
+      "bi": {
+        "x": 500,
+        "y": 930,
+        "scale": 1.05,
+        "face": "neutral",
+        "pose": "point"
+      },
+      "camera": "pan_right",
+      "actions": [
+        {
+          "name": "point_seq",
+          "cues": [
+            "mục tiêu nhỏ",
+            "một tháng",
+            "tăng dần"
+          ],
+          "hold": 0.8
+        }
+      ],
+      "items": [
+        {
+          "type": "chart",
+          "x": 1340,
+          "y": 520,
+          "scale": 1.05,
+          "title": "Số tháng chi tiêu",
+          "unit_h": 40,
+          "appear": 0.3,
+          "bars": [
+            {
+              "label": "1 tháng",
+              "value": 1,
+              "text": "1",
+              "color": "teal",
+              "appear": "một tháng"
+            },
+            {
+              "label": "3 tháng",
+              "value": 3,
+              "text": "3",
+              "color": "blue",
+              "appear": "tăng dần"
+            },
+            {
+              "label": "6 tháng",
+              "value": 6,
+              "text": "6",
+              "color": "yellow",
+              "appear": "rồi tăng"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a3",
+      "title": "Kết",
+      "voice": "Từ hôm nay, hãy ghi lại từng khoản và chia lương ngay khi nhận. Tiền của bạn sẽ biết rõ chỗ đi nhé!",
+      "bg": "cream",
+      "bi": {
+        "x": 500,
+        "y": 930,
+        "scale": 1.05,
+        "face": "happy",
+        "pose": "cheer"
+      },
+      "camera": "pull_out",
+      "hold_after": 1.2,
+      "actions": [
+        {
+          "name": "nod",
+          "cue": "Từ hôm nay"
+        },
+        {
+          "name": "cheer",
+          "cue": "Tiền của bạn"
+        }
+      ],
+      "items": [
+        {
+          "type": "text",
+          "text": "1 · Ghi lại từng khoản",
+          "x": 1400,
+          "y": 380,
+          "size": 64,
+          "color": "dark",
+          "appear": "ghi lại"
+        },
+        {
+          "type": "text",
+          "text": "2 · Chia lương khi nhận",
+          "x": 1400,
+          "y": 500,
+          "size": 64,
+          "color": "dark",
+          "appear": "chia lương"
+        },
+        {
+          "type": "text",
+          "text": "3 · Tiết kiệm trước",
+          "x": 1400,
+          "y": 620,
+          "size": 64,
+          "color": "good",
+          "appear": "Tiền của bạn"
+        }
+      ],
+      "subtitles": "auto"
+    }
+  ]
+}

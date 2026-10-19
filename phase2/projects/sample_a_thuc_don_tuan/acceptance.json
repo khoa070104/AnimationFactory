@@ -1,0 +1,16 @@
+{
+  "criteria": {
+    "duration": [
+      60,
+      90
+    ],
+    "scenes": [
+      6,
+      10
+    ],
+    "cue_tolerance": 0.7
+  },
+  "locked_by": "first build",
+  "locked_at": "2026-10-19 23:21:42",
+  "history": []
+}

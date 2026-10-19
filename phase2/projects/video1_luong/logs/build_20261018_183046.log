@@ -1,0 +1,25 @@
+[18:30:46] since approval: voice text changed -; scene data/timing changed (flag for re-review) ['s03', 's05', 's06', 's07', 's09']
+[18:30:50] scenes resolved: 9; total audio 63.5s
+[18:30:52] EffectCraft project built (1.3s)
+[18:30:55] RENDER s01 (2.9s)
+[18:30:57] RENDER s02 (2.1s)
+[18:31:00] RENDER s03 (3.4s)
+[18:31:03] RENDER s04 (2.6s)
+[18:31:06] RENDER s05 (3.6s)
+[18:31:10] RENDER s06 (3.3s)
+[18:31:12] RENDER s07 (2.9s)
+[18:31:14] RENDER s08 (2.0s)
+[18:31:17] RENDER s09 (2.7s)
+[18:31:38] assembled + exported in 21.1s -> D:\AnimationFactory\phase2\projects\video1_luong\output\video1_luong_v2_preview.mp4
+[18:31:38] PASS video 1920x1080 with audio
+[18:31:38] PASS duration within 60-90 s - 64.8s
+[18:31:38] PASS scene count within 6-10 - 9 scenes
+[18:31:38] PASS timeline has exactly one video and one audio clip per scene (no duplicates) - video 9, audio 9
+[18:31:38] PASS video clips are contiguous (no gaps/overlaps) - max |gap| 0.000s
+[18:31:38] PASS each voice clip starts `lead` s into its scene and ends inside it
+[18:31:38] PASS silence between scenes <= 0.85 s (<= 1.5 s after scenes that hold a chart/summary) - gaps [0.68, 0.68, 1.26, 0.67, 1.06, 1.27, 1.28, 0.69]
+[18:31:38] PASS no speech trimmed: every voice clip keeps >= 0.1 s after the last word - []
+[18:31:38] PASS subtitles: inside scene, in order, no overlap, <= 56 chars
+[18:31:38] PASS all cue-driven actions/appear times fall inside their scene
+[18:32:33] PASS motion QA on all scenes (joint limits, no snaps/flips, arms never through torso)
+[18:32:33] DONE D:\AnimationFactory\phase2\projects\video1_luong\output\video1_luong_v2_preview.mp4 64.8s | rendered ['s01', 's02', 's03', 's04', 's05', 's06', 's07', 's08', 's09'] | reused - | log D:\AnimationFactory\phase2\projects\video1_luong\logs\build_20261018_183046.log

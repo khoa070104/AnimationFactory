@@ -1,0 +1,562 @@
+{
+  "project": "co_nen_tra_no_som_hay_dau_tu_t",
+  "title": "Có nên trả nợ sớm hay đầu tư thêm?",
+  "version": 2,
+  "status": "bản nháp do AI soạn - chờ duyệt",
+  "audience": "người đi làm trẻ, mới bắt đầu quản lý tiền",
+  "message": "So sánh lãi suất vay với mức sinh lời có thể đạt được, giữ quỹ khẩn cấp trước, rồi mới quyết định",
+  "voice": {
+    "provider": "edge",
+    "voice_id": "edge_vi-VN-HoaiMyNeural",
+    "speed": 1.0
+  },
+  "timing": {
+    "lead": 0.15,
+    "tail": 0.3,
+    "word_pad": 0.15
+  },
+  "export": {
+    "fade_out": 0.4
+  },
+  "character": {
+    "shirt": "#F26B21"
+  },
+  "targets": {
+    "duration": [
+      65,
+      85
+    ],
+    "scenes": [
+      6,
+      10
+    ]
+  },
+  "review_points": [
+    "Mạch kể và thứ tự các cảnh.",
+    "Lời đọc từng cảnh (đây là văn bản sẽ gửi API giọng đọc).",
+    "Thông tin cần kiểm chứng (nếu có).",
+    "Hình ảnh, hành động từng cảnh."
+  ],
+  "scenes": [
+    {
+      "id": "s01",
+      "title": "Tình huống quen thuộc",
+      "voice": "Tháng này Bi vừa có một khoản tiền dư. Và ngay lập tức câu hỏi xuất hiện: trả nợ trước, hay đem đầu tư luôn cho sinh lời?",
+      "subtitles": "auto",
+      "bg": "cream",
+      "transition": "cut",
+      "bi": {
+        "face": "thinking",
+        "pose": "idle",
+        "scale": 1.05,
+        "x": 500,
+        "y": 930
+      },
+      "actions": [
+        {
+          "at": 0,
+          "name": "enter"
+        },
+        {
+          "cue": "câu hỏi xuất hiện",
+          "hold": 2,
+          "name": "cheek"
+        }
+      ],
+      "face_cues": [
+        {
+          "cue": "trả nợ trước",
+          "face": "worried"
+        }
+      ],
+      "items": [
+        {
+          "appear": "khoản tiền dư",
+          "img": "arrow_down",
+          "rot": 90,
+          "scale": 1.1,
+          "type": "prop",
+          "x": 1050,
+          "y": 480
+        },
+        {
+          "appear": "trả nợ trước",
+          "color": "bad",
+          "size": 58,
+          "text": "TRẢ NỢ",
+          "type": "text",
+          "x": 1050,
+          "y": 620
+        },
+        {
+          "appear": "khoản tiền dư",
+          "img": "arrow_down",
+          "rot": -90,
+          "scale": 1.1,
+          "type": "prop",
+          "x": 1480,
+          "y": 480
+        },
+        {
+          "appear": "đem đầu tư luôn",
+          "color": "good",
+          "size": 58,
+          "text": "ĐẦU TƯ",
+          "type": "text",
+          "x": 1480,
+          "y": 620
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "title": "Câu hỏi cần trả lời đầu tiên",
+      "voice": "Trước khi quyết định, hãy hỏi một câu thôi: lãi suất khoản nợ của mình là bao nhiêu mỗi năm?",
+      "subtitles": "auto",
+      "bg": "cream",
+      "transition": "cut",
+      "bi": {
+        "face": "thinking",
+        "pose": "cheek",
+        "scale": 1.05,
+        "x": 500,
+        "y": 930
+      },
+      "actions": [
+        {
+          "cue": "hỏi một câu thôi",
+          "name": "shrug"
+        },
+        {
+          "cue": "lãi suất khoản nợ",
+          "hold": 2.5,
+          "name": "point"
+        }
+      ],
+      "face_cues": [
+        {
+          "cue": "Trước khi quyết định",
+          "face": "neutral"
+        },
+        {
+          "cue": "lãi suất khoản nợ",
+          "face": "thinking"
+        }
+      ],
+      "items": [
+        {
+          "appear": "hỏi một câu thôi",
+          "img": "bill",
+          "scale": 1,
+          "type": "prop",
+          "x": 1280,
+          "y": 480
+        },
+        {
+          "appear": "lãi suất khoản nợ",
+          "color": "dark",
+          "size": 64,
+          "text": "Lãi suất vay = ?",
+          "type": "text",
+          "x": 1280,
+          "y": 310
+        },
+        {
+          "appear": "lãi suất khoản nợ",
+          "img": "exclaim",
+          "scale": 0.85,
+          "type": "prop",
+          "x": 1530,
+          "y": 330
+        }
+      ]
+    },
+    {
+      "id": "s03",
+      "title": "Nợ lãi cao thì trả trước",
+      "voice": "Nợ thẻ tín dụng hay vay tiêu dùng thường có mức lãi cực kỳ cao. Với những khoản này, trả nợ chính là khoản đầu tư sinh lời chắc nhất bạn có thể làm.",
+      "subtitles": "auto",
+      "bg": "cream",
+      "transition": "cut",
+      "bi": {
+        "face": "worried",
+        "pose": "cheek_b",
+        "scale": 1.05,
+        "x": 500,
+        "y": 930
+      },
+      "actions": [
+        {
+          "cue": "lãi cực kỳ cao",
+          "hold": 1.5,
+          "name": "cheek"
+        },
+        {
+          "cue": "khoản đầu tư sinh lời chắc nhất",
+          "hold": 1.2,
+          "name": "cheer"
+        }
+      ],
+      "face_cues": [
+        {
+          "cue": "lãi cực kỳ cao",
+          "face": "worried"
+        },
+        {
+          "cue": "sinh lời chắc nhất",
+          "face": "happy"
+        }
+      ],
+      "items": [
+        {
+          "appear": "Nợ thẻ tín dụng",
+          "img": "card",
+          "scale": 1.05,
+          "type": "prop",
+          "x": 1100,
+          "y": 500
+        },
+        {
+          "appear": "lãi cực kỳ cao",
+          "img": "sweat",
+          "scale": 0.9,
+          "type": "prop",
+          "x": 1100,
+          "y": 340
+        },
+        {
+          "appear": "vay tiêu dùng",
+          "img": "bill",
+          "scale": 1,
+          "type": "prop",
+          "x": 1420,
+          "y": 500
+        },
+        {
+          "appear": "khoản đầu tư sinh lời chắc nhất",
+          "color": "good",
+          "size": 52,
+          "text": "Trả nợ = Đầu tư tốt nhất!",
+          "type": "text",
+          "x": 1280,
+          "y": 710
+        }
+      ]
+    },
+    {
+      "id": "s04",
+      "title": "So sánh hai con số",
+      "voice": "Nguyên tắc đơn giản thế này: nếu lãi vay cao hơn mức sinh lời bạn kỳ vọng, hãy ưu tiên trả nợ. Nếu lãi vay thấp hơn, bạn mới nên tính đến đầu tư.",
+      "subtitles": "auto",
+      "bg": "cream",
+      "transition": "cut",
+      "bi": {
+        "face": "neutral",
+        "pose": "point",
+        "scale": 1.05,
+        "x": 500,
+        "y": 930
+      },
+      "actions": [
+        {
+          "cues": [
+            "lãi vay cao hơn",
+            "lãi vay thấp hơn"
+          ],
+          "hold": 1,
+          "name": "point_seq"
+        }
+      ],
+      "face_cues": [
+        {
+          "cue": "ưu tiên trả nợ",
+          "face": "happy"
+        },
+        {
+          "cue": "tính đến đầu tư",
+          "face": "happy"
+        }
+      ],
+      "items": [
+        {
+          "appear": 0.3,
+          "bars": [
+            {
+              "appear": "lãi vay cao hơn",
+              "color": "red",
+              "label": "Lãi vay",
+              "text": "12%",
+              "value": 12
+            },
+            {
+              "appear": "mức sinh lời bạn kỳ vọng",
+              "color": "teal",
+              "label": "Sinh lời kỳ vọng",
+              "text": "8%",
+              "value": 8
+            }
+          ],
+          "scale": 1,
+          "title": "So sánh (%/năm)",
+          "type": "chart",
+          "unit_h": 18,
+          "x": 1260,
+          "y": 530
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "title": "Quỹ khẩn cấp phải có trước",
+      "voice": "Nhưng dù lãi vay thấp đến đâu, bạn cũng cần giữ lại một khoản dự phòng. Thường là ba đến sáu tháng chi tiêu, để phòng khi thu nhập bị gián đoạn.",
+      "subtitles": "auto",
+      "bg": "cream",
+      "transition": "cut",
+      "bi": {
+        "face": "neutral",
+        "pose": "idle",
+        "scale": 1.05,
+        "x": 500,
+        "y": 930
+      },
+      "actions": [
+        {
+          "cue": "cần giữ lại",
+          "name": "nod"
+        },
+        {
+          "cue": "ba đến sáu tháng",
+          "hold": 2,
+          "name": "point"
+        }
+      ],
+      "face_cues": [
+        {
+          "cue": "phòng khi thu nhập",
+          "face": "worried"
+        },
+        {
+          "cue": "ba đến sáu tháng",
+          "face": "happy"
+        }
+      ],
+      "items": [
+        {
+          "appear": "khoản dự phòng",
+          "img": "jar",
+          "scale": 1.1,
+          "type": "prop",
+          "x": 1150,
+          "y": 490
+        },
+        {
+          "amount": "3–6 tháng chi tiêu",
+          "appear": "ba đến sáu tháng",
+          "caption": "Quỹ khẩn cấp",
+          "type": "notice",
+          "x": 1400,
+          "y": 430
+        },
+        {
+          "appear": "ba đến sáu tháng",
+          "img": "sparkle",
+          "scale": 0.85,
+          "type": "prop",
+          "x": 1480,
+          "y": 300
+        }
+      ]
+    },
+    {
+      "id": "s06",
+      "title": "Ví dụ cụ thể",
+      "voice": "Ví dụ: bạn đang vay với lãi suất tám phần trăm mỗi năm. Nếu kênh bạn định đầu tư chỉ kỳ vọng năm đến sáu phần trăm, trả nợ trước là hợp lý hơn.",
+      "subtitles": "auto",
+      "bg": "cream",
+      "transition": "cut",
+      "bi": {
+        "face": "thinking",
+        "pose": "nod_a",
+        "scale": 1.05,
+        "x": 500,
+        "y": 930
+      },
+      "actions": [
+        {
+          "cue": "tám phần trăm",
+          "hold": 1.5,
+          "name": "point"
+        },
+        {
+          "cue": "Trả nợ trước là hợp lý",
+          "name": "nod"
+        }
+      ],
+      "face_cues": [
+        {
+          "cue": "chỉ kỳ vọng năm đến sáu",
+          "face": "surprised"
+        },
+        {
+          "cue": "hợp lý hơn",
+          "face": "happy"
+        }
+      ],
+      "items": [
+        {
+          "amount": "8%/năm",
+          "appear": "tám phần trăm",
+          "head": "Ví dụ tính toán",
+          "scale": 0.95,
+          "title": "Lãi vay",
+          "type": "bill",
+          "x": 1100,
+          "y": 470
+        },
+        {
+          "amount": "5–6%/năm",
+          "appear": "năm đến sáu phần trăm",
+          "head": "Ví dụ tính toán",
+          "scale": 0.95,
+          "title": "Sinh lời kỳ vọng",
+          "type": "bill",
+          "x": 1430,
+          "y": 470
+        },
+        {
+          "appear": "Trả nợ trước là hợp lý",
+          "color": "bad",
+          "size": 56,
+          "text": "→ Trả nợ trước!",
+          "type": "text",
+          "x": 1265,
+          "y": 700
+        }
+      ]
+    },
+    {
+      "id": "s07",
+      "title": "Khi nào có thể cân bằng cả hai",
+      "voice": "Nếu lãi vay của bạn thấp, chẳng hạn dưới năm phần trăm, thì vừa trả nợ đúng kỳ hạn vừa bắt đầu tích lũy đều đặn mỗi tháng cũng là một lựa chọn hợp lý.",
+      "subtitles": "auto",
+      "bg": "cream",
+      "transition": "cut",
+      "bi": {
+        "face": "happy",
+        "pose": "idle",
+        "scale": 1.05,
+        "x": 500,
+        "y": 930
+      },
+      "actions": [
+        {
+          "cues": [
+            "vừa trả nợ đúng kỳ hạn",
+            "bắt đầu tích lũy đều đặn"
+          ],
+          "hold": 1,
+          "name": "point_seq"
+        },
+        {
+          "cue": "lựa chọn hợp lý",
+          "hold": 1,
+          "name": "cheer"
+        }
+      ],
+      "face_cues": [
+        {
+          "cue": "dưới năm phần trăm",
+          "face": "happy"
+        }
+      ],
+      "items": [
+        {
+          "appear": "vừa trả nợ đúng kỳ hạn",
+          "img": "coin",
+          "scale": 1.05,
+          "type": "prop",
+          "x": 1100,
+          "y": 460
+        },
+        {
+          "appear": "vừa trả nợ đúng kỳ hạn",
+          "color": "bi",
+          "size": 50,
+          "text": "Trả nợ",
+          "type": "text",
+          "x": 1100,
+          "y": 650
+        },
+        {
+          "appear": "bắt đầu tích lũy đều đặn",
+          "img": "jar",
+          "scale": 1.05,
+          "type": "prop",
+          "x": 1490,
+          "y": 460
+        },
+        {
+          "appear": "bắt đầu tích lũy đều đặn",
+          "color": "good",
+          "size": 50,
+          "text": "Tích lũy",
+          "type": "text",
+          "x": 1490,
+          "y": 650
+        }
+      ]
+    },
+    {
+      "id": "s08",
+      "title": "Takeaway và lời kết",
+      "voice": "Tóm lại: giữ quỹ khẩn cấp trước, rồi so sánh lãi vay với mức sinh lời bạn thực sự kỳ vọng. Không cần giỏi toán, chỉ cần biết hai con số đó là bạn đã chủ động hơn rồi.",
+      "subtitles": "auto",
+      "bg": "cream",
+      "transition": "fade-out",
+      "bi": {
+        "face": "happy",
+        "pose": "cheer",
+        "scale": 1.05,
+        "x": 500,
+        "y": 930
+      },
+      "actions": [
+        {
+          "cue": "Tóm lại",
+          "hold": 1.2,
+          "name": "cheer"
+        },
+        {
+          "cue": "chủ động hơn rồi",
+          "name": "nod"
+        }
+      ],
+      "face_cues": [
+        {
+          "cue": "biết hai con số đó",
+          "face": "happy"
+        }
+      ],
+      "items": [
+        {
+          "appears": [
+            "giữ quỹ khẩn cấp trước",
+            "so sánh lãi vay",
+            "thực sự kỳ vọng"
+          ],
+          "gap": 110,
+          "size": 48,
+          "texts": [
+            "① Giữ Quỹ khẩn cấp",
+            "② So sánh lãi vay",
+            "③ Quyết định hợp lý"
+          ],
+          "type": "pills",
+          "x": 1260,
+          "y": 370
+        }
+      ]
+    }
+  ],
+  "origin": "ai"
+}

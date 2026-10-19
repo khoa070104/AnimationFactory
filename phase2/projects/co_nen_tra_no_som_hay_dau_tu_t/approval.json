@@ -1,0 +1,43 @@
+{
+  "scenes": {
+    "s01": {
+      "voice_sha256": "64edcbf27caab68a1595badbca94db4aac590ab86847ecd7cf0d8626bbc88838"
+    },
+    "s02": {
+      "voice_sha256": "2660684a9e871a9ad90377fc48b739c8d0097e94c6166777024eeda1170b2858"
+    },
+    "s03": {
+      "voice_sha256": "cf1d33d9de22d5d48be079407882760a0ea517972b9e8867158c86761bce5c72"
+    },
+    "s04": {
+      "voice_sha256": "9c4cae4c68c84a72db946b1a30a03cfdc0187d2f900760eceb845339bf655da8"
+    },
+    "s05": {
+      "voice_sha256": "4ad907e5b82f55d2eac5a67648a5e0f52ba3927399168e42edd5d373bd27667c"
+    },
+    "s06": {
+      "voice_sha256": "abc992951e966dc1425badbb39611b089efdcd9bd74e3c72becc2bad38b1d8cc"
+    },
+    "s07": {
+      "voice_sha256": "10303ad647d5a2abdcbd9bb6ce7dada309077045cd6cab901cac75b60da739ea"
+    },
+    "s08": {
+      "voice_sha256": "cc4a95fb1c7c6e0f7e05e3d02083e1ec3eb0bc56b8370e272edc34f8531fcc16"
+    }
+  },
+  "kinds": {
+    "script": {
+      "version": 2,
+      "by": "Khoa",
+      "on": "2026-10-18",
+      "note": ""
+    }
+  },
+  "project": "co_nen_tra_no_som_hay_dau_tu_t",
+  "storyboard_version": 2,
+  "approved_by": "Khoa",
+  "approved_on": "2026-10-18",
+  "note": "",
+  "recorded_by": "ghi nhận qua công cụ theo người duyệt",
+  "scope": "nội dung (lời đọc, cảnh, số liệu) và giọng đọc/tốc độ; chưa gồm chuyển động và video"
+}

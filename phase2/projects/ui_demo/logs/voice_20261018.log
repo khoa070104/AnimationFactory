@@ -1,0 +1,13 @@
+[18:15:26] plan: 0 scene(s) to generate (0 chars, est. ~0 credits), 3 from the shared voice cache (no API call), 0 unchanged (no API call)
+[18:15:27] CACHE-HIT a1: reused stored audio, no API call. 18 words | last word 4.30s, audio 5.10s
+[18:15:27] CACHE-HIT a2: reused stored audio, no API call. 21 words | last word 6.34s, audio 7.17s
+[18:15:28] CACHE-HIT a3: reused stored audio, no API call. 22 words | last word 6.19s, audio 7.00s
+[18:34:26] plan: 0 scene(s) to generate (0 chars, est. ~0 credits), 0 from the shared voice cache (no API call), 3 unchanged (no API call)
+[18:34:26] SKIP a1: text/voice/speed unchanged, reusing audio (no API call)
+[18:34:26] SKIP a2: text/voice/speed unchanged, reusing audio (no API call)
+[18:34:26] SKIP a3: text/voice/speed unchanged, reusing audio (no API call)
+[18:47:05] plan: 0 scene(s) to generate (0 chars, est. ~0 credits), 0 from the shared voice cache (no API call), 3 unchanged (no API call)
+[19:29:46] plan: 0 scene(s) to generate (0 chars, est. ~0 credits), 0 from the shared voice cache (no API call), 3 unchanged (no API call)
+[19:29:47] SKIP a1: text/voice/speed unchanged, reusing audio (no API call)
+[19:29:47] SKIP a2: text/voice/speed unchanged, reusing audio (no API call)
+[19:29:47] SKIP a3: text/voice/speed unchanged, reusing audio (no API call)

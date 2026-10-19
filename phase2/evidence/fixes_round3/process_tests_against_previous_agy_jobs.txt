@@ -1,0 +1,7 @@
+test_job_processes.py run against the previous agy_jobs.py (D:\Downloads, before the cross-process fix)
+== test_other_process_sees_running_and_cannot_interrupt_or_restart
+AssertionError: 'interrupted' != 'running'
+FAILED (failures=1)
+== test_two_processes_submitting_at_once_start_one_run
+AssertionError: 2 != 1 : exactly one of the two processes owns and runs the job
+FAILED (failures=1)

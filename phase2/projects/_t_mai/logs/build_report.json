@@ -1,0 +1,62 @@
+{
+  "checks": [
+    {
+      "name": "video 1920x1080 with audio",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "duration within 5-30 s",
+      "pass": true,
+      "info": "7.7s"
+    },
+    {
+      "name": "scene count within 1-3",
+      "pass": true,
+      "info": "1 scenes"
+    },
+    {
+      "name": "timeline has exactly one video and one audio clip per scene (no duplicates)",
+      "pass": true,
+      "info": "video 1, audio 1"
+    },
+    {
+      "name": "video clips are contiguous (no gaps/overlaps)",
+      "pass": true,
+      "info": "max |gap| 0.000s"
+    },
+    {
+      "name": "each voice clip starts `lead` s into its scene and ends inside it",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "silence between scenes <= 0.85 s (<= 1.5 s after scenes that hold a chart/summary)",
+      "pass": true,
+      "info": "gaps []"
+    },
+    {
+      "name": "no speech trimmed: every voice clip keeps >= 0.1 s after the last word",
+      "pass": true,
+      "info": "[]"
+    },
+    {
+      "name": "subtitles: inside scene, in order, no overlap, <= 56 chars",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "all cue-driven actions/appear times fall inside their scene",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "motion QA on all scenes (joint limits, no snaps/flips, arms never through torso)",
+      "pass": true,
+      "info": ""
+    }
+  ],
+  "starts": [
+    0.0
+  ]
+}

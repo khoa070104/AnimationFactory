@@ -1,0 +1,22 @@
+{
+  "note": "Generic examples of valid scenes (data only). They show how cues, items and actions fit together; the content is illustrative.",
+  "scenes": [
+    {"id": "e1", "title": "Mở đầu bằng một tình huống", "voice": "Bạn có bao giờ mở ví ra và thấy tiền vơi nhanh hơn mình nghĩ không?",
+     "bg": "cream", "bi": {"x": 500, "y": 930, "scale": 1.05, "face": "worried", "pose": "idle"},
+     "actions": [{"name": "enter", "at": 0.0}, {"name": "cheek", "cue": "tiền vơi", "hold": 1.0}],
+     "face_cues": [{"cue": "nhanh hơn", "face": "surprised"}],
+     "items": [{"type": "prop", "img": "wallet", "x": 1400, "y": 560, "scale": 1.0, "appear": "mở ví"},
+               {"type": "text", "text": "Tiền đi đâu?", "x": 1400, "y": 330, "size": 64, "color": "dark", "appear": "tiền vơi"}]},
+    {"id": "e2", "title": "So sánh bằng biểu đồ", "voice": "Nếu chi tiêu thiết yếu là mười triệu thì ba tháng là ba mươi triệu, sáu tháng là sáu mươi triệu.",
+     "bg": "cream", "bi": {"x": 500, "y": 930, "scale": 1.05, "face": "neutral", "pose": "point"},
+     "actions": [{"name": "point_seq", "cues": ["ba tháng", "sáu tháng"], "hold": 0.8}], "hold_after": 0.8,
+     "items": [{"type": "chart", "x": 1340, "y": 520, "scale": 1.05, "title": "Số tiền cần có (triệu)", "unit_h": 8, "appear": 0.3,
+                "bars": [{"label": "3 tháng", "value": 30, "text": "30", "color": "teal", "appear": "ba tháng"},
+                         {"label": "6 tháng", "value": 60, "text": "60", "color": "blue", "appear": "sáu tháng"}]}]},
+    {"id": "e3", "title": "Tóm tắt các bước", "voice": "Tóm lại có ba việc: ghi lại chi tiêu, chia tiền ngay khi nhận, và xem lại mỗi tháng.",
+     "bg": "blue", "bi": {"x": 500, "y": 930, "scale": 1.05, "face": "happy", "pose": "idle"},
+     "actions": [{"name": "cheer", "cue": "ba việc", "hold": 0.8}, {"name": "nod", "cue": "xem lại"}],
+     "items": [{"type": "pills", "x": 1380, "y": 430, "gap": 130, "size": 50, "texts": ["Ghi lại chi tiêu", "Chia tiền ngay", "Xem lại mỗi tháng"],
+                "appears": ["ghi lại chi tiêu", "chia tiền ngay", "xem lại mỗi tháng"]}]}
+  ]
+}

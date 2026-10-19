@@ -1,0 +1,41 @@
+{
+  "project": "gate1_hoc_bai",
+  "storyboard_version": 1,
+  "state": "draft_built",
+  "approved": {},
+  "voice_generated": false,
+  "api_calls": 0,
+  "credits_spent": 0,
+  "steps": {
+    "validate": {
+      "state": "ok",
+      "seconds": 0.2
+    },
+    "storyboard": {
+      "state": "ok",
+      "seconds": 3.4
+    },
+    "voice": {
+      "state": "pending"
+    },
+    "video": {
+      "state": "ok",
+      "seconds": 34.5
+    }
+  },
+  "code_hash": "36b98dea55818428",
+  "last_build": {
+    "renderer": "remotion",
+    "draft": true,
+    "output": "D:\\AnimationFactory\\phase2\\projects\\gate1_hoc_bai\\output\\gate1_hoc_bai_v5_draft.mp4",
+    "seconds": 36.4,
+    "rendered": [
+      "s01",
+      "s02",
+      "s03"
+    ],
+    "reused": [],
+    "built_in_s": 34.3,
+    "placeholders": []
+  }
+}

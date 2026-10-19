@@ -1,0 +1,98 @@
+{
+  "id": "minh",
+  "kinds": [
+    "happy",
+    "neutral",
+    "worried",
+    "surprised",
+    "thinking"
+  ],
+  "handK": 1.12,
+  "height": 540,
+  "scale": 0.16486,
+  "shadow": {
+    "img": "ch_minh_shadow",
+    "pivot": [
+      96.88,
+      15.5
+    ]
+  },
+  "leg": {
+    "img": "ch_minh_leg",
+    "pivot": [
+      42.12,
+      36.88
+    ]
+  },
+  "torso": {
+    "img": "ch_minh_torso",
+    "pivot": [
+      71.47,
+      203.09
+    ]
+  },
+  "armUpper": {
+    "img": "ch_minh_arm_upper",
+    "pivot": [
+      16.13,
+      12.7
+    ]
+  },
+  "armLower": {
+    "img": "ch_minh_arm_lower",
+    "pivot": [
+      11.86,
+      10.98
+    ]
+  },
+  "head": null,
+  "face": {
+    "pattern": "ch_minh_face_{k}",
+    "pivot": [
+      47.23,
+      110.34
+    ]
+  },
+  "armScale": 0.5947,
+  "hip": {
+    "x": 46.33,
+    "y": -226.57
+  },
+  "waistY": -226.57,
+  "shoulder": {
+    "x": 61.46,
+    "y": -165.56
+  },
+  "L1": 84.81,
+  "L2": 105.59,
+  "neck": {
+    "y": -198.68
+  },
+  "parts": {
+    "torso": [
+      867,
+      1339
+    ],
+    "arm_upper": [
+      300,
+      1124
+    ],
+    "arm_lower": [
+      299,
+      1321
+    ],
+    "leg": [
+      511,
+      1598
+    ],
+    "head": [
+      573,
+      712
+    ]
+  },
+  "sources": {
+    "parts": "84194bc283171f4e32660c66482e561dedf2b241e90dd32b52e3e0016638dd01",
+    "faces": "60986e6de7de76c079643fed5ec683fc2c18d68849950be4ea045a0e3e9c8ebf"
+  },
+  "built": "2026-10-19 10:50:47"
+}

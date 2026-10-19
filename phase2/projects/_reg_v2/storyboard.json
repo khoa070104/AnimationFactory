@@ -1,0 +1,586 @@
+{
+  "project": "_reg_v2",
+  "title": "Quỹ khẩn cấp là gì, nên có bao nhiêu?",
+  "version": 3,
+  "status": "v3 - cảnh 6 dùng heo đất do Antigravity tạo (piggy_ai, đã duyệt)",
+  "audience": "người đi làm trẻ",
+  "message": "Quỹ khẩn cấp là khoản tiền để riêng cho việc không báo trước; khung tham khảo là ba đến sáu tháng chi tiêu thiết yếu, điều chỉnh theo hoàn cảnh.",
+  "voice": {
+    "provider": "edge",
+    "voice_id": "edge_vi-VN-HoaiMyNeural",
+    "speed": 1.0
+  },
+  "timing": {
+    "lead": 0.15,
+    "tail": 0.3,
+    "word_pad": 0.15
+  },
+  "export": {
+    "fade_out": 0.4
+  },
+  "character": {
+    "shirt": "#F26B21"
+  },
+  "review_points": [
+    "Mạch kể: bất ngờ (hỏng máy giặt) → cách xoay xở thường gặp → quỹ khẩn cấp là gì → nên có bao nhiêu → ví dụ → bắt đầu nhỏ → cách làm → kết.",
+    "Khung tham khảo 'ba đến sáu tháng chi tiêu thiết yếu' (nhiều hơn nếu thu nhập không ổn định): đúng ý, hay muốn diễn đạt khác?",
+    "Số liệu minh họa: sửa máy giặt 2 triệu; chi tiêu thiết yếu 8 triệu/tháng → 24 triệu (3 tháng), 48 triệu (6 tháng).",
+    "Lời đọc từng cảnh (đây là văn bản sẽ gửi API) và giọng đọc HoaiMy."
+  ],
+  "scenes": [
+    {
+      "id": "s01",
+      "title": "Máy giặt hỏng",
+      "voice": "Sáng nay máy giặt hỏng, thợ báo sửa hết hai triệu. Mà cuối tháng rồi, ví mình gần như trống!",
+      "subtitles": [
+        "Sáng nay máy giặt hỏng,",
+        "thợ báo sửa hết hai triệu.",
+        "Mà cuối tháng rồi,",
+        "ví mình gần như trống!"
+      ],
+      "bg": "blue",
+      "transition": "cut",
+      "bi": {
+        "x": 1380,
+        "y": 930,
+        "scale": 1.05,
+        "face": "surprised",
+        "pose": "shrug"
+      },
+      "actions": [
+        {
+          "name": "shrug",
+          "cue": "hỏng"
+        }
+      ],
+      "face_cues": [],
+      "items": [
+        {
+          "type": "bill",
+          "x": 520,
+          "y": 470,
+          "scale": 1.3,
+          "rot": -4,
+          "head": "HÓA ĐƠN",
+          "title": "Sửa máy giặt",
+          "amount": "2.000.000đ",
+          "appear": "máy giặt"
+        },
+        {
+          "type": "prop",
+          "img": "exclaim",
+          "x": 930,
+          "y": 260,
+          "scale": 1.3,
+          "rot": 8,
+          "appear": "sửa hết"
+        },
+        {
+          "type": "prop",
+          "img": "wallet",
+          "x": 900,
+          "y": 780,
+          "scale": 1.2,
+          "appear": "ví mình"
+        },
+        {
+          "type": "text",
+          "text": "Ví gần như trống",
+          "x": 900,
+          "y": 940,
+          "size": 44,
+          "color": "bad",
+          "appear": "gần như trống"
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "title": "Cách xoay xở thường gặp",
+      "voice": "Nhiều người sẽ quẹt thẻ tín dụng hoặc vay bạn bè. Việc trước mắt xong, nhưng một khoản nợ mới xuất hiện.",
+      "subtitles": [
+        "Nhiều người sẽ quẹt thẻ tín dụng",
+        "hoặc vay bạn bè.",
+        "Việc trước mắt xong,",
+        "nhưng một khoản nợ mới xuất hiện."
+      ],
+      "bg": "cream",
+      "transition": "slide-left",
+      "bi": {
+        "x": 500,
+        "y": 930,
+        "scale": 1.05,
+        "face": "worried",
+        "pose": "cheek"
+      },
+      "actions": [
+        {
+          "name": "shrug",
+          "cue": "Nhiều người"
+        }
+      ],
+      "face_cues": [],
+      "items": [
+        {
+          "type": "pills",
+          "x": 1340,
+          "y": 330,
+          "gap": 150,
+          "texts": [
+            "Quẹt thẻ tín dụng",
+            "Vay bạn bè",
+            "Thêm một khoản nợ"
+          ],
+          "appears": [
+            "quẹt thẻ",
+            "vay bạn bè",
+            "nợ mới"
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Nợ mới",
+          "x": 1340,
+          "y": 800,
+          "size": 64,
+          "color": "bad",
+          "appear": "xuất hiện"
+        }
+      ]
+    },
+    {
+      "id": "s03",
+      "title": "Quỹ khẩn cấp là gì",
+      "voice": "Quỹ khẩn cấp là khoản tiền để riêng cho việc không báo trước, như mất việc, ốm đau hay sửa chữa đột xuất.",
+      "subtitles": [
+        "Quỹ khẩn cấp là khoản tiền để riêng",
+        "cho việc không báo trước,",
+        "như mất việc, ốm đau",
+        "hay sửa chữa đột xuất."
+      ],
+      "bg": "cream",
+      "transition": "slide-left",
+      "bi": {
+        "x": 1560,
+        "y": 930,
+        "scale": 1.05,
+        "face": "happy",
+        "pose": "idle"
+      },
+      "actions": [
+        {
+          "name": "nod",
+          "cue": "Quỹ khẩn cấp"
+        }
+      ],
+      "face_cues": [],
+      "items": [
+        {
+          "type": "prop",
+          "img": "jar",
+          "x": 420,
+          "y": 640,
+          "scale": 1.5,
+          "appear": 0.3
+        },
+        {
+          "type": "text",
+          "text": "Quỹ khẩn cấp",
+          "x": 420,
+          "y": 250,
+          "size": 64,
+          "color": "good",
+          "appear": "Quỹ khẩn cấp"
+        },
+        {
+          "type": "pills",
+          "x": 1060,
+          "y": 330,
+          "gap": 150,
+          "texts": [
+            "Mất việc",
+            "Ốm đau",
+            "Sửa chữa đột xuất"
+          ],
+          "appears": [
+            "mất việc",
+            "ốm đau",
+            "sửa chữa"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s04",
+      "title": "Nên có bao nhiêu",
+      "voice": "Khung tham khảo là chi tiêu thiết yếu của ba đến sáu tháng. Thu nhập không ổn định thì nên giữ nhiều hơn.",
+      "subtitles": [
+        "Khung tham khảo là chi tiêu thiết yếu",
+        "của ba đến sáu tháng.",
+        "Thu nhập không ổn định",
+        "thì nên giữ nhiều hơn."
+      ],
+      "bg": "cream",
+      "transition": "slide-left",
+      "bi": {
+        "x": 500,
+        "y": 930,
+        "scale": 1.05,
+        "face": "neutral",
+        "pose": "point"
+      },
+      "actions": [
+        {
+          "name": "point_seq",
+          "cues": [
+            "ba đến",
+            "sáu tháng"
+          ],
+          "hold": 0.8
+        }
+      ],
+      "face_cues": [],
+      "hold_after": 0.9,
+      "items": [
+        {
+          "type": "chart",
+          "x": 1340,
+          "y": 520,
+          "scale": 1.05,
+          "title": "Số tháng chi tiêu",
+          "unit_h": 36,
+          "appear": 0.3,
+          "bars": [
+            {
+              "label": "3 tháng",
+              "value": 3,
+              "text": "3",
+              "color": "teal",
+              "appear": "ba đến"
+            },
+            {
+              "label": "6 tháng",
+              "value": 6,
+              "text": "6",
+              "color": "blue",
+              "appear": "sáu tháng"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s04b",
+      "title": "Chi tiêu thiết yếu gồm gì",
+      "voice": "Chi tiêu thiết yếu là những khoản không thể bỏ: tiền nhà, ăn uống, điện nước, đi lại và thuốc men.",
+      "subtitles": [
+        "Chi tiêu thiết yếu là những khoản",
+        "không thể bỏ: tiền nhà, ăn uống,",
+        "điện nước, đi lại và thuốc men."
+      ],
+      "bg": "cream",
+      "transition": "slide-left",
+      "bi": {
+        "x": 500,
+        "y": 930,
+        "scale": 1.05,
+        "face": "neutral",
+        "pose": "point"
+      },
+      "actions": [
+        {
+          "name": "point_seq",
+          "cues": [
+            "tiền nhà",
+            "ăn uống",
+            "điện nước",
+            "đi lại",
+            "thuốc men"
+          ],
+          "hold": 0.6
+        }
+      ],
+      "face_cues": [],
+      "items": [
+        {
+          "type": "text",
+          "text": "Chi tiêu thiết yếu",
+          "x": 1340,
+          "y": 170,
+          "size": 64,
+          "color": "dark",
+          "appear": "Chi tiêu thiết yếu"
+        },
+        {
+          "type": "pills",
+          "x": 1340,
+          "y": 300,
+          "gap": 125,
+          "texts": [
+            "Tiền nhà",
+            "Ăn uống",
+            "Điện nước",
+            "Đi lại",
+            "Thuốc men"
+          ],
+          "appears": [
+            "tiền nhà",
+            "ăn uống",
+            "điện nước",
+            "đi lại",
+            "thuốc men"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "title": "Tính ví dụ",
+      "voice": "Ví dụ chi tiêu thiết yếu mỗi tháng là tám triệu. Ba tháng là hai mươi bốn triệu, sáu tháng là bốn mươi tám triệu.",
+      "subtitles": [
+        "Ví dụ chi tiêu thiết yếu",
+        "mỗi tháng là tám triệu.",
+        "Ba tháng là hai mươi bốn triệu,",
+        "sáu tháng là bốn mươi tám triệu."
+      ],
+      "bg": "cream",
+      "transition": "slide-left",
+      "bi": {
+        "x": 500,
+        "y": 930,
+        "scale": 1.05,
+        "face": "happy",
+        "pose": "phone"
+      },
+      "holds": [
+        {
+          "side": "R",
+          "prop": "calculator",
+          "scale": 0.55,
+          "pivot": [
+            115,
+            305
+          ]
+        }
+      ],
+      "rest": "phone",
+      "actions": [],
+      "face_cues": [],
+      "hold_after": 0.9,
+      "items": [
+        {
+          "type": "prop",
+          "img": "board",
+          "x": 1400,
+          "y": 540,
+          "scale": 1.0,
+          "appear": 0.2
+        },
+        {
+          "type": "text",
+          "text": "Ví dụ",
+          "x": 1400,
+          "y": 320,
+          "size": 56,
+          "color": "dark",
+          "appear": "Ví dụ"
+        },
+        {
+          "type": "legend",
+          "x": 1470,
+          "y": 440,
+          "gap": 110,
+          "size": 40,
+          "rows": [
+            {
+              "color": "teal",
+              "text": "Thiết yếu/tháng · 8.000.000đ",
+              "appear": "tám triệu"
+            },
+            {
+              "color": "blue",
+              "text": "Ba tháng · 24.000.000đ",
+              "appear": "hai mươi bốn"
+            },
+            {
+              "color": "yellow",
+              "text": "Sáu tháng · 48.000.000đ",
+              "appear": "bốn mươi tám"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s06",
+      "title": "Bắt đầu nhỏ",
+      "voice": "Chưa đủ ngay cũng không sao. Hãy bắt đầu bằng mục tiêu nhỏ, như một tháng chi tiêu, rồi tăng dần.",
+      "subtitles": [
+        "Chưa đủ ngay cũng không sao.",
+        "Hãy bắt đầu bằng mục tiêu nhỏ,",
+        "như một tháng chi tiêu,",
+        "rồi tăng dần."
+      ],
+      "bg": "cream",
+      "transition": "slide-left",
+      "bi": {
+        "x": 500,
+        "y": 930,
+        "scale": 1.05,
+        "face": "happy",
+        "pose": "point"
+      },
+      "actions": [
+        {
+          "name": "point",
+          "cue": "mục tiêu nhỏ",
+          "hold": 1.2
+        }
+      ],
+      "face_cues": [],
+      "items": [
+        {
+          "type": "text",
+          "text": "Mục tiêu đầu tiên: 1 tháng",
+          "x": 1380,
+          "y": 170,
+          "size": 56,
+          "color": "good",
+          "appear": "mục tiêu nhỏ"
+        },
+        {
+          "type": "prop",
+          "img": "ai:piggy_ai",
+          "x": 1380,
+          "y": 640,
+          "scale": 1.6,
+          "appear": 0.3
+        },
+        {
+          "type": "text",
+          "text": "8.000.000đ",
+          "x": 1380,
+          "y": 960,
+          "size": 56,
+          "color": "good",
+          "appear": "một tháng"
+        }
+      ]
+    },
+    {
+      "id": "s07",
+      "title": "Cách làm",
+      "voice": "Mỗi kỳ lương, chuyển một khoản cố định sang tài khoản riêng. Cố gắng không đụng tới, trừ khi thật sự khẩn cấp.",
+      "subtitles": [
+        "Mỗi kỳ lương, chuyển một khoản cố định",
+        "sang tài khoản riêng.",
+        "Cố gắng không đụng tới,",
+        "trừ khi thật sự khẩn cấp."
+      ],
+      "bg": "cream",
+      "transition": "slide-left",
+      "bi": {
+        "x": 1560,
+        "y": 930,
+        "scale": 1.05,
+        "face": "happy",
+        "pose": "idle"
+      },
+      "actions": [
+        {
+          "name": "nod",
+          "cue": "Mỗi kỳ lương"
+        }
+      ],
+      "face_cues": [],
+      "items": [
+        {
+          "type": "prop",
+          "img": "wallet",
+          "x": 330,
+          "y": 560,
+          "scale": 1.6,
+          "appear": 0.3
+        },
+        {
+          "type": "pills",
+          "x": 960,
+          "y": 330,
+          "gap": 150,
+          "texts": [
+            "Chuyển cố định mỗi kỳ",
+            "Tài khoản riêng",
+            "Chỉ dùng khi khẩn cấp"
+          ],
+          "appears": [
+            "chuyển một khoản",
+            "tài khoản riêng",
+            "thật sự khẩn cấp"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s08",
+      "title": "Kết",
+      "voice": "Quỹ khẩn cấp không làm bạn giàu lên, nhưng giúp một bất ngờ không biến thành khủng hoảng.",
+      "subtitles": [
+        "Quỹ khẩn cấp không làm bạn giàu lên,",
+        "nhưng giúp một bất ngờ",
+        "không biến thành khủng hoảng."
+      ],
+      "bg": "cream",
+      "transition": "fade-out",
+      "bi": {
+        "x": 500,
+        "y": 930,
+        "scale": 1.05,
+        "face": "happy",
+        "pose": "cheer"
+      },
+      "actions": [
+        {
+          "name": "cheer",
+          "cue": "không biến thành"
+        }
+      ],
+      "face_cues": [],
+      "hold_after": 1.4,
+      "items": [
+        {
+          "type": "text",
+          "text": "Bất ngờ không thành khủng hoảng",
+          "x": 1330,
+          "y": 330,
+          "size": 56,
+          "color": "good",
+          "appear": "khủng hoảng"
+        },
+        {
+          "type": "prop",
+          "img": "jar",
+          "x": 1330,
+          "y": 700,
+          "scale": 1.3,
+          "appear": "Quỹ khẩn cấp"
+        },
+        {
+          "type": "prop",
+          "img": "sparkle",
+          "x": 1000,
+          "y": 520,
+          "scale": 1.0,
+          "appear": "giàu lên"
+        },
+        {
+          "type": "prop",
+          "img": "sparkle",
+          "x": 1700,
+          "y": 520,
+          "scale": 0.8,
+          "appear": "bất ngờ"
+        }
+      ]
+    }
+  ]
+}

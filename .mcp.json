@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "animation-factory-assets": {
+      "command": "python",
+      "args": ["D:/AnimationFactory/phase2/assets_mcp/af_assets_server.py"]
+    }
+  }
+}

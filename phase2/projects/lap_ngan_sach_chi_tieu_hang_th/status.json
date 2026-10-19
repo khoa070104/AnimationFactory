@@ -1,0 +1,59 @@
+{
+  "project": "lap_ngan_sach_chi_tieu_hang_th",
+  "storyboard_version": 4,
+  "state": "preview_built",
+  "approved": {
+    "content": {
+      "version": 4,
+      "by": "Khoa",
+      "on": "2026-10-18"
+    },
+    "script": {
+      "version": 4,
+      "by": "Khoa",
+      "on": "2026-10-18"
+    },
+    "storyboard": {
+      "version": 4,
+      "by": "Khoa",
+      "on": "2026-10-18"
+    }
+  },
+  "voice_generated": true,
+  "api_calls": 7,
+  "credits_spent": 743,
+  "steps": {
+    "validate": {
+      "state": "ok",
+      "seconds": 0.2
+    },
+    "storyboard": {
+      "state": "ok",
+      "seconds": 4.6
+    },
+    "voice": {
+      "state": "ok",
+      "seconds": 0.4
+    },
+    "video": {
+      "state": "ok",
+      "seconds": 33.9
+    }
+  },
+  "code_hash": "c6b9058ca5256084",
+  "last_build": {
+    "output": "D:\\AnimationFactory\\phase2\\projects\\lap_ngan_sach_chi_tieu_hang_th\\output\\lap_ngan_sach_chi_tieu_hang_th_v5_preview.mp4",
+    "seconds": 80.2,
+    "rendered": [],
+    "reused": [
+      "s01",
+      "s02",
+      "s03",
+      "s04",
+      "s05",
+      "s06",
+      "s07"
+    ],
+    "built_in_s": 33.7
+  }
+}

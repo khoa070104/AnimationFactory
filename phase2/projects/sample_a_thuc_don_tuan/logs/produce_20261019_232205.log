@@ -1,0 +1,20 @@
+[23:22:05] produce sample_a_thuc_don_tuan until=video code_hash=e6859be2db2ad043
+[23:22:05]    0 error(s), 0 warning(s)
+[23:22:05] OK   validate (0.2s)
+[23:22:12]    saved D:/AnimationFactory/phase2/projects/sample_a_thuc_don_tuan/previews/storyboard_preview.ecproj scenes=8
+[23:22:12]    
+[23:22:12]    scenes 8 total {'chars': 1200, 'sec': 83.3, 'credits': 860}
+[23:22:12] OK   storyboard (6.6s)
+[23:22:12] draft voice (no paid call) for: nothing (already stubbed or real)
+[23:23:38]    [23:22:12] export scene data
+[23:23:38]    [23:22:17] render (incremental) 83.7 s, voice stub
+[23:23:38]    [23:23:38] PASS video 1920x1080 with audio
+[23:23:38]    [23:23:38] PASS pass/fail criteria were fixed before the build (not loosened since) - locked {'duration': [60, 90], 'scenes': [6, 10], 'cue_tolerance': 0.7}
+[23:23:38]    [23:23:38] PASS duration within 60-90 s - 83.8s
+[23:23:38]    [23:23:38] PASS scene count within 6-10 - 8 scenes
+[23:23:38]    [23:23:38] PASS subtitles: inside scene, in order, no overlap, <= 56 chars
+[23:23:38]    [23:23:38] PASS actions start within 0.7 s of their spoken cue (planned vs actual start, after non-overlap scheduling) - 23 actions
+[23:23:38]    [23:23:38] PASS motion QA on all characters (joint limits, no snaps/flips, arms never through torso)
+[23:23:38]    [23:23:38] DONE D:\AnimationFactory\phase2\projects\sample_a_thuc_don_tuan\output\sample_a_thuc_don_tuan_v6_draft.mp4 83.8s | rendered ['s01', 's02', 's03', 's04', 's05', 's06', 's07', 's08'] | reused -
+[23:23:38] OK   video (85.8s)
+[23:23:38] DONE (draft: stub voice)

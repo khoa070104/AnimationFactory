@@ -1,0 +1,59 @@
+{
+  "project": "video1_luong",
+  "storyboard_version": 2,
+  "state": "preview_built",
+  "approved": {
+    "content": {
+      "version": 2,
+      "by": "chủ dự án (qua chat 2026-10-18)",
+      "on": "2026-10-18"
+    }
+  },
+  "voice_generated": true,
+  "api_calls": 9,
+  "credits_spent": 593,
+  "estimate": {
+    "chars": 831,
+    "sec": 76.5,
+    "credits": 601
+  },
+  "updated": "2026-10-18",
+  "last_build": {
+    "output": "D:\\AnimationFactory\\phase2\\projects\\video1_luong\\output\\video1_luong_v2_preview.mp4",
+    "seconds": 64.8,
+    "rendered": [
+      "s01",
+      "s02",
+      "s03",
+      "s04",
+      "s05",
+      "s06",
+      "s07",
+      "s08",
+      "s09"
+    ],
+    "reused": [],
+    "built_in_s": 107.2
+  },
+  "steps": {
+    "validate": {
+      "state": "ok",
+      "seconds": 0.1
+    },
+    "storyboard": {
+      "state": "ok",
+      "seconds": 4.6
+    },
+    "voice": {
+      "state": "ok",
+      "seconds": 0.3
+    },
+    "video": {
+      "state": "ok",
+      "seconds": 107.4
+    }
+  },
+  "code_hash": "11701db21ad47fec",
+  "frozen_code_hash": "11701db21ad47fec",
+  "code_changed_since_freeze": false
+}

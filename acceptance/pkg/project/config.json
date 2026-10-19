@@ -1,0 +1,32 @@
+{
+  "voice": "edge_vi-VN-HoaiMyNeural",
+  "speed": 1.0,
+  "shirt": "#F26B21",
+  "pointSpeed": 0.5,
+  "outputDir": "D:/AnimationFactory/output",
+  "outputName": "preview.mp4",
+  "scene1": {
+    "text": "Cuối tháng, điện thoại rung lên. Ting! Lương về rồi! Mười lăm triệu đồng. Hôm nay mình giàu nhất xóm!",
+    "caption": "Ting! Lương về rồi! Mười lăm triệu đồng. Hôm nay mình giàu nhất xóm!",
+    "cues": {
+      "ting": "Ting",
+      "cheer": "giàu nhất xóm"
+    }
+  },
+  "scene2": {
+    "text": "Nhưng chưa đầy một tháng, tiền đã đi đâu hết? Tiền nhà, ăn uống, rồi mua sắm lặt vặt. Muốn biết tiền đi đâu, phải ghi lại từng khoản. Bắt đầu từ hôm nay nhé!",
+    "caption": "Muốn biết tiền đi đâu, phải ghi lại từng khoản.",
+    "endCard": "Bắt đầu ghi chép từ hôm nay!",
+    "cues": {
+      "worry": "chưa đầy",
+      "point": [
+        "Tiền nhà",
+        "ăn uống",
+        "mua sắm"
+      ],
+      "end": "Bắt đầu"
+    }
+  },
+  "tailSeconds": 1.2,
+  "audioOffset": 0.3
+}

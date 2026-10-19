@@ -1,0 +1,78 @@
+{
+  "title": "Lên thực đơn tuần để đỡ tốn tiền ăn",
+  "source": "ai",
+  "model": "Claude Sonnet 4.6 (Thinking)",
+  "scenes": [
+    {
+      "notes": "Nhân vật nam áo thun xanh lá mở tủ lạnh, mặt nhăn nhó, các khay đựng đồ ăn hỏng được highlight.",
+      "section": "hook",
+      "title": "Tủ lạnh đầy mà vẫn không có gì ăn",
+      "voice": "Tuấn mở tủ lạnh, nhìn vào... rau héo, thịt quên rã đông, hộp đồ ăn thừa không rõ mua hồi nào. Cuối tuần lại phải đổ bỏ. Tiền đi đâu hết vậy?",
+      "id": "s01",
+      "fact_ids": []
+    },
+    {
+      "notes": "Chuỗi hoạt ảnh vòng tròn: siêu thị, tủ lạnh, thùng rác, điện thoại đặt đồ ăn, lặp lại.",
+      "section": "body",
+      "title": "Vòng lặp quen thuộc",
+      "voice": "Tuấn hay ghé siêu thị sau giờ làm, thấy gì rẻ mua nấy, về nhà không biết nấu gì. Vài ngày sau, đồ ăn hỏng, lại đặt đồ ăn ngoài. Rồi lại mua. Rồi lại bỏ.",
+      "id": "s02",
+      "fact_ids": []
+    },
+    {
+      "notes": "Nhân vật nữ tóc đuôi ngựa, tạp dề cam, ngồi bàn viết, giơ tờ giấy lên cho Tuấn xem.",
+      "section": "body",
+      "title": "Bạn cùng nhà có mẹo hay",
+      "voice": "Một buổi tối, Linh, bạn cùng nhà, đang ngồi viết gì đó ở bàn. Tuấn hỏi. Linh cười: lập thực đơn tuần đấy, mất có mười phút thôi.",
+      "id": "s03",
+      "fact_ids": []
+    },
+    {
+      "notes": "Cận cảnh tủ lạnh, từng món được khoanh tròn và liệt kê vào danh sách tay.",
+      "section": "body",
+      "title": "Bước một: kiểm tra tủ lạnh trước",
+      "voice": "Linh giải thích: trước hết, mở tủ lạnh xem còn gì. Trứng còn ba quả, cà rốt còn một nửa, đậu hũ chưa mở. Ghi lại hết. Đây là nguyên liệu sẵn có, không cần mua thêm.",
+      "id": "s04",
+      "fact_ids": []
+    },
+    {
+      "notes": "Góc nhìn từ trên xuống: tờ giấy kẻ ô tuần, bút điền tên món, hình minh họa món ăn nhỏ xinh bên cạnh.",
+      "section": "body",
+      "title": "Bước hai: đặt bữa ăn vào khung tuần",
+      "voice": "Tiếp theo, Linh kẻ bảy ô tương ứng bảy ngày, điền bữa tối vào từng ô. Không cần cầu kỳ: thứ Hai trứng sốt cà, thứ Ba đậu hũ xào rau, thứ Tư canh. Đơn giản là được.",
+      "id": "s05",
+      "fact_ids": []
+    },
+    {
+      "notes": "Linh viết danh sách mua sắm, các món khớp với thực đơn được nối bằng đường gạch nối đồ họa.",
+      "section": "body",
+      "title": "Bước ba: viết danh sách chợ từ thực đơn",
+      "voice": "Từ thực đơn đó, Linh lập danh sách mua đúng những gì còn thiếu. Không mua theo cảm hứng nữa. Có danh sách, vào chợ ra nhanh, hạn chế mua thừa và bỏ phí.",
+      "id": "s06",
+      "fact_ids": []
+    },
+    {
+      "notes": "Tuấn ngồi viết thực đơn, rồi cầm giỏ đi chợ, cuối cảnh mở tủ lạnh đầy ắp đồ được xếp ngăn nắp, mặt vui.",
+      "section": "body",
+      "title": "Tuấn thử áp dụng",
+      "voice": "Cuối tuần, Tuấn tự làm thực đơn lần đầu. Mười phút xong. Cầm danh sách ra chợ, mua đúng, về xếp đồ vào tủ gọn gàng. Cảm giác khác hẳn.",
+      "id": "s07",
+      "fact_ids": []
+    },
+    {
+      "notes": "Tuấn và Linh ăn cơm cùng nhau, góc dưới màn hình hiện tờ thực đơn tuần và chiếc giỏ chợ gọn gàng.",
+      "section": "end",
+      "title": "Kết quả và thông điệp chốt",
+      "voice": "Quyết định bữa ăn trước khi đi chợ giúp mình mua đúng, nấu đủ, bỏ ít hơn. Chỉ mười phút lập thực đơn, cả tuần bớt lo chuyện ăn uống và bớt thấy tiền không cánh mà bay.",
+      "id": "s08",
+      "fact_ids": []
+    }
+  ],
+  "claims_to_verify": [],
+  "stats": {
+    "scenes": 8,
+    "chars": 1202,
+    "est_seconds": 83.5
+  },
+  "created": "2026-10-19 12:20:16"
+}

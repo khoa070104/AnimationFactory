@@ -1,0 +1,33 @@
+{
+  "scenes": [
+    {
+      "id": "a1",
+      "chars": 89,
+      "sec": 6.5,
+      "credits": 64
+    },
+    {
+      "id": "a2",
+      "chars": 97,
+      "sec": 7.1,
+      "credits": 69
+    },
+    {
+      "id": "a3",
+      "chars": 95,
+      "sec": 7.8,
+      "credits": 68
+    }
+  ],
+  "total": {
+    "chars": 281,
+    "sec": 21.4,
+    "credits": 201
+  },
+  "assumptions": {
+    "chars_per_sec": 15.01,
+    "credits_per_char": 0.7136,
+    "basis": "9 real Edge-voice jobs (831 chars, 593 credits incl. word timings); 831 chars over 55 s of speech",
+    "note": "estimate for the Edge voice incl. word timings; other voices/providers may price differently; credits, not money"
+  }
+}

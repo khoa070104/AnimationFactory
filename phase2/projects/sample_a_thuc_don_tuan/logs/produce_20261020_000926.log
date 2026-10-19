@@ -1,0 +1,23 @@
+[00:09:26] produce sample_a_thuc_don_tuan until=video code_hash=b17d37c24c7d72ed
+[00:09:26]    WARNING s03: cast1 holds a prop in a hand that action 'wave' also moves: the prop will swing with the arm; choose another action or drop the prop
+[00:09:26]    WARNING s05: cast1 holds a prop in a hand that action 'point_seq' also moves: the prop will swing with the arm; choose another action or drop the prop
+[00:09:26]    WARNING s06: cast1 holds a prop in a hand that action 'point' also moves: the prop will swing with the arm; choose another action or drop the prop
+[00:09:26]    0 error(s), 3 warning(s)
+[00:09:26] OK   validate (0.2s)
+[00:09:33]    saved D:/AnimationFactory/phase2/projects/sample_a_thuc_don_tuan/previews/storyboard_preview.ecproj scenes=8
+[00:09:33]    
+[00:09:33]    scenes 8 total {'chars': 1196, 'sec': 83.0, 'credits': 857}
+[00:09:33] OK   storyboard (7.3s)
+[00:09:34] draft voice (no paid call) for: nothing (already stubbed or real)
+[00:09:51]    [00:09:34] export scene data
+[00:09:51]    [00:09:40] render (incremental) 83.4 s, voice stub
+[00:09:51]    [00:09:51] PASS video 1920x1080 with audio
+[00:09:51]    [00:09:51] PASS pass/fail criteria were fixed before the build (not loosened since) - locked {'duration': [60, 90], 'scenes': [6, 10], 'cue_tolerance': 0.7}
+[00:09:51]    [00:09:51] PASS duration within 60-90 s - 83.5s
+[00:09:51]    [00:09:51] PASS scene count within 6-10 - 8 scenes
+[00:09:51]    [00:09:51] PASS subtitles: inside scene, in order, no overlap, <= 56 chars
+[00:09:51]    [00:09:51] PASS actions start within 0.7 s of their spoken cue (planned vs actual start, after non-overlap scheduling) - 22 actions
+[00:09:51]    [00:09:51] PASS motion QA on all characters (joint limits, no snaps/flips, arms never through torso)
+[00:09:51]    [00:09:51] DONE D:\AnimationFactory\phase2\projects\sample_a_thuc_don_tuan\output\sample_a_thuc_don_tuan_v14_draft.mp4 83.5s | rendered ['s02'] | reused ['s01', 's03', 's04', 's05', 's06', 's07', 's08']
+[00:09:51] OK   video (17.1s)
+[00:09:51] DONE (draft: stub voice)

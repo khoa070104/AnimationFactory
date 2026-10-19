@@ -1,0 +1,23 @@
+[21:18:22] since approval: voice text changed -; scene data/timing changed (flag for re-review) -
+[21:18:27] scenes resolved: 7; total audio 80.9s
+[21:18:29] EffectCraft project built (1.5s)
+[21:18:29] REUSE s01: inputs unchanged, clip not re-rendered
+[21:18:29] REUSE s02: inputs unchanged, clip not re-rendered
+[21:18:34] RENDER s03 (5.2s)
+[21:18:34] REUSE s04: inputs unchanged, clip not re-rendered
+[21:18:34] REUSE s05: inputs unchanged, clip not re-rendered
+[21:18:34] REUSE s06: inputs unchanged, clip not re-rendered
+[21:18:34] REUSE s07: inputs unchanged, clip not re-rendered
+[21:19:02] assembled + exported in 28.5s -> D:\AnimationFactory\phase2\projects\thu_thay_asset\output\thu_thay_asset_v5_preview.mp4
+[21:19:02] PASS video 1920x1080 with audio
+[21:19:02] PASS duration within 55-85 s - 80.2s
+[21:19:02] PASS scene count within 6-10 - 7 scenes
+[21:19:02] PASS timeline has exactly one video and one audio clip per scene (no duplicates) - video 7, audio 7
+[21:19:02] PASS video clips are contiguous (no gaps/overlaps) - max |gap| 0.000s
+[21:19:02] PASS each voice clip starts `lead` s into its scene and ends inside it
+[21:19:02] PASS silence between scenes <= 0.85 s (<= 1.5 s after scenes that hold a chart/summary) - gaps [0.66, 0.7, 0.69, 0.67, 0.68, 0.67]
+[21:19:02] PASS no speech trimmed: every voice clip keeps >= 0.1 s after the last word - []
+[21:19:02] PASS subtitles: inside scene, in order, no overlap, <= 56 chars
+[21:19:02] PASS all cue-driven actions/appear times fall inside their scene
+[21:19:17] PASS motion QA on all scenes (joint limits, no snaps/flips, arms never through torso)
+[21:19:17] DONE D:\AnimationFactory\phase2\projects\thu_thay_asset\output\thu_thay_asset_v5_preview.mp4 80.2s | rendered ['s03'] | reused ['s01', 's02', 's04', 's05', 's06', 's07'] | log D:\AnimationFactory\phase2\projects\thu_thay_asset\logs\build_20261018_211822.log

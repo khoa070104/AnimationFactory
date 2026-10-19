@@ -1,0 +1,26 @@
+{
+  "scenes_sha": "26050118d3d0fc76",
+  "warnings": [
+    "s01: main character 'tuan' is 'draft' (design only: it must be approved before the video is built)",
+    "s02: main character 'tuan' is 'draft' (design only: it must be approved before the video is built)",
+    "s03: main character 'tuan' is 'draft' (design only: it must be approved before the video is built)",
+    "s03: cast[0] character 'linh' is 'draft' (design only: it must be approved before the video is built)",
+    "s04: main character 'tuan' is 'draft' (design only: it must be approved before the video is built)",
+    "s04: cast[0] character 'linh' is 'draft' (design only: it must be approved before the video is built)",
+    "s05: main character 'tuan' is 'draft' (design only: it must be approved before the video is built)",
+    "s05: cast[0] character 'linh' is 'draft' (design only: it must be approved before the video is built)",
+    "s06: main character 'tuan' is 'draft' (design only: it must be approved before the video is built)",
+    "s06: cast[0] character 'linh' is 'draft' (design only: it must be approved before the video is built)",
+    "s07: main character 'tuan' is 'draft' (design only: it must be approved before the video is built)",
+    "s08: main character 'tuan' is 'draft' (design only: it must be approved before the video is built)",
+    "s08: cast[0] character 'linh' is 'draft' (design only: it must be approved before the video is built)",
+    "s03: layout: notice #2 and prop #3 (sparkle) overlap partly (77% of the smaller one); move or resize one of them",
+    "s04: layout: chart #2 and Bi overlap partly (15% of the smaller one); move or resize one of them",
+    "s04: layout: chart #2 and cast 1 overlap partly (30% of the smaller one); move or resize one of them",
+    "s06: layout: legend #2 and prop #3 (card) overlap partly (27% of the smaller one); move or resize one of them",
+    "s06: layout: prop #3 (card) and cast 1 overlap partly (25% of the smaller one); move or resize one of them",
+    "s08: layout: pills #2 and prop #3 (sparkle) overlap partly (44% of the smaller one); move or resize one of them"
+  ],
+  "model": "Gemini 3.8 Flash (High)",
+  "created": "2026-10-19 19:04:08"
+}

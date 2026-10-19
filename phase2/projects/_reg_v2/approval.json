@@ -1,0 +1,47 @@
+{
+  "project": "video2_quy_khan_cap",
+  "storyboard_version": 3,
+  "approved_by": "chủ dự án (qua chat 2026-10-18)",
+  "approved_on": "2026-10-18",
+  "note": "Đổi hình cảnh 6: dùng heo đất AI piggy_ai đã duyệt thay bình tiết kiệm; lời đọc không đổi.",
+  "recorded_by": "Claude, theo xác nhận của người duyệt trong chat",
+  "scope": "nội dung (lời đọc, cảnh, số liệu) và giọng đọc/tốc độ; chưa gồm chuyển động và video",
+  "scenes": {
+    "s01": {
+      "voice_sha256": "9b7b5dddca85d8ca6bec86ccc2150a50249c477eb0470af70a632db04a413ab3",
+      "scene_sha256": "44ca2f5ffea9578e474daa82b16a416539d4e2ac81a4db70a35e413a64961c09"
+    },
+    "s02": {
+      "voice_sha256": "0bbac6dd29457a797f9a64f19fab6eb735b65786862bc0095e01c506a32bf5ca",
+      "scene_sha256": "e2329e8a1a43dea3dff63b2ebb7bba6dc345460c1e63bde8a2294bf5d49d13a1"
+    },
+    "s03": {
+      "voice_sha256": "b54e700806eef1cabc2ca4423e80fc6a8bb3deec132bcc2dd5e2a8eaf84da06a",
+      "scene_sha256": "34235f1dfa5a64fb24078695b763257236f9ce68ba639878d862be40aaed81e9"
+    },
+    "s04": {
+      "voice_sha256": "29c4dfb536dee31820d8161fcfdb651cd0c0c005940133e781e291868769aa85",
+      "scene_sha256": "75888bb2e46574e80c578c0d8a2964e1abeadb79ed101049252e9c209068af96"
+    },
+    "s04b": {
+      "voice_sha256": "6418b8af304fbd965104b9ac52829be4df9af31fe7fb3ffce411ad4eb1932e07",
+      "scene_sha256": "e7f5d3286684af1783c31f6b568960df98253911d74118f21da716940b4ffa8a"
+    },
+    "s05": {
+      "voice_sha256": "836da601fc18ae2f8c88063d15b73df4e87c9e4f1830e86a08f94fa56d0fdaff",
+      "scene_sha256": "98ae33326041e2b2b26007e26c796a12cf9e080f34b17090ec7bc8fef0ed8c88"
+    },
+    "s06": {
+      "voice_sha256": "172f4526b3c30b497914b04cb89b5480dce7378c36bc30a5a62a82910e5e1812",
+      "scene_sha256": "c0cdd20f598dfa3bf1ab9eaa4066d7919d4cdfd94737b8a009e671c78ed6e500"
+    },
+    "s07": {
+      "voice_sha256": "2fa1cf5de7414ad1c86927c1960a77c94bcf8eeca5e565687aff7c99eab2d6a1",
+      "scene_sha256": "8de9e47620efb2f22775201c42cb03655a7a990f310b2cc48406e0c081036c26"
+    },
+    "s08": {
+      "voice_sha256": "47b45bffa71850d02627a9ee16417f3dabe390914fae6f984c9b792680815b08",
+      "scene_sha256": "ad38f3b58a5a29b7ab3c7d37cd465aad42e107a2651af59e20cf0a4bfff87a68"
+    }
+  }
+}
