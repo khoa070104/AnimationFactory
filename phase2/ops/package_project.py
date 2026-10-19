@@ -31,7 +31,7 @@ with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
             if f.is_file() and "__pycache__" not in f.parts and f.suffix != ".pyc":
                 add(f, f.relative_to(ROOT).as_posix())
     add(P2 / "style/tokens.json", "phase2/style/tokens.json")
-    for f in (P2 / "cost_model.json", P2 / "HUONG_DAN_PHASE2.md"):
+    for f in (P2 / "cost_model.json", P2.parent / "docs" / "archive" / "HUONG_DAN_PHASE2.md"):
         if f.exists():
             add(f, f.relative_to(ROOT).as_posix())
     for f in (ROOT / "tools").glob("*"):                      # Phase 1 helpers imported by the builders (decode_check, voice...)

@@ -7,6 +7,7 @@ import time
 from pathlib import Path
 
 P2 = Path(__file__).resolve().parent.parent
+ROOT_DOCS = P2.parent / "docs"
 groups = {"tools": "tools/*.py", "lib": "lib/*.jsx", "assets_mcp": "assets_mcp/*", "ui": "ui/**/*", "tests": "tests/*.py", "ops": "ops/*.py",
           "style": "style/tokens.json", "root": "*.json"}
 files = {}
@@ -14,7 +15,7 @@ for g, pat in groups.items():
     for f in sorted(P2.glob(pat)):
         if f.is_file() and "__pycache__" not in f.parts:
             files[f.relative_to(P2).as_posix()] = hashlib.sha256(f.read_bytes()).hexdigest()
-for f in (P2 / "approved/bi_v2.1/MANIFEST.sha256", P2 / "HUONG_DAN_PHASE2.md"):
+for f in (P2 / "approved/bi_v2.1/MANIFEST.sha256", ROOT_DOCS / "archive" / "HUONG_DAN_PHASE2.md"):
     if f.exists():
         files[f.relative_to(P2).as_posix()] = hashlib.sha256(f.read_bytes()).hexdigest()
 pipeline = [k for k in files if k.startswith(("tools/", "lib/", "style/"))]

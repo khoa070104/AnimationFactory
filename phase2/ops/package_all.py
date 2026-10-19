@@ -22,6 +22,8 @@ with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
                 if base == "style" and f.parent.name == "frames":
                     pass
                 add(f, f.relative_to(ROOT).as_posix())
+    for f in sorted((ROOT / "docs").rglob("*.md")):
+        add(f, f.relative_to(ROOT).as_posix())
     for f in P2.glob("*"):
         if f.is_file() and f.suffix in (".md", ".json") and f.name != "config.json":
             add(f, f.relative_to(ROOT).as_posix())
@@ -46,7 +48,7 @@ with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
     z.writestr("REBUILD.bat", "@echo off\r\nchcp 65001 >nul\r\nREM Rebuild a project's video from the packed data (no API key, no API call):  REBUILD.bat <project> [--force]\r\n"
                               "cd /d \"%~dp0\"\r\npython phase2\\tools\\build_video.py phase2\\projects\\%*\r\nif not defined NOPAUSE pause\r\n")
     n += 1
-    z.writestr("README.txt", "Animation Factory - Phase 2 acceptance package. Start with phase2/ACCEPTANCE_PHASE2.md, then phase2/HUONG_DAN_PHASE2.md.\r\n"
+    z.writestr("README.txt", "Animation Factory - Phase 2 acceptance package. Start with docs/README.md (index), then docs/acceptance/.\r\n"
                               "No .env / API key / token is included. Python 3.12 + Pillow + numpy; EffectCraft, FilmCraft, VectorCraft installed (paths: phase2/tools/toolpaths.py).\r\n")
     n += 2
 print(f"{n} files -> {out} ({out.stat().st_size // (1024 * 1024)} MB)")

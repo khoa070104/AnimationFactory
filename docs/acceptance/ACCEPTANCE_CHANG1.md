@@ -5,14 +5,14 @@ Phạm vi theo bản duyệt: 0 ảnh mới, 0 lượt TTS trả phí (xác nh�
 ## 1. Đã làm (thật / chưa)
 | Hạng mục | Kết quả |
 |---|---|
-| Bảng năng lực + quyết định thiết kế | `CHANG1_BANG_NANG_LUC.md` (3 subagent đọc mã; R3 video tham chiếu không chạy: chưa có file) |
+| Bảng năng lực + quyết định thiết kế | `docs/plans/CHANG1_BANG_NANG_LUC.md` (3 subagent đọc mã; R3 video tham chiếu không chạy: chưa có file) |
 | Shot có thời gian, giữ trạng thái | `tools/shots.py`, tương thích ngược; lỗi có mã/shot/trường; chồng lấn bị từ chối; `end` sớm = khoảng trống có chủ đích |
 | Camera Remotion đóng khung theo kích thước đối tượng | `shots.frame` (hộp bao từ rig height×scale, đệm, trong canvas, trên dải phụ đề, zoom ≤ 2,2); camera là hàm thuần của thời gian → đổi shot không chạy lại động tác |
 | Lớp theo vai trò | phụ đề cố định; item `space: world|screen`; `until` cho item rời màn hình; **cô lập tiêu điểm**: ở shot cận, nội dung/nhân vật không phải trọng tâm mà lấn vào khung bị mờ đi (phát hiện nhờ phiên nghiệm thu độc lập) |
 | Thành phần đồ họa theo dữ liệu | `compare` (hai cột theo tỷ lệ), `highlight`, `grid` đủ ô theo lời; chữ vẽ từ dữ liệu |
 | Lớp điều khiển một lõi, hai cửa | `tools/af_core.py` + CLI `tools/af.py` + adapter MCP (cùng server assets); stdout JSON, mã lỗi, `expect_hash`, job + heartbeat, `paid_calls_this_run`; **không có lệnh duyệt** |
 | Preview | ảnh mỗi shot (kèm `shot`, thời điểm), contact sheet, clip nhẹ, QA; chỉ dựng lại cảnh đổi |
-| Tài liệu cho phiên mới | `HUONG_DAN_AF.md`, 2 ví dụ `examples/story_label.json`, `examples/explain_process.json` |
+| Tài liệu cho phiên mới | `docs/guide/HUONG_DAN_AF.md`, 2 ví dụ `examples/story_label.json`, `examples/explain_process.json` |
 | Test | 166 test Python (gồm các test chạy node) + 22 test node đạt (`evidence/tests_log.txt`) |
 
 ## 2. Hai đoạn thử (cùng thành phần, không nhánh theo project/scene)
@@ -30,7 +30,7 @@ Phạm vi theo bản duyệt: 0 ảnh mới, 0 lượt TTS trả phí (xác nh�
 | Sửa dữ liệu rồi dựng được, không sửa mã theo mẫu | có |
 
 ## 4. Nghiệm thu độc lập (9.7) — giới hạn nói thẳng
-- Đã chạy **một subagent mới** (không kế thừa lịch sử), chỉ nhận `HUONG_DAN_AF.md`, brief và đường dẫn dự án `demo_chang1_accept` (bản nháp có 4 lỗi cài sẵn: cụm lời sai, focus không tồn tại, asset không tồn tại, và một lỗi chỉ thấy bằng mắt: cận sai nhân vật).
+- Đã chạy **một subagent mới** (không kế thừa lịch sử), chỉ nhận `docs/guide/HUONG_DAN_AF.md`, brief và đường dẫn dự án `demo_chang1_accept` (bản nháp có 4 lỗi cài sẵn: cụm lời sai, focus không tồn tại, asset không tồn tại, và một lỗi chỉ thấy bằng mắt: cận sai nhân vật).
 - Nó tự: đọc tài liệu → validate (3 lỗi có mã) → sửa → `project_put` → preview → xem ảnh → còn tự phát hiện cận sai nhân vật. **Không sửa mã.** 7 lệnh `af.py`, 0 chi phí.
 - Nó cũng nêu các điểm tài liệu/tool chưa tốt; đã sửa: `project_get --what all` làm hỏng mã thoát (khóa `status` bị ghi đè), ảnh preview không ghi thời điểm, doc chưa nói `item:<type>`, `capabilities` cần `--project` để thấy nhân vật; và khung cận bị lấn bởi thẻ nhãn (đã thêm cô lập tiêu điểm).
 - **CHƯA kiểm chứng với CLI thứ hai.** Gemini CLI báo "account requires setting GOOGLE_CLOUD_PROJECT" (cần cấu hình tài khoản của bạn); `claude -p` chạy tiến trình con báo "Not logged in"; `agy` không chạy được lệnh shell nếu không bật cờ bỏ qua quyền (cấm). Subagent không phải một CLI khác và có thể đã dùng cùng họ mô hình.
