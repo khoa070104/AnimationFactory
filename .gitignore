@@ -35,3 +35,17 @@ node_modules/
 *.mp3
 __pycache__/
 *.pyc
+
+# generated / runtime state
+phase2/topic_history.jsonl
+phase2/evidence/logs/
+phase2/evidence/mcp_jobs/
+phase2/motion/*.mp4
+phase2/motion/*.ecproj
+phase2/motion/motion_report.json
+phase2/style/frames/
+phase2/style/*.ecproj
+phase2/style/_build.jsx
+phase2/style/contact_sheet.png
+phase2/remotion/_spike/
+phase2/projects/*.zip

@@ -1,0 +1,6 @@
+# Projects are DATA (pictures, audio, video, logs, previews), not source. Only the small fixtures that tests read are tracked.
+/*
+!/.gitignore
+!/video1_luong/
+!/video2_quy_khan_cap/
+!/ui_demo/

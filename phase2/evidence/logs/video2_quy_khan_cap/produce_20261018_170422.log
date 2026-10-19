@@ -1,8 +1,0 @@
-[17:04:22] produce video2_quy_khan_cap until=storyboard code_hash=6a3118451fe1d4fa
-[17:04:22]    0 error(s), 0 warning(s)
-[17:04:22] OK   validate (0.1s)
-[17:04:26]    saved D:/AnimationFactory/phase2/projects/video2_quy_khan_cap/previews/storyboard_preview.ecproj scenes=8
-[17:04:26]    
-[17:04:26]    scenes 8 total {'chars': 815, 'sec': 61.3, 'credits': 582}
-[17:04:26] OK   storyboard (4.2s)
-[17:04:26] estimate: 815 chars, ~61.3 s, ~582 credits

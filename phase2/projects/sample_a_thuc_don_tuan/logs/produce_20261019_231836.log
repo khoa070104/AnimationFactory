@@ -1,7 +1,0 @@
-[23:18:36] produce sample_a_thuc_don_tuan until=video code_hash=6585e55c9b8bde5d
-[23:18:36]    0 error(s), 0 warning(s)
-[23:18:36] OK   validate (0.2s)
-[23:18:39]    EffectCraft script failed:
-[23:18:39]    
-[23:18:39]    effectcraft-cli script: D:\AnimationFactory\phase2\projects\sample_a_thuc_don_tuan\previews\_scenes.jsx:150:31: value must be a number
-[23:18:39] FAIL storyboard (3.1s)
