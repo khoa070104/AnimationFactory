@@ -20,4 +20,4 @@ Rule: when you leave a shortcut, add a line here. Cleanup (20/10/2026, tag `clea
 - B2 ~~documents scattered in phase2 and the root~~ -> `docs/` (guide, acceptance, plans, archive) + index.
 - B3 ~~phase-1 tools/tests/acceptance at the repo root~~ -> `legacy/phase1/`; its voice client moved to `phase2/tools/voice.py`.
 - B4 ~~`plan_actions` copied in two renderers~~ -> `tools/action_plan.py`; ~~three `sha_file`~~ -> `agy_image.sha_file`; ~~dead `_alive`~~; ~~hard-coded Windows font path~~ -> `toolpaths.font_bold()`.
-- B5 anti-rubbish: `ops/clean.py`, repo hygiene test, `.editorconfig` (see below).
+- B5 anti-rubbish: `ops/clean.py`, repo hygiene test, `.editorconfig` (`ops/clean.py`, `tests/test_repo_hygiene.py`, `.editorconfig`, `pyproject.toml`).

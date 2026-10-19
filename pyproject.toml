@@ -1,0 +1,9 @@
+# Tool configuration only (the code is not a pip package yet: see docs/DEBT.md). Run:  ruff check phase2   /   ruff format --check phase2
+[tool.ruff]
+line-length = 200
+target-version = "py312"
+extend-exclude = ["legacy", "phase2/projects", "phase2/remotion/node_modules", "phase2/approved"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]
+ignore = ["E402", "E701", "E702", "E731", "E741"]   # scripts insert tools/ into sys.path before importing; compact one-liners are house style

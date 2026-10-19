@@ -15,3 +15,8 @@ A tool that AI CLIs (Claude CLI, Gemini CLI, Antigravity...) drive to produce 2D
 - `phase2/examples/` two storyboards (a story, an explanation)
 - `phase2/tests/`, `phase2/remotion/tests/` tests
 - Not in the repo: `.env`/keys, generated pictures, audio, video output, caches.
+
+## Repo layout and hygiene
+- `phase2/` source (tools, remotion, lib, tests, ops); `docs/` all guides/plans/acceptance (index: `docs/README.md`); `legacy/phase1/` frozen old pipeline; `docs/DEBT.md` open debt.
+- Generated data (projects other than 3 fixtures, audio, renders, caches, zips) is git-ignored. `python phase2/ops/clean.py` lists rubbish (dry run), `--apply` removes it.
+- `phase2/tests/test_repo_hygiene.py` fails if a stray top-level entry, media/zip, secret, oversize file, loose markdown or hard-coded machine path is tracked.
