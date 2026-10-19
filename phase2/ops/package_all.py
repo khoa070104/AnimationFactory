@@ -41,9 +41,7 @@ with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
             if f.suffix == ".pyc":
                 continue
             add(f, f.relative_to(ROOT).as_posix())
-    # phase 1 pieces the tools still import (voice client + its tests); the .env with the API key is NOT included
-    for f in sorted((ROOT / "tools").glob("*.py")):
-        add(f, f.relative_to(ROOT).as_posix())
+    # the .env with the API key is NOT included
     add(ROOT / ".env.example", ".env.example")
     z.writestr("REBUILD.bat", "@echo off\r\nchcp 65001 >nul\r\nREM Rebuild a project's video from the packed data (no API key, no API call):  REBUILD.bat <project> [--force]\r\n"
                               "cd /d \"%~dp0\"\r\npython phase2\\tools\\build_video.py phase2\\projects\\%*\r\nif not defined NOPAUSE pause\r\n")

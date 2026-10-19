@@ -13,7 +13,6 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "tools"))
 import approve  # noqa: E402
 import audio_checks  # noqa: E402
 import sbload  # noqa: E402

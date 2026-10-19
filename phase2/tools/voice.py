@@ -14,7 +14,7 @@ import requests
 
 try: sys.stdout.reconfigure(encoding="utf-8")
 except Exception: pass
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]            # repo root: holds .env (keys) and work/ (call log)
 
 def load_env():
     f = ROOT / ".env"

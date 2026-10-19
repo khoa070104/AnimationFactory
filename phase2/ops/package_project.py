@@ -34,9 +34,6 @@ with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
     for f in (P2 / "cost_model.json", P2.parent / "docs" / "archive" / "HUONG_DAN_PHASE2.md"):
         if f.exists():
             add(f, f.relative_to(ROOT).as_posix())
-    for f in (ROOT / "tools").glob("*"):                      # Phase 1 helpers imported by the builders (decode_check, voice...)
-        if f.is_file() and f.suffix in (".py", ".jsx"):
-            add(f, f.relative_to(ROOT).as_posix())
     for f in proj.rglob("*"):
         if f.is_file() and "__pycache__" not in f.parts:
             rel = f.relative_to(proj)
