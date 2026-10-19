@@ -1,0 +1,126 @@
+{
+  "project": "demo_chang1_story_before",
+  "title": "Túi hàng nhầm nhãn",
+  "version": 2,
+  "voice": {
+    "provider": "edge",
+    "voice_id": "edge_vi-VN-HoaiMyNeural",
+    "speed": 1.0
+  },
+  "timing": {
+    "lead": 0.15,
+    "tail": 0.3,
+    "word_pad": 0.15
+  },
+  "export": {
+    "fade_out": 0.4
+  },
+  "character": {
+    "shirt": "#F26B21"
+  },
+  "targets": {
+    "duration": [
+      14,
+      26
+    ],
+    "scenes": [
+      1,
+      3
+    ]
+  },
+  "scenes": [
+    {
+      "id": "s01",
+      "title": "Nhãn ghi tên người lạ",
+      "voice": "Tuấn xách túi đồ về nhà. Linh nhìn vào cái nhãn dán trên túi. Nhãn ghi tên một người lạ! Linh ngạc nhiên quay sang nhìn Tuấn. Tuấn cũng sững lại, rồi cả hai bật cười. Hóa ra Tuấn đã xách nhầm túi của hàng xóm. Linh gật đầu: mai mình mang trả lại nhé.",
+      "subtitles": "auto",
+      "bg": "ai:bg_kitchen",
+      "transition": "fade-out",
+      "bi": {
+        "char": "tuan",
+        "x": 400,
+        "y": 960,
+        "scale": 1.0,
+        "face": "happy",
+        "pose": "idle"
+      },
+      "actions": [
+        {
+          "name": "enter",
+          "at": 0.0
+        },
+        {
+          "name": "carry",
+          "cue": "xách túi",
+          "hold": 3.0
+        }
+      ],
+      "face_cues": [
+        {
+          "cue": "sững lại",
+          "face": "surprised"
+        },
+        {
+          "cue": "bật cười",
+          "face": "happy"
+        }
+      ],
+      "cast": [
+        {
+          "char": "linh",
+          "x": 1520,
+          "y": 960,
+          "scale": 1.0,
+          "flip": true,
+          "face": "neutral",
+          "pose": "idle",
+          "actions": [
+            {
+              "name": "point",
+              "cue": "nhìn vào",
+              "hold": 1.2
+            },
+            {
+              "name": "nod",
+              "cue": "gật đầu"
+            }
+          ],
+          "face_cues": [
+            {
+              "cue": "ngạc nhiên",
+              "face": "surprised"
+            },
+            {
+              "cue": "bật cười",
+              "face": "happy"
+            }
+          ]
+        }
+      ],
+      "holds": [
+        {
+          "who": "main",
+          "side": "L",
+          "prop": "ai:prop_shopping_bag",
+          "scale": 0.716
+        }
+      ],
+      "items": [
+        {
+          "type": "notice",
+          "amount": "NHÃN",
+          "caption": "Gửi: Văn Minh",
+          "x": 960,
+          "y": 255,
+          "appear": "cái nhãn"
+        }
+      ],
+      "panel": [
+        630,
+        146,
+        1290,
+        364
+      ]
+    }
+  ]
+}

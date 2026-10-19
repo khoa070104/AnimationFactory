@@ -87,11 +87,16 @@ class T(unittest.TestCase):
     def calls(self):
         return len(self.count.read_text().splitlines()) if self.count.exists() else 0
 
-    def test_1_protocol_and_two_tools(self):
+    def test_1_protocol_asset_tools_and_control_layer(self):
         c = Client(self.env())
         try:
             tools = c.rpc("tools/list")["result"]["tools"]
-            self.assertEqual({t["name"] for t in tools}, {"submit_asset_job", "check_asset_job"})
+            names = {t["name"] for t in tools}
+            self.assertTrue({"submit_asset_job", "check_asset_job"} <= names)
+            sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "tools"))
+            import af_core
+            self.assertEqual(names - {"submit_asset_job", "check_asset_job"}, {t["name"] for t in af_core.TOOLS}, "the rest is the shared control layer")
+            self.assertFalse([n for n in names if "approve" in n], "no approval tool: only the owner approves")
             sub = [t for t in tools if t["name"] == "submit_asset_job"][0]["inputSchema"]
             self.assertEqual(set(sub["required"]), {"project", "asset_id", "kind", "prompt"})
             for k in ("reference_images", "transparent_background", "kind"):

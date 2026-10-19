@@ -40,7 +40,7 @@ def item_boxes(sc, ai_size=None):
         elif t == "bill":
             out.append((lab, _box(x, y, 380 * s / 1.0, 480 * s / 1.0)))
         elif t == "compare":
-            out.append((lab, _box(x, y, 540, 440)))
+            out.append((lab, (x - 270, y - 250, x + 270, y + 250)))               # title, value labels, bars and captions (build_storyboard.expand)
         elif t == "grid":
             import build_storyboard as _sb
             cw, ch_ = map(float, _sb.grid_cell_size(it))
@@ -115,6 +115,10 @@ def check_scene(sc, ai_size=None):
             inter = _inter(sweep, ob)
             if inter and inter / _area(ob) > 0.12 and _inter((cx - 200 * cs, cy - 600 * cs, cx + 200 * cs, cy), ob) / _area(ob) < 0.12:
                 warns.append(f"{sid}: layout: the walk-in of {lab} crosses {olab}; enter from the other side or move it")
+    zx0, _zy0, zx1, _zy1 = zone(sc)
+    for (lab, b), it_ in zip([(l, bx) for l, bx in boxes], [i for i in sc.get("items", []) if i.get("type") in ("text", "grid", "chart", "legend", "pills", "notice", "bill", "pie", "compare", "prop", "highlight")][:len(boxes)]):
+        if (sc.get("panel") or sc.get("shots")) and it_.get("type") in CONTENT and b[2] - b[0] > (zx1 - zx0) + 5:      # composed scenes only: older hand-made scenes use the full width
+            warns.append(f"{sid}: layout: {lab} is {int(b[2] - b[0])} px wide but the content panel is {int(zx1 - zx0)} px: shorten the text / split the list, or shrink it")
     for lab, b in boxes:
         if b[3] > SUB_ZONE_TOP and b[1] < CANVAS[1] and not lab.startswith("prop") and b[2] - b[0] < 1500:
             warns.append(f"{sid}: layout: {lab} runs into the subtitle band (y > {SUB_ZONE_TOP}); move it up")

@@ -1,0 +1,41 @@
+{
+  "project": "demo_chang1_explain",
+  "title": "Một đơn hàng đi qua ba bước",
+  "version": 1,
+  "status": "chưa có kịch bản - chờ AI chuẩn bị",
+  "audience": "người đi làm trẻ, mới bắt đầu quản lý tiền",
+  "message": "",
+  "voice": {
+    "provider": "edge",
+    "voice_id": "edge_vi-VN-HoaiMyNeural",
+    "speed": 1.0
+  },
+  "timing": {
+    "lead": 0.15,
+    "tail": 0.3,
+    "word_pad": 0.15
+  },
+  "export": {
+    "fade_out": 0.4
+  },
+  "character": {
+    "shirt": "#F26B21"
+  },
+  "review_points": [
+    "Nội dung và thứ tự các cảnh.",
+    "Lời đọc từng cảnh (đây là văn bản sẽ gửi API).",
+    "Số liệu minh họa.",
+    "Giọng đọc."
+  ],
+  "scenes": [],
+  "targets": {
+    "duration": [
+      60,
+      90
+    ],
+    "scenes": [
+      6,
+      10
+    ]
+  }
+}

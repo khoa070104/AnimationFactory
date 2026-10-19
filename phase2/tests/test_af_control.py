@@ -104,6 +104,30 @@ class T(unittest.TestCase):
         self.assertEqual(j["job"]["state"], "waiting_approval", j)
         self.assertEqual(AF.call("jobs", {"project": d.name})["jobs"][0]["id"], jid)
 
+    def test_changing_the_camera_target_and_a_longer_label_are_data_edits(self):
+        d = self.project()
+        self.with_mai(d)
+        self.story(d)
+        AF.call("preview", {"project": d.name})
+        clip = lambda: json.loads((d / "remotion/public/data/clip.json").read_text(encoding="utf-8"))
+        before = clip()["scenes"][0]["camera"]
+        cur = AF.call("project_get", {"project": d.name})
+        sb = cur["storyboard"]
+        sb["scenes"][0]["shots"][1].update({"size": "close", "focus": [1200, 300, 300, 200]})                  # another target: a region on the right
+        r = AF.call("project_put", {"project": d.name, "storyboard": sb, "expect_hash": cur["hash"]})
+        self.assertEqual(r["status"], "ok", r)
+        pv = AF.call("preview", {"project": d.name})
+        self.assertEqual(pv["rebuilt_scenes"], ["s01"], "only the scene whose data changed is rebuilt")
+        self.assertNotEqual(clip()["scenes"][0]["camera"], before)
+        sb["scenes"][0]["items"][0]["text"] = "Một cái nhãn rất dài ghi tên người nhận và cả địa chỉ nhà hàng xóm bên cạnh"
+        r = AF.call("project_put", {"project": d.name, "storyboard": sb, "expect_hash": r["hash"], "autolayout": True})
+        self.assertEqual(r["status"], "ok")
+        self.assertTrue(any("content panel" in w and "s01" in w for w in r["warnings"]), r["warnings"])
+        sb["scenes"][0]["items"][0]["text"] = "Nhãn: Văn Minh"
+        r = AF.call("project_put", {"project": d.name, "storyboard": sb, "expect_hash": r["hash"], "autolayout": True})
+        self.assertFalse([w for w in r["warnings"] if "content panel" in w], r["warnings"])
+        self.assertEqual(AF.call("preview", {"project": d.name})["status"], "ok")
+
     def test_mcp_adapter_serves_the_same_core(self):
         p = subprocess.Popen([sys.executable, str(P2 / "assets_mcp" / "af_assets_server.py")], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, encoding="utf-8", env=ENV)
         msgs = [{"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2025-06-18"}}, {"jsonrpc": "2.0", "id": 2, "method": "tools/list"},

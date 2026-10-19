@@ -46,6 +46,7 @@ ITEM_FIELDS = {
 }
 for _f in ITEM_FIELDS.values():                                              # every item can live in the camera's world (default) or on the fixed screen layer
     _f.append(("space", "string", False))
+    _f.append(("until", "appear", False))
 SUB_FIELDS = {
     "bar": [("label", "string", True), ("value", NUM, True), ("text", "string", True), ("color", "accent", True), ("appear", "appear", False)],
     "part": [("value", NUM, True), ("color", "accent", True)],

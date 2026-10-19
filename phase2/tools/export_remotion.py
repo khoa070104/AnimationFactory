@@ -110,8 +110,9 @@ def export(proj, work, scene_ids=None, draft=False, placeholders=None):
         T = lambda ph, _wj=wj: round(lead + C.cue_time(_wj, ph), 3)
         prims = SBD.expand(sc, pub / "assets", proj)
         for p in prims:
-            if isinstance(p.get("appear"), str):
-                p["appear"] = T(p["appear"])
+            for k_ in ("appear", "until"):
+                if isinstance(p.get(k_), str):
+                    p[k_] = T(p[k_])
         shutil.copy(proj / "audio" / f"{sid}.mp3", pub / "audio" / f"{sid}.wav")
         seg = C.segment_times(wj, sc["subtitles"])
         subs = []

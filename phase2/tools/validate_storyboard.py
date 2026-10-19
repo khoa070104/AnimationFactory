@@ -148,6 +148,7 @@ def validate(proj, draft_chars=False):
                 E.append(f"{i}: unknown item type {t!r} (known: {sorted(ITEM_TYPES)})")
                 continue
             check_appear(it.get("appear"), t)
+            check_appear(it.get("until"), t)
             if t == "pills" and it.get("marker", "number") not in ("number", "dot", "coin"):
                 E.append(f"{i}: pills marker {it.get('marker')!r} must be number, dot or coin")
             if t == "pills" and it.get("marker") == "coin" and not re.search(r"tiền|đồng|chi tiêu|ngân sách|tiết kiệm|đầu tư|nợ|lãi|giá|phí|money|cost|price|budget|saving", " ".join(map(str, it.get("texts", []))), re.I):

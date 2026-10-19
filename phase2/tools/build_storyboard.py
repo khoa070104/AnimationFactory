@@ -131,6 +131,9 @@ def expand(sc, out, proj=None):
     if pn:
         first = next((i for i in sc["items"] if i.get("type") in CONTENT_T), None)
         prims[0]["space"] = (first or {}).get("space", "world")
+        content_items = [i for i in sc["items"] if i.get("type") in CONTENT_T]
+        if len(content_items) == 1 and content_items[0].get("until") is not None:
+            prims[0]["until"] = content_items[0]["until"]
     for it in sc["items"]:
         n0 = len(prims)
         ty, ap = it["type"], it.get("appear")
@@ -186,12 +189,12 @@ def expand(sc, out, proj=None):
             x0, y0 = it["x"], it["y"]
             sides = [it["left"], it["right"]]
             vmax = max(s_["value"] for s_ in sides) or 1
-            base = y0 + 150
+            base = y0 + 170                                          # bars end here; the tallest (280 px) tops out at y0-110, its value sits above it, the title above that
             if it.get("title"):
-                T(it["title"], x0, y0 - 180, 48, "dark", 0, ap)
+                T(it["title"], x0, y0 - 205, 42, "dark", 0, ap)
             for k_, sd in enumerate(sides):
                 cx = x0 + (-130 if k_ == 0 else 130)
-                h_ = max(20, int(300 * sd["value"] / vmax))
+                h_ = max(20, int(280 * sd["value"] / vmax))
                 name = f"cmp_{sd.get('color', 'blue')}_{h_}"
                 S.ensure_png(name, S.bar(A[sd.get("color", "blue")], 150, h_), out)
                 sap = sd.get("appear", ap)
@@ -258,6 +261,8 @@ def expand(sc, out, proj=None):
             raise SystemExit(f"unknown item type {ty!r} in scene {sc['id']}")
         for p_ in prims[n0:]:
             p_["space"] = it.get("space", "world")
+            if it.get("until") is not None:
+                p_["until"] = it["until"]
     for sub in sc["subtitles"]:
         if len(sub) > 56:
             raise SystemExit(f"subtitle too long ({len(sub)} chars, max 56) in {sc['id']}: {sub}")

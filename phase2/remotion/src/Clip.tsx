@@ -42,19 +42,20 @@ const Scene: React.FC<{ sc: any; D: any; M: any }> = ({ sc, D, M }) => {
   const prim = (p: any, i: number) => {
     const a = p.appear == null ? 0 : Math.max(p.appear, 2 / fps);
     const op = p.appear == null ? 1 : interpolate(t, [a - 1 / fps, a + 0.12], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-    if (op <= 0) return null;
+    const gone = p.until == null ? 1 : interpolate(t, [p.until, p.until + 0.15], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+    if (op * gone <= 0) return null;
     if (p.kind === "prop") {
       const sz = sizes[p.img] || [200, 200];
       const pop = p.appear == null ? 1 : interpolate(t, [a - 1 / fps, a + 0.18, a + 0.3], [0.6, 1.06, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
       return (
-        <img key={i} src={staticFile(`assets/png/${p.img}.png`)} style={{ position: "absolute", left: 0, top: 0, transformOrigin: "0 0", opacity: op,
+        <img key={i} src={staticFile(`assets/png/${p.img}.png`)} style={{ position: "absolute", left: 0, top: 0, transformOrigin: "0 0", opacity: op * gone,
           transform: `translate(${p.x}px,${p.y}px) rotate(${p.rot || 0}deg) scale(${(p.scale * pop) / PS}) translate(${-sz[0] / 2}px,${-sz[1] / 2}px)` }} />
       );
     }
     const left = p.align === "left";
     return (
       <div key={i} style={{ position: "absolute", left: p.x, top: p.y - 0.82 * p.size, transform: `${left ? "" : "translateX(-50%)"} rotate(${p.rot || 0}deg)`, whiteSpace: "nowrap",
-        fontFamily: "AFArial", fontWeight: 700, fontSize: p.size, lineHeight: 1, color: col(p.color), opacity: op }}>
+        fontFamily: "AFArial", fontWeight: 700, fontSize: p.size, lineHeight: 1, color: col(p.color), opacity: op * gone }}>
         {p.text}
       </div>
     );
@@ -64,7 +65,7 @@ const Scene: React.FC<{ sc: any; D: any; M: any }> = ({ sc, D, M }) => {
     <AbsoluteFill style={{ background: css(sc.bgRGB) }}>
       {/* WORLD: background, scene props, content items, characters: moved and scaled by the camera */}
       <AbsoluteFill style={{ transformOrigin: "0 0", transform: `translate(${D.w / 2 - cx * z}px, ${D.h / 2 - cy * z}px) scale(${z})` }}>
-        {sc.bgImage ? <img src={staticFile(`assets/png/${sc.bgImage}.png`)} style={{ position: "absolute", left: 0, top: 0, width: D.w }} /> : <Setting kind={sc.id} />}
+        {sc.bgImage ? <img src={staticFile(`assets/png/${sc.bgImage}.png`)} style={{ position: "absolute", left: 0, top: 0, width: D.w }} /> : null}
         {sc.prims.map((p: any, i: number) => (p.space === "screen" ? null : prim(p, i)))}
         {chars.map(({ ch, rig, sample }: any, i: number) => (
           <Character key={i} rig={rig} rigId={ch.rig} s={sample(t)} scale={ch.scale} flip={flipAt(ch, t)} PS={PS} sizes={sizes}

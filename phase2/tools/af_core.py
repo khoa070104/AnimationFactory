@@ -128,13 +128,24 @@ def validate(project, storyboard=None):
     return _ok(errors=[], warnings=warns, charged_calls=0)
 
 
-def project_put(project, storyboard, expect_hash):
+def project_put(project, storyboard, expect_hash, autolayout=False):
     """Replace the storyboard (compare-and-swap on the file hash). Validates first; a copy of the previous version is kept (versions/)."""
     p = proj_path(project)
     cur = _hash(p)
     if expect_hash != cur:
         return _fail([{"code": "STALE_HASH", "scene_id": None, "shot_id": None, "field": "expect_hash", "message": "the storyboard changed since you read it",
                        "next_action": "Call project_get again, merge your change into the current storyboard and retry with its hash.", "current_hash": cur}], "needs_changes")
+    if autolayout:                                                    # content panel + props to free spots (layout.compose / nudge): deterministic, no AI
+        import layout
+        ai = layout.ai_sizes(p)
+        import agy_image as G
+        man = G.load_manifest(p)["assets"]
+        for sc in storyboard.get("scenes", []):
+            for h in sc.get("holds", []):                              # a held AI picture without a size gets one that fits a hand (<= 170 px wide)
+                if h.get("prop", "").startswith("ai:") and "scale" not in h and (man.get(h["prop"][3:]) or {}).get("png_size"):
+                    h["scale"] = round(min(1.0, 170 / (man[h["prop"][3:]]["png_size"][0] / 2)), 3)
+            layout.compose(sc, ai)
+            layout.nudge(sc, ai)
     busy = _running_job(p)
     if busy:
         return _fail([{"code": "PROJECT_BUSY", "scene_id": None, "shot_id": None, "field": None, "message": f"job {busy['id']} is running on this project",
@@ -360,7 +371,7 @@ TOOLS = [
     {"name": "capabilities", "fn": capabilities, "description": "Versioned catalog: shot kinds/sizes, actions, poses, props, item types, assets the project may use, contract version. Read it first.", "inputSchema": _s({"project": PROJ})},
     {"name": "project_new", "fn": project_new, "description": "Create a project folder (optionally from a brief dict).", "inputSchema": _s({"name": {"type": "string"}, "title": {"type": "string"}, "brief": {"type": "object"}}, ["name", "title"])},
     {"name": "project_get", "fn": project_get, "description": "Read the storyboard (+ its hash for project_put) and/or status.", "inputSchema": _s({"project": PROJ, "what": {"type": "string", "enum": ["storyboard", "status", "all", "summary"]}}, ["project"])},
-    {"name": "project_put", "fn": project_put, "description": "Replace the storyboard. Needs expect_hash from project_get (compare-and-swap). Validates first; returns structured errors with scene/shot/field.", "inputSchema": _s({"project": PROJ, "storyboard": {"type": "object"}, "expect_hash": {"type": "string"}}, ["project", "storyboard", "expect_hash"])},
+    {"name": "project_put", "fn": project_put, "description": "Replace the storyboard. Needs expect_hash from project_get (compare-and-swap). Validates first; returns structured errors with scene/shot/field.", "inputSchema": _s({"project": PROJ, "storyboard": {"type": "object"}, "expect_hash": {"type": "string"}, "autolayout": {"type": "boolean", "description": "arrange content items in the content panel and move props to free spots before saving"}}, ["project", "storyboard", "expect_hash"])},
     {"name": "validate", "fn": validate, "description": "Validate the stored storyboard or a given one. Errors: {code, scene_id, shot_id, field, message, next_action}.", "inputSchema": _s({"project": PROJ, "storyboard": {"type": "object"}}, ["project"])},
     {"name": "estimate", "fn": estimate, "description": "Characters, seconds, voice credits and budget usage. An estimate is not an approval.", "inputSchema": _s({"project": PROJ}, ["project"])},
     {"name": "preview", "fn": preview, "description": "Free draft preview of some/all scenes: still per shot, contact sheet, low-res clip, QA checks. No paid call. Reuses unchanged scenes.", "inputSchema": _s({"project": PROJ, "scenes": {"type": "array", "items": {"type": "string"}}, "background": {"type": "boolean"}}, ["project"])},

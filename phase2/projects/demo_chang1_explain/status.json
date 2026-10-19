@@ -1,0 +1,22 @@
+{
+  "project": "demo_chang1_explain",
+  "storyboard_version": 1,
+  "state": "draft_built",
+  "approved": {},
+  "voice_generated": false,
+  "api_calls": 0,
+  "credits_spent": 0,
+  "last_build": {
+    "renderer": "remotion",
+    "draft": true,
+    "output": "D:\\AnimationFactory\\phase2\\projects\\demo_chang1_explain\\output\\demo_chang1_explain_v4_draft.mp4",
+    "seconds": 16.8,
+    "rendered": [
+      "s01",
+      "s02"
+    ],
+    "reused": [],
+    "built_in_s": 18.1,
+    "placeholders": []
+  }
+}
