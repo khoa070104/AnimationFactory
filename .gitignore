@@ -3,8 +3,12 @@
 .env.*
 !.env.example
 phase2/config.json
-**/*token*
-**/*secret*
+**/*token*.txt
+**/*_token*
+**/token.json
+!phase2/style/tokens.json
+**/*secret*.json
+**/*secret*.txt
 telegram_state/
 # caches, outputs, big/derived data
 work/
