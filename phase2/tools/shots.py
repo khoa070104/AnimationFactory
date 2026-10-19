@@ -152,8 +152,8 @@ def resolve(sc, dur, T, rig_heights=None, items_boxes=None):
         if k == 0:
             cam.append({"t": 0.0, "cx": f[0], "cy": f[1], "z": f[2]})
         else:
-            cam.append({"t": t0, "cx": prev[0], "cy": prev[1], "z": prev[2]})      # leave the previous frame...
-            cam.append({"t": round(t0 + ease, 3), "cx": f[0], "cy": f[1], "z": f[2]})   # ...and arrive (a cut has ease 0: the later key wins)
+            cam.append({"t": round(t0 - (0.001 if ease == 0 else 0), 3), "cx": prev[0], "cy": prev[1], "z": prev[2]})      # hold/leave the previous frame (a cut: until 1 ms before)...
+            cam.append({"t": round(t0 + ease, 3), "cx": f[0], "cy": f[1], "z": f[2]})   # ...and arrive (a cut: at once)
         prev = f
         en = s.get("end")
         if en is not None and (k + 1 == len(shots) or tt(en) < tt(shots[k + 1].get("start", 0))):

@@ -9,6 +9,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 import p2_svg as S
 import sbload
+import shots as SH
 import validate_storyboard as V
 
 P2 = S.P2
@@ -36,11 +37,15 @@ ITEM_FIELDS = {
               ("bars", "list:bar", True)],
     "pills": [("texts", "list:string", True), ("x", NUM, True), ("y", NUM, True), ("gap", NUM, True), ("size", NUM, False), ("appears", "list:appear", False), ("marker", "string", False)],
     "grid": [("title", "string", False), ("x", NUM, True), ("y", NUM, True), ("cols", NUM, True), ("cell_w", NUM, False), ("cell_h", NUM, False), ("cells", "list:cell", True), ("appear", "appear", False)],
+    "compare": [("title", "string", False), ("x", NUM, True), ("y", NUM, True), ("left", "object", True), ("right", "object", True), ("unit", "string", False), ("appear", "appear", False)],
+    "highlight": [("x", NUM, True), ("y", NUM, True), ("w", NUM, True), ("h", NUM, True), ("color", "string", False), ("appear", "appear", False)],
     "pie": [("x", NUM, True), ("y", NUM, True), ("scale", NUM, True), ("appear", "appear", False), ("parts", "list:part", True)],
     "legend": [("x", NUM, True), ("y", NUM, True), ("gap", NUM, True), ("size", NUM, False), ("appear", "appear", False), ("rows", "list:row", True)],
     "bill": [("head", "string", True), ("title", "string", True), ("amount", "string", True), ("x", NUM, True), ("y", NUM, True), ("scale", NUM, True), ("rot", NUM, False),
              ("appear", "appear", False)],
 }
+for _f in ITEM_FIELDS.values():                                              # every item can live in the camera's world (default) or on the fixed screen layer
+    _f.append(("space", "string", False))
 SUB_FIELDS = {
     "bar": [("label", "string", True), ("value", NUM, True), ("text", "string", True), ("color", "accent", True), ("appear", "appear", False)],
     "part": [("value", NUM, True), ("color", "accent", True)],
@@ -49,7 +54,7 @@ SUB_FIELDS = {
 }
 ITEM_HINT = {
     "prop": "một hình đạo cụ trong thư viện hoặc ảnh AI đã duyệt (ai:<id>)", "text": "dòng chữ trên màn hình (cỡ chữ ≥ 40)",
-    "notice": "thẻ thông báo có số tiền và chú thích", "grid": "bảng ô (lịch tuần, danh sách): cells = [{label, text, appear}], mỗi ô tối đa 14 ký tự chữ, điền lần lượt theo lời đọc", "chart": "biểu đồ cột (mỗi cột có giá trị, nhãn, màu)", "pills": "danh sách nhãn viên thuốc, tự co theo chữ",
+    "notice": "thẻ thông báo có số tiền và chú thích", "grid": "bảng ô (lịch tuần, danh sách): cells = [{label, text, appear}], mỗi ô tối đa 14 ký tự chữ, điền lần lượt theo lời đọc", "compare": "so sánh hai phía: left/right = {label, value, color, text?, appear?}; chiều cao cột theo tỷ lệ giá trị", "highlight": "khung nét đứt khoanh một vùng (x,y là tâm, w,h) để nhấn", "chart": "biểu đồ cột (mỗi cột có giá trị, nhãn, màu)", "pills": "danh sách nhãn viên thuốc, tự co theo chữ",
     "pie": "biểu đồ tròn", "legend": "chú giải màu + chữ, căn trái", "bill": "hóa đơn (đầu, tiêu đề, số tiền)",
 }
 
@@ -71,6 +76,9 @@ def capabilities(proj=None):
         "actions": [{"name": n, **ACTION_INFO[n]} for n in sorted(V.ACTIONS)],
         "poses": sorted(V.POSES), "faces": sorted(V.FACES), "props": sorted(V.PROP_IMGS), "ai_assets": ai, "characters": chars,
         "character_note": "nhân vật chính = bi.char; nhân vật phụ (tối đa 3) = cast[]; mỗi nhân vật có actions/face_cues riêng; mọi nhân vật dùng cùng thư viện hành động",
+        "shots": {"note": "scene.shots (optional; absent = one implicit wide shot). Remotion renderer only. Camera frames `focus` at `size`; starts increase; end earlier than the next start = gap (wide), later = overlap (refused); characters keep their pose across cuts.",
+                  "kinds": list(SH.KINDS), "sizes": list(SH.SIZES), "focus": "main | cast1.. | item:<index|img> | [x, y, w, h]", "gaze": "[{who, at}] at = cast1 | item:.. | left | right | [x, y]",
+                  "max_zoom": SH.MAX_ZOOM, "item_space": "item.space = world (follows the camera, default) | screen (fixed); subtitles are always screen"},
         "backgrounds": ["cream", "blue", "#RRGGBB", "ai:<id>"], "text_colors": sorted(V.TEXT_COLORS), "accent_colors": sorted(S.A),
         "camera_presets": sorted(sbload.CAMERA_PRESETS), "transitions": ["cut", "fade-out"],
         "transition_note": "chỉ có cắt thẳng và mờ dần ở cảnh cuối; các nhãn khác được coi là cắt thẳng",
@@ -92,6 +100,8 @@ def scene_schema():
                 continue
             if ty == NUM:
                 item_props[n] = {"type": "number"}
+            elif ty == "object":
+                item_props[n] = {"type": "object", "properties": {"label": {"type": "string"}, "value": {"type": "number"}, "color": {"type": "string"}, "text": {"type": "string"}, "appear": {"type": ["string", "number"]}}}
             elif ty.startswith("list:"):
                 sub = ty[5:]
                 item_props[n] = {"type": "array", "items": ({"type": "string"} if sub == "string" else {"type": ["string", "number"]} if sub == "appear" else
@@ -117,7 +127,12 @@ def scene_schema():
         "holds": {"type": "array", "items": {"type": "object", "required": ["side", "prop"], "properties": {"who": {"type": "string"}, "side": {"type": "string", "enum": ["L", "R"]}, "prop": {"type": "string"}}}},
         "action_gaps": {"type": "array", "items": {"type": "string"}},
         "items": {"type": "array", "items": {"type": "object", "required": ["type"], "properties": item_props}},
-        "camera": {"type": "string"}, "hold_after": {"type": "number"}}}
+        "camera": {"type": "string"}, "hold_after": {"type": "number"},
+        "shots": {"type": "array", "items": {"type": "object", "required": ["id"], "properties": {
+            "id": {"type": "string"}, "purpose": {"type": "string"}, "start": {"type": ["string", "number"]}, "end": {"type": ["string", "number"]},
+            "kind": {"type": "string", "enum": list(SH.KINDS)}, "size": {"type": "string", "enum": list(SH.SIZES)}, "focus": {"type": ["string", "array"]},
+            "pad": {"type": "number"}, "cut": {"type": "boolean"}, "ease": {"type": "number"},
+            "gaze": {"type": "array", "items": {"type": "object", "required": ["at"], "properties": {"who": {"type": "string"}, "at": {"type": ["string", "array"]}}}}}}}}}
 
 
 if __name__ == "__main__":

@@ -84,7 +84,7 @@ def propose_scene(proj, scene_id, instruction):
         new["subtitles"] = "auto"
     else:
         new["subtitles"], changes = sc.get("subtitles", "auto"), []
-    for k in ("transition", "camera", "hold_after", "rest", "holds"):
+    for k in ("transition", "camera", "hold_after", "rest", "holds", "shots"):
         if k not in new and k in sc:
             new[k] = sc[k]
     cand = json.loads(json.dumps(sb))

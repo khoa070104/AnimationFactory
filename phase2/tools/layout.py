@@ -39,6 +39,8 @@ def item_boxes(sc, ai_size=None):
             out.append((lab, _box(x, y, 300 * s, 300 * s)))
         elif t == "bill":
             out.append((lab, _box(x, y, 380 * s / 1.0, 480 * s / 1.0)))
+        elif t == "compare":
+            out.append((lab, _box(x, y, 540, 440)))
         elif t == "grid":
             import build_storyboard as _sb
             cw, ch_ = map(float, _sb.grid_cell_size(it))
@@ -122,7 +124,7 @@ def check_scene(sc, ai_size=None):
 
 
 DECOR = ("sparkle", "coin", "exclaim", "sweat", "arrow_down", "shadow", "pill")
-CONTENT = {"text", "grid", "chart", "legend", "pills", "notice", "bill", "pie"}        # items that carry the explanation; props are scene dressing
+CONTENT = {"text", "grid", "chart", "legend", "pills", "notice", "bill", "pie", "compare"}        # items that carry the explanation; props are scene dressing
 
 
 def zone(sc):

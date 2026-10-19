@@ -127,7 +127,12 @@ def expand(sc, out, proj=None):
 
     def T(t, x, y, size, c="dark", r=0, ap=None):
         prims.append({"kind": "text", "text": t, "x": x, "y": y, "size": size, "color": c, "rot": r, "appear": ap})
+    CONTENT_T = ("text", "grid", "chart", "legend", "pills", "notice", "bill", "pie")
+    if pn:
+        first = next((i for i in sc["items"] if i.get("type") in CONTENT_T), None)
+        prims[0]["space"] = (first or {}).get("space", "world")
     for it in sc["items"]:
+        n0 = len(prims)
         ty, ap = it["type"], it.get("appear")
         if ty == "prop":
             P(resolve_img(out, it["img"], proj), it["x"], it["y"], it.get("scale", 1.0), it.get("rot", 0), ap)
@@ -176,6 +181,30 @@ def expand(sc, out, proj=None):
                     if mk == "number":
                         prims.append({"kind": "text", "text": str(i + 1), "x": it["x"] - W / 2 + 62, "y": y + round(0.32 * 44), "size": 44, "color": "dark", "rot": 0, "appear": pap, "align": "center"})
                 prims.append({"kind": "text", "text": t, "x": it["x"] - W / 2 + 120, "y": y + round(0.32 * size), "size": size, "color": "dark", "rot": 0, "appear": pap, "align": "left"})
+        elif ty == "compare":
+            # two bars side by side, height proportional to the value (largest = 300 px); value above, label below, optional caption
+            x0, y0 = it["x"], it["y"]
+            sides = [it["left"], it["right"]]
+            vmax = max(s_["value"] for s_ in sides) or 1
+            base = y0 + 150
+            if it.get("title"):
+                T(it["title"], x0, y0 - 180, 48, "dark", 0, ap)
+            for k_, sd in enumerate(sides):
+                cx = x0 + (-130 if k_ == 0 else 130)
+                h_ = max(20, int(300 * sd["value"] / vmax))
+                name = f"cmp_{sd.get('color', 'blue')}_{h_}"
+                S.ensure_png(name, S.bar(A[sd.get("color", "blue")], 150, h_), out)
+                sap = sd.get("appear", ap)
+                P(name, cx, base - h_ / 2, 1.0, 0, sap)
+                T(f"{sd['value']:g}{it.get('unit', '')}", cx, base - h_ - 24, 46, "dark", 0, sap)
+                T(sd["label"], cx, base + 54, 40, "dark", 0, sap)
+                if sd.get("text"):
+                    T(sd["text"], cx, base + 100, 36, "dark", 0, sap)
+        elif ty == "highlight":
+            w_, h_ = int(it["w"]), int(it["h"])
+            name = f"ring_{it.get('color', 'red')}_{w_}x{h_}"
+            S.ensure_png(name, S.ring(w_, h_, A.get(it.get("color", "red"), "#e0584f")), out)
+            P(name, it["x"], it["y"], 1.0, 0, ap)
         elif ty == "grid":
             # a table of cells drawn by the tool (so the Vietnamese text is exact); cells fill in one by one at their own cue
             cells = it["cells"]
@@ -227,6 +256,8 @@ def expand(sc, out, proj=None):
             T(it["amount"], x + 8 * k, y + 110 * k, 72 * k, "bad", r, ap)
         else:
             raise SystemExit(f"unknown item type {ty!r} in scene {sc['id']}")
+        for p_ in prims[n0:]:
+            p_["space"] = it.get("space", "world")
     for sub in sc["subtitles"]:
         if len(sub) > 56:
             raise SystemExit(f"subtitle too long ({len(sub)} chars, max 56) in {sc['id']}: {sub}")

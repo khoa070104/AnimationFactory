@@ -14,7 +14,7 @@ import p2_svg as S
 
 P2 = S.P2
 norm = lambda s: re.sub(r"[^\w]+", " ", s.lower()).split()
-ITEM_TYPES = {"prop", "text", "notice", "chart", "pills", "pie", "legend", "bill", "grid"}
+ITEM_TYPES = {"prop", "text", "notice", "chart", "pills", "pie", "legend", "bill", "grid", "compare", "highlight"}
 NUMWORDS = {"một": 1, "hai": 2, "ba": 3, "bốn": 4, "năm": 5, "sáu": 6, "bảy": 7, "tám": 8, "chín": 9, "mười": 10}
 PROP_IMGS = {"pen", "basket", "notebook", "phone", "card", "board", "wallet", "calculator", "coin", "jar", "bill", "sweat", "exclaim", "shadow", "sparkle", "pill", "arrow_down"}
 TEXT_COLORS = {"dark", "good", "bad", "bi", "white"}
@@ -90,6 +90,12 @@ def validate(proj, draft_chars=False):
 
         check_char("main", b.get("char") or CHR.BUILTIN)
         check_actor("main", b, sc.get("actions", []), sc.get("face_cues", []))
+        import shots as SH
+        for p_ in SH.problems(sc, has_phrase):                                   # structured (code, shot_id, field) problems, flattened for the text report
+            E.append(f"{i}: shot {p_['shot_id']}: {p_['field']}: {p_['message']} [{p_['code']}]")
+        for k_, it_ in enumerate(sc.get("items", [])):
+            if it_.get("space", "world") not in ("world", "screen"):
+                E.append(f"{i}: item #{k_ + 1}: space must be 'world' (follows the camera) or 'screen' (fixed), not {it_.get('space')!r}")
         if len(sc.get("cast", [])) > 3:
             E.append(f"{i}: at most 3 supporting characters per scene")
         for ci, c in enumerate(sc.get("cast", [])):
@@ -155,6 +161,16 @@ def validate(proj, draft_chars=False):
                     E.append(f"{i}: AI asset {it['img'][3:]!r} is {status!r}; only approved assets can be used in scenes")
             elif t == "prop" and it["img"] not in PROP_IMGS:
                 E.append(f"{i}: unknown prop image {it['img']!r} (known: {sorted(PROP_IMGS)}, or ai:<id> for an approved AI asset)")
+            if t == "compare":
+                for side in ("left", "right"):
+                    sd = it.get(side) or {}
+                    if not isinstance(sd.get("value"), (int, float)) or sd["value"] < 0 or not sd.get("label"):
+                        E.append(f"{i}: compare.{side} needs a label and a non-negative number `value`")
+                    elif sd.get("color", "blue") not in S.A:
+                        E.append(f"{i}: compare.{side}.color {sd.get('color')!r} is not an accent colour")
+                    check_appear(sd.get("appear"), t)
+            if t == "highlight" and not all(isinstance(it.get(k), (int, float)) and it[k] > 0 for k in ("w", "h")):
+                E.append(f"{i}: highlight needs positive w and h")
             if t == "prop" and it.get("img") == "card":
                 W.append(f"{i}: the `card` prop is an empty card with a tick: it carries no text; use a notice for text or leave it out")
             if t == "text":

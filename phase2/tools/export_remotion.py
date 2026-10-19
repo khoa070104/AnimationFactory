@@ -49,6 +49,11 @@ def plan_actions(actions, face, T, held=()):
     return out
 
 
+def _aligned(ibox):
+    """items_boxes must stay aligned with sc['items'] (item:<index>): an item without a box keeps its slot with an empty box far outside the canvas."""
+    return [(a, b if b is not None else (-9999, -9999, -9998, -9998), c) for a, b, c in ibox]
+
+
 def export(proj, work, scene_ids=None, draft=False, placeholders=None):
     proj, work = Path(proj), Path(work)
     placeholders = placeholders or {}
@@ -121,10 +126,22 @@ def export(proj, work, scene_ids=None, draft=False, placeholders=None):
                     "faceCues": [{"t": T(f["cue"]), "face": f["face"]} for f in c.get("face_cues", [])], "rest": c.get("rest")}
         chars = [character("main", {**sc["bi"], "actions": sc.get("actions", []), "face_cues": sc.get("face_cues", []), "rest": sc.get("rest")})]
         chars += [character(f"cast{i + 1}", c) for i, c in enumerate(sc.get("cast", []))]
+        import layout as LAY
+        import shots as SH
+        ai = LAY.ai_sizes(proj)
+        ibox = []
+        for it_ in sc.get("items", []):
+            bx = LAY.item_boxes({"items": [it_]}, ai)
+            ibox.append((bx[0][0], bx[0][1], it_) if bx else ("?", None, it_))
+        rh = {cid: r_.get("height", 540) for cid, r_ in rigs.items()}
+        rh[None] = 420                                                          # Bi, the built-in character
+        res = SH.resolve(sc, dur, T, rh, _aligned(ibox))
+        for ch_ in chars:
+            ch_["looks"] = res["looks"].get(ch_["who"], [])
         bg_rgb, bg_img = SBD.bg_spec(pub / "assets", sc["bg"], proj)
         holds = [{**h, "prop": SBD.resolve_img(pub / "assets", h["prop"], proj)} for h in sc.get("holds", [])]
         scenes.append({"id": sid, "title": sc["title"], "dur": dur, "start": round(t_cursor, 3), "audio": f"audio/{sid}.wav", "bgRGB": bg_rgb, "bgImage": bg_img, "subs": subs,
-                       "subtitleY": sc.get("subtitle_y", 1030), "chars": chars, "holds": holds, "prims": prims})
+                       "subtitleY": sc.get("subtitle_y", 1030), "chars": chars, "holds": holds, "prims": prims, "camera": res["camera"], "shots": [{k_: s_.get(k_) for k_ in ("id", "kind", "size", "purpose")} for s_ in (sc.get("shots") or [])]})
         t_cursor += dur
     have = {f.stem for f in (pub / "assets" / "png").glob("*.png")}
     missing = sorted({f"{sc['id']}: {n}" for sc in scenes for n in [p["img"] for p in sc["prims"] if p["kind"] == "prop"] + [h["prop"] for h in sc["holds"]] + ([sc["bgImage"]] if sc["bgImage"] else []) if n not in have})

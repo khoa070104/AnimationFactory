@@ -3,6 +3,7 @@ import { AbsoluteFill, Audio, Sequence, staticFile, useCurrentFrame, useVideoCon
 import { Character } from "./Character";
 import { motionLib } from "./motion";
 import { buildKeys, makeSampler } from "./timeline";
+import { cameraAt, flipAt } from "./camera";
 
 const css = (c: number[]) => `rgb(${Math.round(c[0] * 255)},${Math.round(c[1] * 255)},${Math.round(c[2] * 255)})`;
 const FONT = `@font-face{font-family:AFArial;src:url(${staticFile("fonts/arialbd.ttf")});font-weight:700}`;
@@ -38,33 +39,40 @@ const Scene: React.FC<{ sc: any; D: any; M: any }> = ({ sc, D, M }) => {
     [sc.id],
   );
   const col = (c: string) => (D.colors[c] ? css(D.colors[c]) : D.accent[c] || "#2b2f3a");
+  const prim = (p: any, i: number) => {
+    const a = p.appear == null ? 0 : Math.max(p.appear, 2 / fps);
+    const op = p.appear == null ? 1 : interpolate(t, [a - 1 / fps, a + 0.12], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+    if (op <= 0) return null;
+    if (p.kind === "prop") {
+      const sz = sizes[p.img] || [200, 200];
+      const pop = p.appear == null ? 1 : interpolate(t, [a - 1 / fps, a + 0.18, a + 0.3], [0.6, 1.06, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+      return (
+        <img key={i} src={staticFile(`assets/png/${p.img}.png`)} style={{ position: "absolute", left: 0, top: 0, transformOrigin: "0 0", opacity: op,
+          transform: `translate(${p.x}px,${p.y}px) rotate(${p.rot || 0}deg) scale(${(p.scale * pop) / PS}) translate(${-sz[0] / 2}px,${-sz[1] / 2}px)` }} />
+      );
+    }
+    const left = p.align === "left";
+    return (
+      <div key={i} style={{ position: "absolute", left: p.x, top: p.y - 0.82 * p.size, transform: `${left ? "" : "translateX(-50%)"} rotate(${p.rot || 0}deg)`, whiteSpace: "nowrap",
+        fontFamily: "AFArial", fontWeight: 700, fontSize: p.size, lineHeight: 1, color: col(p.color), opacity: op }}>
+        {p.text}
+      </div>
+    );
+  };
+  const [cx, cy, z] = cameraAt(sc.camera, t, D.w, D.h);
   return (
     <AbsoluteFill style={{ background: css(sc.bgRGB) }}>
-      {sc.bgImage ? <img src={staticFile(`assets/png/${sc.bgImage}.png`)} style={{ position: "absolute", left: 0, top: 0, width: D.w }} /> : <Setting kind={sc.id} />}
-      {sc.prims.map((p: any, i: number) => {
-        const a = p.appear == null ? 0 : Math.max(p.appear, 2 / fps);
-        const op = p.appear == null ? 1 : interpolate(t, [a - 1 / fps, a + 0.12], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-        if (op <= 0) return null;
-        if (p.kind === "prop") {
-          const sz = sizes[p.img] || [200, 200];
-          const pop = p.appear == null ? 1 : interpolate(t, [a - 1 / fps, a + 0.18, a + 0.3], [0.6, 1.06, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-          return (
-            <img key={i} src={staticFile(`assets/png/${p.img}.png`)} style={{ position: "absolute", left: 0, top: 0, transformOrigin: "0 0", opacity: op,
-              transform: `translate(${p.x}px,${p.y}px) rotate(${p.rot || 0}deg) scale(${(p.scale * pop) / PS}) translate(${-sz[0] / 2}px,${-sz[1] / 2}px)` }} />
-          );
-        }
-        const left = p.align === "left";
-        return (
-          <div key={i} style={{ position: "absolute", left: p.x, top: p.y - 0.82 * p.size, transform: `${left ? "" : "translateX(-50%)"} rotate(${p.rot || 0}deg)`, whiteSpace: "nowrap",
-            fontFamily: "AFArial", fontWeight: 700, fontSize: p.size, lineHeight: 1, color: col(p.color), opacity: op }}>
-            {p.text}
-          </div>
-        );
-      })}
-      {chars.map(({ ch, rig, sample }: any, i: number) => (
-        <Character key={i} rig={rig} rigId={ch.rig} s={sample(t)} scale={ch.scale} flip={ch.flip} PS={PS} sizes={sizes}
-          holds={sc.holds.filter((h: any) => (h.who || "main") === ch.who)} />
-      ))}
+      {/* WORLD: background, scene props, content items, characters: moved and scaled by the camera */}
+      <AbsoluteFill style={{ transformOrigin: "0 0", transform: `translate(${D.w / 2 - cx * z}px, ${D.h / 2 - cy * z}px) scale(${z})` }}>
+        {sc.bgImage ? <img src={staticFile(`assets/png/${sc.bgImage}.png`)} style={{ position: "absolute", left: 0, top: 0, width: D.w }} /> : <Setting kind={sc.id} />}
+        {sc.prims.map((p: any, i: number) => (p.space === "screen" ? null : prim(p, i)))}
+        {chars.map(({ ch, rig, sample }: any, i: number) => (
+          <Character key={i} rig={rig} rigId={ch.rig} s={sample(t)} scale={ch.scale} flip={flipAt(ch, t)} PS={PS} sizes={sizes}
+            holds={sc.holds.filter((h: any) => (h.who || "main") === ch.who)} />
+        ))}
+      </AbsoluteFill>
+      {/* SCREEN: items marked space:"screen" and the subtitles never move with the camera */}
+      {sc.prims.map((p: any, i: number) => (p.space === "screen" ? prim(p, i) : null))}
       {sc.subs.map((s: any, i: number) =>
         t >= s.t0 && t < s.t1 ? (
           <div key={i}>

@@ -53,8 +53,40 @@ class T(unittest.TestCase):
 
     def test_cache_signature_covers_every_input(self):
         """phase2/remotion/tests/sig.test.mjs: cast rig data, fps, size, png scale, colours, font, audio, code... all change the signature; an unused picture does not."""
-        r = subprocess.run(["node", "--test", str(P2 / "remotion" / "tests" / "sig.test.mjs")], capture_output=True, text=True, encoding="utf-8", env=dict(os.environ, NODE_NO_WARNINGS="1"))
+        r = subprocess.run(["node", "--test", str(P2 / "remotion" / "tests" / "sig.test.mjs"), str(P2 / "remotion" / "tests" / "camera.test.mjs")], capture_output=True, text=True, encoding="utf-8", env=dict(os.environ, NODE_NO_WARNINGS="1"))
         self.assertEqual(r.returncode, 0, (r.stdout + r.stderr)[-2500:])
+
+    def test_shots_move_the_camera_not_the_subtitles_and_characters_keep_their_pose(self):
+        """Camera on the world layer: close-up on Mai makes her bigger while the subtitle bar stays where it is; a compare + highlight explain with the data."""
+        d = self.project()
+        self.with_mai(d)
+        sb = json.loads((d / "storyboard.json").read_text(encoding="utf-8"))
+        s1 = self.scene("s01", "Mai nhìn bảng so sánh rồi chỉ vào cột cao hơn và mỉm cười thật tươi.", "mai")
+        s1["actions"] = [{"name": "enter", "at": 0.0}, {"name": "point", "cue": "chỉ vào cột", "hold": 1.0}]
+        s1["items"] = [{"type": "compare", "title": "Hai cách", "x": 1300, "y": 480, "unit": "p", "left": {"label": "Cũ", "value": 40, "color": "red"}, "right": {"label": "Mới", "value": 15, "color": "green"}},
+                       {"type": "highlight", "x": 1430, "y": 600, "w": 200, "h": 120, "color": "yellow"}]
+        s1["shots"] = [{"id": "sh1", "start": 0, "kind": "wide", "purpose": "show the room and the table"},
+                       {"id": "sh2", "start": "mỉm cười", "kind": "reaction", "size": "close", "focus": "main", "purpose": "her reaction", "cut": True}]
+        sb["scenes"] = [s1]
+        sb["targets"] = {"duration": [3, 40], "scenes": [1, 4]}
+        (d / "storyboard.json").write_text(json.dumps(sb, ensure_ascii=False, indent=2), encoding="utf-8")
+        lb = self.produce(d)
+        clip = json.loads((d / "remotion/public/data/clip.json").read_text(encoding="utf-8"))
+        cam = clip["scenes"][0]["camera"]
+        self.assertTrue(cam and max(k["z"] for k in cam) > 1.3, cam)
+        import subprocess as sp
+        out = Path(lb["output"])
+        dur = clip["scenes"][0]["dur"]
+        frames = {}
+        for name, t in (("wide", 1.0), ("close", dur - 0.4)):
+            f = Path(tempfile.mkdtemp()) / f"{name}.png"
+            sp.run(["ffmpeg", "-y", "-loglevel", "error", "-ss", str(t), "-i", str(out), "-frames:v", "1", str(f)], check=True)
+            frames[name] = np.asarray(Image.open(f).convert("RGB")).astype(int)
+        mustard = lambda a: ((abs(a[:, :, 0] - 240) < 40) & (abs(a[:, :, 1] - 180) < 40) & (a[:, :, 2] < 110)).sum()
+        self.assertGreater(mustard(frames["close"]), 2.2 * mustard(frames["wide"]), "the close-up shows Mai much bigger")
+        for k in ("wide", "close"):                                                   # the subtitle bar is on the screen layer: same pixels in both shots
+            strip = frames[k][993:999, 930:990]                                   # inside the bar, above the text line
+            self.assertGreater(((strip > 225).all(axis=2)).mean(), 0.9, f"subtitle bar present, unmoved, in the {k} frame")
 
     def test_gates_refuse_silent_substitutes(self):
         d = self.project()

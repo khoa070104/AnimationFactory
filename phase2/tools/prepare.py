@@ -534,7 +534,7 @@ def merge_scenes(script, visuals, main_char=None, known=()):
         cast = [dict(c) for c in v.get("cast", []) if c.get("char") in known][:3]
         if cast:
             sc["cast"] = cast
-        for k in ("camera", "hold_after", "holds", "action_gaps"):
+        for k in ("camera", "hold_after", "holds", "action_gaps", "shots"):
             if v.get(k):
                 sc[k] = v[k]
         scenes.append(sc)
@@ -565,7 +565,7 @@ def _ai_fix(proj, sb, problems, what):
     for sc in sb["scenes"]:
         if sc["id"] in by:
             v = by[sc["id"]]
-            for k in ("bg", "bi", "actions", "face_cues", "items", "camera", "hold_after"):
+            for k in ("bg", "bi", "actions", "face_cues", "items", "camera", "hold_after", "shots"):
                 if k in v:
                     sc[k] = v[k]
 

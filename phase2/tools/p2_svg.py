@@ -186,6 +186,10 @@ def notebook():
                          + "".join(f'<circle cx="16" cy="{30 + 34 * i}" r="6" fill="{A["blue"]}" {LN5}/>' for i in range(5)))
 
 
+def ring(w, h, color):
+    return svg(w, h, f'<rect x="8" y="8" width="{w - 16}" height="{h - 16}" rx="28" fill="none" stroke="{color}" stroke-width="10" stroke-dasharray="26 14" stroke-linecap="round"/>')
+
+
 def panel(w, h):
     return svg(w, h, f'<rect x="4" y="4" width="{w - 8}" height="{h - 8}" rx="40" fill="#fffaf0" fill-opacity="0.93" stroke="#2b2f3a" stroke-opacity="0.35" stroke-width="4"/>')
 
