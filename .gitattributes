@@ -1,0 +1,5 @@
+phase2/approved/** -text
+phase2/style/tokens.json -text
+*.png binary
+*.jpg binary
+*.ttf binary
