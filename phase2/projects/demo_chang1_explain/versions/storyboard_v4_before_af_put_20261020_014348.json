@@ -1,0 +1,198 @@
+{
+  "project": "demo_chang1_explain",
+  "title": "Một đơn hàng đi qua ba bước",
+  "version": 4,
+  "voice": {
+    "provider": "edge",
+    "voice_id": "edge_vi-VN-HoaiMyNeural",
+    "speed": 1.0
+  },
+  "timing": {
+    "lead": 0.15,
+    "tail": 0.3,
+    "word_pad": 0.15
+  },
+  "export": {
+    "fade_out": 0.4
+  },
+  "character": {
+    "shirt": "#F26B21"
+  },
+  "targets": {
+    "duration": [
+      14,
+      30
+    ],
+    "scenes": [
+      2,
+      3
+    ]
+  },
+  "scenes": [
+    {
+      "id": "s01",
+      "title": "Ba bước",
+      "voice": "Một đơn hàng đi qua ba bước. Bước một: nhận đơn. Bước hai: kiểm tra. Bước ba: giao hàng.",
+      "subtitles": "auto",
+      "bg": "cream",
+      "transition": "cut",
+      "bi": {
+        "char": "tuan",
+        "x": 520,
+        "y": 960,
+        "scale": 1.0,
+        "face": "happy",
+        "pose": "idle"
+      },
+      "actions": [
+        {
+          "name": "enter",
+          "at": 0.0
+        },
+        {
+          "name": "point_seq",
+          "cues": [
+            "nhận đơn",
+            "kiểm tra",
+            "giao hàng"
+          ],
+          "hold": 0.8
+        }
+      ],
+      "face_cues": [
+        {
+          "cue": "kiểm tra",
+          "face": "thinking"
+        },
+        {
+          "cue": "giao hàng",
+          "face": "happy"
+        }
+      ],
+      "items": [
+        {
+          "type": "text",
+          "text": "Đơn hàng đi qua 3 bước",
+          "x": 1350,
+          "y": 211,
+          "size": 50,
+          "color": "dark",
+          "appear": "ba bước"
+        },
+        {
+          "type": "grid",
+          "x": 1350,
+          "y": 412,
+          "cols": 1,
+          "title": "Quy trình",
+          "cells": [
+            {
+              "label": "Bước 1",
+              "text": "Nhận đơn",
+              "appear": "nhận đơn"
+            },
+            {
+              "label": "Bước 2",
+              "text": "Kiểm tra",
+              "appear": "kiểm tra"
+            },
+            {
+              "label": "Bước 3",
+              "text": "Giao hàng",
+              "appear": "giao hàng"
+            }
+          ]
+        }
+      ],
+      "shots": [
+        {
+          "id": "sh1",
+          "start": 0,
+          "kind": "wide",
+          "purpose": "người dẫn đứng cạnh sơ đồ"
+        },
+        {
+          "id": "sh2",
+          "start": "Bước một",
+          "kind": "graphic",
+          "size": "detail",
+          "focus": "item:grid",
+          "ease": 0.6,
+          "purpose": "nhìn vào từng bước khi được nhắc"
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "title": "So sánh hai cách",
+      "voice": "Làm thủ công mất bốn mươi phút, làm theo quy trình mới chỉ còn mười lăm phút. Đây chỉ là số liệu minh họa. Tuấn gật đầu: thế là nhanh hơn rất nhiều.",
+      "subtitles": "auto",
+      "bg": "cream",
+      "transition": "fade-out",
+      "bi": {
+        "char": "tuan",
+        "x": 520,
+        "y": 960,
+        "scale": 1.0,
+        "face": "neutral",
+        "pose": "idle"
+      },
+      "actions": [
+        {
+          "name": "nod",
+          "cue": "gật đầu"
+        }
+      ],
+      "face_cues": [
+        {
+          "cue": "mười lăm phút",
+          "face": "surprised"
+        },
+        {
+          "cue": "gật đầu",
+          "face": "happy"
+        }
+      ],
+      "items": [
+        {
+          "type": "compare",
+          "title": "Thời gian xử lý (số liệu minh họa)",
+          "x": 1350,
+          "y": 420,
+          "unit": " phút",
+          "left": {
+            "label": "Thủ công",
+            "value": 40,
+            "color": "red",
+            "appear": "mất bốn mươi phút"
+          },
+          "right": {
+            "label": "Quy trình mới",
+            "value": 15,
+            "color": "green",
+            "appear": "mười lăm phút"
+          }
+        }
+      ],
+      "shots": [
+        {
+          "id": "sh1",
+          "start": 0,
+          "kind": "compare",
+          "size": "detail",
+          "focus": "item:compare",
+          "purpose": "so hai cột"
+        },
+        {
+          "id": "sh2",
+          "start": "Tuấn gật đầu",
+          "kind": "reaction",
+          "size": "close",
+          "focus": "main",
+          "ease": 0.5,
+          "purpose": "người dẫn chốt ý"
+        }
+      ]
+    }
+  ]
+}

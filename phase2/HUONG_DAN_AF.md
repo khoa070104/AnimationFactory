@@ -4,7 +4,7 @@ Bạn là đạo diễn; AnimationFactory là bàn dựng. Mọi lệnh dưới 
 
 ## Chạy
 ```
-python D:/AnimationFactory/phase2/tools/af.py capabilities                # catalog có phiên bản: shot, cỡ cảnh, action, pose, prop, item
+python D:/AnimationFactory/phase2/tools/af.py capabilities [--project NAME]   # catalog có phiên bản; KÈM --project thì liệt kê nhân vật + ảnh AI đã duyệt của dự án đó (không kèm: chỉ Bi có sẵn)
 python .../af.py project_get   --project NAME [--what summary|storyboard|status|all]    # trả cả `hash`
 python .../af.py project_put   --project NAME --storyboard-file F.json --expect-hash H [--autolayout]
 python .../af.py validate      --project NAME [--storyboard-file F.json]
@@ -14,7 +14,7 @@ python .../af.py render        --project NAME [--draft] [--background]     # d�
 python .../af.py jobs          --project NAME [--job-id ID]                # running | succeeded | failed | waiting_approval | interrupted
 python .../af.py artifacts     --project NAME
 ```
-Mã thoát: 0 ok, 2 needs_changes/waiting_approval/running, 1 error. Cùng các lệnh có trong MCP (`.mcp.json`, server `animation-factory-assets`; Claude CLI cần bạn duyệt server một lần).
+Mã thoát: 0 ok, 2 needs_changes/waiting_approval/running, 1 error. stdout là UTF-8 (tiếng Việt không bị escape): đọc bằng utf-8 (Windows: `PYTHONUTF8=1`). `project_get --what status|all` đưa trạng thái dự án trong khóa `project_status`. Cùng các lệnh có trong MCP (`.mcp.json`, server `animation-factory-assets`; Claude CLI cần bạn duyệt server một lần).
 
 ## Vòng làm việc
 `capabilities` → `project_get` (lấy `hash`) → sửa storyboard → `validate` / `project_put --expect-hash` → `preview` → **mở contact sheet và các ảnh mốc (bạn xem được ảnh bằng công cụ đọc ảnh)** → sửa theo lỗi chỉ đúng cảnh/shot/trường → `preview` lại (chỉ cảnh đổi được dựng lại) → `render` → chủ dự án duyệt.
@@ -23,7 +23,7 @@ Nếu môi trường của bạn không đọc được ảnh/video/âm thanh, g
 ## Shot (cấp dưới scene; chỉ bộ dựng Remotion)
 `scene.shots = [{id, start (giây | cụm lời), kind, size, focus, gaze, cut, ease, end, purpose}]` — không có `shots` = một khung rộng.
 - `kind`: wide, action, reaction, prop, compare, graphic. `size`: wide, medium, close, detail.
-- `focus`: `main` | `cast1`.. | `item:<chỉ số>` | `item:<tên ảnh/loại>` | `[x,y,w,h]`. Khung tự lấy theo kích thước đối tượng (nhân vật cao hơn → lùi xa hơn), có đệm, trong canvas, trên dải phụ đề, zoom tối đa 2,2.
+- `focus`: `main` | `cast1`.. | `item:<chỉ số trong scene.items>` | `item:<tên ảnh của prop>` hoặc `item:<type của item>` (ví dụ `item:notice`, `item:grid`) | `[x,y,w,h]`. Khung tự lấy theo kích thước đối tượng (nhân vật cao hơn → lùi xa hơn), có đệm, trong canvas, trên dải phụ đề, zoom tối đa 2,2.
 - `start` tăng dần; shot kéo dài tới shot sau; `end` sớm hơn shot sau = khoảng trống (về toàn cảnh); `end` muộn hơn = chồng lấn → lỗi `SHOT_OVERLAP`.
 - Đổi shot **không chạy lại động tác**: nhân vật/đạo cụ giữ trạng thái, camera chỉ là hàm của thời gian.
 - `gaze: [{who, at}]`: `at` = `cast1` | `main` | `item:..` | `left` | `right` | `[x,y]` (nhân vật quay mặt theo đích tại đầu shot).

@@ -1,0 +1,40 @@
+{
+  "checks": [
+    {
+      "name": "video 1920x1080 with audio",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "pass/fail criteria were fixed before the build (not loosened since)",
+      "pass": true,
+      "info": "locked {'duration': [14, 26], 'scenes': [1, 3], 'cue_tolerance': 0.7}"
+    },
+    {
+      "name": "duration within 14-26 s",
+      "pass": true,
+      "info": "17.0s"
+    },
+    {
+      "name": "scene count within 1-3",
+      "pass": true,
+      "info": "1 scenes"
+    },
+    {
+      "name": "subtitles: inside scene, in order, no overlap, <= 56 chars",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "actions start within 0.7 s of their spoken cue (planned vs actual start, after non-overlap scheduling)",
+      "pass": true,
+      "info": "4 actions"
+    },
+    {
+      "name": "motion QA on all characters (joint limits, no snaps/flips, arms never through torso)",
+      "pass": true,
+      "info": ""
+    }
+  ],
+  "renderer": "remotion"
+}

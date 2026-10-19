@@ -114,7 +114,7 @@ def project_get(project, what="storyboard"):
         if what in ("storyboard", "all"):
             out["storyboard"] = json.loads((p / "storyboard.json").read_text(encoding="utf-8"))
     if what in ("status", "all") and (p / "status.json").exists():
-        out["status"] = json.loads((p / "status.json").read_text(encoding="utf-8"))
+        out["project_status"] = json.loads((p / "status.json").read_text(encoding="utf-8"))      # NOT `status`: that key is the envelope's
     return _ok(**out)
 
 
@@ -301,12 +301,12 @@ def _preview_artifacts(p):
     video = work / "out" / "clip.mp4"
     stills, arts = [], []
     for sc in clip["scenes"]:
-        marks = [(f"{sc['id']}_{s['id']}", sc["start"] + (s["t0"] + s["t1"]) / 2) for s in sc.get("shots", [])] or [(f"{sc['id']}_a", sc["start"] + sc["dur"] * 0.3), (f"{sc['id']}_b", sc["start"] + sc["dur"] * 0.75)]
-        for name, t in marks:
+        marks = [(f"{sc['id']}_{s['id']}", sc["start"] + (s["t0"] + s["t1"]) / 2, s["id"], round((s["t0"] + s["t1"]) / 2, 2)) for s in sc.get("shots", [])] or             [(f"{sc['id']}_a", sc["start"] + sc["dur"] * 0.3, None, round(sc["dur"] * 0.3, 2)), (f"{sc['id']}_b", sc["start"] + sc["dur"] * 0.75, None, round(sc["dur"] * 0.75, 2))]
+        for name, t, shot_id, scene_t in marks:
             f = out / f"{name}.png"
             subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-ss", f"{t:.2f}", "-i", str(video), "-frames:v", "1", "-vf", "scale=640:-1", str(f)], check=True)
             stills.append(f)
-            arts.append({"kind": "still", "scene": sc["id"], "path": str(f)})
+            arts.append({"kind": "still", "scene": sc["id"], "shot": shot_id, "scene_time_s": scene_t, "note": "taken in the middle of the shot", "path": str(f)})
     from PIL import Image
     ims = [Image.open(f) for f in stills]
     if ims:

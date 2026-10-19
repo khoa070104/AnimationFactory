@@ -1,7 +1,7 @@
 {
   "project": "demo_chang1_story",
   "title": "Túi hàng nhầm nhãn",
-  "version": 4,
+  "version": 7,
   "voice": {
     "provider": "edge",
     "voice_id": "edge_vi-VN-HoaiMyNeural",

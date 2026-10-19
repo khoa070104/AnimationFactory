@@ -139,6 +139,28 @@ def export(proj, work, scene_ids=None, draft=False, placeholders=None):
         res = SH.resolve(sc, dur, T, rh, _aligned(ibox))
         for ch_ in chars:
             ch_["looks"] = res["looks"].get(ch_["who"], [])
+        hides = {}                                                              # prim item index -> [[t0, t1]] windows where it is hidden (focus isolation)
+        pn = sc.get("panel")
+        for s_ in res["shots"]:
+            if not s_["zoomed"]:
+                continue
+            vx0, vy0, vx1, vy1 = s_["view"]
+            hit = lambda b: b and not (b[2] <= vx0 or b[0] >= vx1 or b[3] <= vy0 or b[1] >= vy1)
+            for n_, (lab_, b_, it_) in enumerate(ibox):
+                if it_.get("type") in LAY.CONTENT and n_ != s_["focus_item"] and hit(b_):
+                    hides.setdefault(n_, []).append([s_["t0"], s_["t1"]])
+            if pn and s_["focus_item"] is None and hit(tuple(pn)):
+                hides.setdefault("panel", []).append([s_["t0"], s_["t1"]])
+        for s_ in res["shots"]:                                                  # a shot about a picture/graphic: characters that would be cut off at its edge are faded out too
+            if s_["zoomed"] and s_["focus_item"] is not None:
+                vx0, vy0, vx1, vy1 = s_["view"]
+                for ch_ in chars:
+                    bx = SH.char_box({"x": ch_["x"], "y": ch_["y"], "scale": ch_["scale"]}, rh.get(ch_["id"], 540))
+                    if not (bx[2] <= vx0 or bx[0] >= vx1 or bx[3] <= vy0 or bx[1] >= vy1):
+                        ch_.setdefault("hide", []).append([s_["t0"], s_["t1"]])
+        for p_ in prims:
+            if p_.get("item") in hides:
+                p_["hide"] = hides[p_["item"]]
         bg_rgb, bg_img = SBD.bg_spec(pub / "assets", sc["bg"], proj)
         holds = [{**h, "prop": SBD.resolve_img(pub / "assets", h["prop"], proj)} for h in sc.get("holds", [])]
         scenes.append({"id": sid, "title": sc["title"], "dur": dur, "start": round(t_cursor, 3), "audio": f"audio/{sid}.wav", "bgRGB": bg_rgb, "bgImage": bg_img, "subs": subs,

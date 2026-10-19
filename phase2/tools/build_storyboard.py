@@ -131,10 +131,11 @@ def expand(sc, out, proj=None):
     if pn:
         first = next((i for i in sc["items"] if i.get("type") in CONTENT_T), None)
         prims[0]["space"] = (first or {}).get("space", "world")
+        prims[0]["item"] = "panel"
         content_items = [i for i in sc["items"] if i.get("type") in CONTENT_T]
         if len(content_items) == 1 and content_items[0].get("until") is not None:
             prims[0]["until"] = content_items[0]["until"]
-    for it in sc["items"]:
+    for idx, it in enumerate(sc["items"]):
         n0 = len(prims)
         ty, ap = it["type"], it.get("appear")
         if ty == "prop":
@@ -261,6 +262,7 @@ def expand(sc, out, proj=None):
             raise SystemExit(f"unknown item type {ty!r} in scene {sc['id']}")
         for p_ in prims[n0:]:
             p_["space"] = it.get("space", "world")
+            p_["item"] = idx
             if it.get("until") is not None:
                 p_["until"] = it["until"]
     for sub in sc["subtitles"]:

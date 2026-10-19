@@ -128,6 +128,24 @@ class T(unittest.TestCase):
         self.assertFalse([w for w in r["warnings"] if "content panel" in w], r["warnings"])
         self.assertEqual(AF.call("preview", {"project": d.name})["status"], "ok")
 
+    def test_zoomed_shots_hide_content_that_pokes_into_the_view_but_is_not_the_focus(self):
+        """Found by the independent acceptance run: a label card's corner showed in reaction close-ups. Content that is not the focus fades out for that shot."""
+        d = self.project()
+        self.with_mai(d)
+        self.story(d)
+        sb = AF.call("project_get", {"project": d.name})
+        cur = sb["storyboard"]
+        cur["scenes"][0]["items"].append({"type": "text", "text": "Ghi chú gần nhân vật", "x": 640, "y": 400, "size": 46})     # right next to Mai: inside her close-up
+        r = AF.call("project_put", {"project": d.name, "storyboard": cur, "expect_hash": sb["hash"]})
+        self.assertEqual(r["status"], "ok", r)
+        self.assertEqual(AF.call("preview", {"project": d.name})["status"], "ok")
+        clip = json.loads((d / "remotion/public/data/clip.json").read_text(encoding="utf-8"))
+        prims = [p for p in clip["scenes"][0]["prims"] if p.get("text") == "Ghi chú gần nhân vật"]
+        close = [s for s in clip["scenes"][0]["shots"] if s["id"] == "sh2"][0]
+        self.assertTrue(prims and prims[0].get("hide") == [[close["t0"], close["t1"]]], prims)
+        far = [p for p in clip["scenes"][0]["prims"] if p.get("text") == "Nhãn"]
+        self.assertTrue(far and not far[0].get("hide"), "an item outside the view is left alone")
+
     def test_mcp_adapter_serves_the_same_core(self):
         p = subprocess.Popen([sys.executable, str(P2 / "assets_mcp" / "af_assets_server.py")], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, encoding="utf-8", env=ENV)
         msgs = [{"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2025-06-18"}}, {"jsonrpc": "2.0", "id": 2, "method": "tools/list"},

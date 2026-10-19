@@ -25,3 +25,13 @@ export function flipAt(ch: any, t: number): boolean {
   }
   return f;
 }
+
+// Focus isolation: opacity factor (1 = shown) of an item that is hidden during the windows [[t0, t1], ...]; 0.15 s fades.
+export function hiddenFactor(windows: number[][] | undefined, t: number): number {
+  let h = 0;
+  for (const [a0, a1] of windows || []) {
+    const inn = Math.min(1, Math.max(0, (t - a0) / 0.15)), out = 1 - Math.min(1, Math.max(0, (t - a1) / 0.15));
+    h = Math.max(h, Math.min(inn, out));
+  }
+  return 1 - h;
+}

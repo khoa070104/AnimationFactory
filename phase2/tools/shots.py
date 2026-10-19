@@ -171,8 +171,18 @@ def resolve(sc, dur, T, rig_heights=None, items_boxes=None):
                 if b:
                     looks.setdefault(who, []).append({"t": t0, "at": [round((b[0] + b[2]) / 2, 1), round((b[1] + b[3]) / 2, 1)]})
     starts = [tt(s.get("start", 0)) for s in shots]
-    meta = [{"id": s.get("id"), "kind": s.get("kind", "wide"), "size": s.get("size", "wide"), "purpose": s.get("purpose"), "t0": starts[k],
-             "t1": (starts[k + 1] if k + 1 < len(shots) else round(dur, 3))} for k, s in enumerate(shots)]
+    meta = []
+    for k, s in enumerate(shots):
+        box = _focus_box(s.get("focus"), chars, None, items_boxes, s.get("size", "wide"))
+        cx, cy, z = frame(box, s.get("size", "wide"), s.get("pad"))
+        fi = None
+        ref = s.get("focus")
+        if isinstance(ref, str) and ref.startswith("item:"):
+            key = ref[5:]
+            fi = next((n for n, (_l, _b, it) in enumerate(items_boxes) if (key.isdigit() and int(key) == n) or (not key.isdigit() and (str(it.get("img")) == key or it.get("type") == key))), None)
+        meta.append({"id": s.get("id"), "kind": s.get("kind", "wide"), "size": s.get("size", "wide"), "purpose": s.get("purpose"), "t0": starts[k],
+                     "t1": (starts[k + 1] if k + 1 < len(shots) else round(dur, 3)), "view": [round(cx - W / (2 * z)), round(cy - H / (2 * z)), round(cx + W / (2 * z)), round(cy + H / (2 * z))],
+                     "focus_item": fi, "zoomed": s.get("size", "wide") in ("close", "detail")})
     return {"camera": cam, "looks": looks, "shots": meta}
 
 

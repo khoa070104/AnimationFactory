@@ -1,7 +1,7 @@
 {
   "project": "demo_chang1_explain",
   "title": "Một đơn hàng đi qua ba bước",
-  "version": 4,
+  "version": 6,
   "voice": {
     "provider": "edge",
     "voice_id": "edge_vi-VN-HoaiMyNeural",

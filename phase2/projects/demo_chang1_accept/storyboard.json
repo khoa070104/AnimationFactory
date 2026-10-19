@@ -1,7 +1,7 @@
 {
   "project": "demo_chang1_accept",
   "title": "Túi hàng nhầm nhãn",
-  "version": 1,
+  "version": 2,
   "voice": {
     "provider": "edge",
     "voice_id": "edge_vi-VN-HoaiMyNeural",
@@ -101,7 +101,7 @@
         {
           "who": "main",
           "side": "L",
-          "prop": "ai:prop_tui_hang"
+          "prop": "basket"
         }
       ],
       "items": [
@@ -123,7 +123,7 @@
         },
         {
           "id": "sh2",
-          "start": "nhìn vào cái tem",
+          "start": "nhìn vào cái nhãn",
           "kind": "prop",
           "size": "detail",
           "focus": "item:notice",
@@ -135,7 +135,7 @@
           "start": "ngạc nhiên",
           "kind": "reaction",
           "size": "close",
-          "focus": "main",
+          "focus": "cast1",
           "gaze": [
             {
               "who": "cast1",
@@ -149,7 +149,7 @@
           "start": "sững lại",
           "kind": "reaction",
           "size": "close",
-          "focus": "cast3",
+          "focus": "main",
           "gaze": [
             {
               "who": "main",

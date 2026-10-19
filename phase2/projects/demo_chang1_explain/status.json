@@ -9,14 +9,14 @@
   "last_build": {
     "renderer": "remotion",
     "draft": true,
-    "output": "D:\\AnimationFactory\\phase2\\projects\\demo_chang1_explain\\output\\demo_chang1_explain_v4_draft.mp4",
+    "output": "D:\\AnimationFactory\\phase2\\projects\\demo_chang1_explain\\output\\demo_chang1_explain_v6_draft.mp4",
     "seconds": 16.8,
     "rendered": [
       "s01",
       "s02"
     ],
     "reused": [],
-    "built_in_s": 18.1,
+    "built_in_s": 17.9,
     "placeholders": []
   }
 }

@@ -1,9 +1,21 @@
 {
   "project": "demo_chang1_accept",
   "storyboard_version": 1,
-  "state": "brief",
+  "state": "draft_built",
   "approved": {},
   "voice_generated": false,
   "api_calls": 0,
-  "credits_spent": 0
+  "credits_spent": 0,
+  "last_build": {
+    "renderer": "remotion",
+    "draft": true,
+    "output": "D:\\AnimationFactory\\phase2\\projects\\demo_chang1_accept\\output\\demo_chang1_accept_v2_draft.mp4",
+    "seconds": 17.0,
+    "rendered": [
+      "s01"
+    ],
+    "reused": [],
+    "built_in_s": 17.5,
+    "placeholders": []
+  }
 }

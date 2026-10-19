@@ -3,7 +3,7 @@ import { AbsoluteFill, Audio, Sequence, staticFile, useCurrentFrame, useVideoCon
 import { Character } from "./Character";
 import { motionLib } from "./motion";
 import { buildKeys, makeSampler } from "./timeline";
-import { cameraAt, flipAt } from "./camera";
+import { cameraAt, flipAt, hiddenFactor } from "./camera";
 
 const css = (c: number[]) => `rgb(${Math.round(c[0] * 255)},${Math.round(c[1] * 255)},${Math.round(c[2] * 255)})`;
 const FONT = `@font-face{font-family:AFArial;src:url(${staticFile("fonts/arialbd.ttf")});font-weight:700}`;
@@ -43,19 +43,20 @@ const Scene: React.FC<{ sc: any; D: any; M: any }> = ({ sc, D, M }) => {
     const a = p.appear == null ? 0 : Math.max(p.appear, 2 / fps);
     const op = p.appear == null ? 1 : interpolate(t, [a - 1 / fps, a + 0.12], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
     const gone = p.until == null ? 1 : interpolate(t, [p.until, p.until + 0.15], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-    if (op * gone <= 0) return null;
+    const hid = hiddenFactor(p.hide, t);                       // focus isolation: faded out during zoomed shots that are about something else
+    if (op * gone * hid <= 0) return null;
     if (p.kind === "prop") {
       const sz = sizes[p.img] || [200, 200];
       const pop = p.appear == null ? 1 : interpolate(t, [a - 1 / fps, a + 0.18, a + 0.3], [0.6, 1.06, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
       return (
-        <img key={i} src={staticFile(`assets/png/${p.img}.png`)} style={{ position: "absolute", left: 0, top: 0, transformOrigin: "0 0", opacity: op * gone,
+        <img key={i} src={staticFile(`assets/png/${p.img}.png`)} style={{ position: "absolute", left: 0, top: 0, transformOrigin: "0 0", opacity: op * gone * hid,
           transform: `translate(${p.x}px,${p.y}px) rotate(${p.rot || 0}deg) scale(${(p.scale * pop) / PS}) translate(${-sz[0] / 2}px,${-sz[1] / 2}px)` }} />
       );
     }
     const left = p.align === "left";
     return (
       <div key={i} style={{ position: "absolute", left: p.x, top: p.y - 0.82 * p.size, transform: `${left ? "" : "translateX(-50%)"} rotate(${p.rot || 0}deg)`, whiteSpace: "nowrap",
-        fontFamily: "AFArial", fontWeight: 700, fontSize: p.size, lineHeight: 1, color: col(p.color), opacity: op * gone }}>
+        fontFamily: "AFArial", fontWeight: 700, fontSize: p.size, lineHeight: 1, color: col(p.color), opacity: op * gone * hid }}>
         {p.text}
       </div>
     );
@@ -68,8 +69,10 @@ const Scene: React.FC<{ sc: any; D: any; M: any }> = ({ sc, D, M }) => {
         {sc.bgImage ? <img src={staticFile(`assets/png/${sc.bgImage}.png`)} style={{ position: "absolute", left: 0, top: 0, width: D.w }} /> : null}
         {sc.prims.map((p: any, i: number) => (p.space === "screen" ? null : prim(p, i)))}
         {chars.map(({ ch, rig, sample }: any, i: number) => (
-          <Character key={i} rig={rig} rigId={ch.rig} s={sample(t)} scale={ch.scale} flip={flipAt(ch, t)} PS={PS} sizes={sizes}
-            holds={sc.holds.filter((h: any) => (h.who || "main") === ch.who)} />
+          <div key={i} style={{ position: "absolute", left: 0, top: 0, opacity: hiddenFactor(ch.hide, t) }}>
+            <Character rig={rig} rigId={ch.rig} s={sample(t)} scale={ch.scale} flip={flipAt(ch, t)} PS={PS} sizes={sizes}
+              holds={sc.holds.filter((h: any) => (h.who || "main") === ch.who)} />
+          </div>
         ))}
       </AbsoluteFill>
       {/* SCREEN: items marked space:"screen" and the subtitles never move with the camera */}

@@ -24,3 +24,11 @@ test("facing follows the latest look", () => {
   assert.equal(flipAt(ch, 3.5), true);
   assert.equal(flipAt({ x: 500, flip: true, looks: [{ t: 0, at: [520, 0] }] }, 1), true);   // target straight ahead: keep facing
 });
+import { hiddenFactor } from "../src/camera.ts";
+test("focus isolation fades an item out inside its windows and back in after", () => {
+  assert.equal(hiddenFactor(undefined, 1), 1);
+  assert.equal(hiddenFactor([[2, 4]], 1.9), 1);
+  assert.ok(hiddenFactor([[2, 4]], 2.075) > 0.4 && hiddenFactor([[2, 4]], 2.075) < 0.6);
+  assert.equal(hiddenFactor([[2, 4]], 3), 0);
+  assert.equal(hiddenFactor([[2, 4]], 4.2), 1);
+});
