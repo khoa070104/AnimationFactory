@@ -53,3 +53,6 @@ phase2/style/_build.jsx
 phase2/style/contact_sheet.png
 phase2/remotion/_spike/
 phase2/projects/*.zip
+
+# local hand-over packs for other AI tools (not source)
+codex_handoff/
