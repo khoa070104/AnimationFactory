@@ -117,6 +117,7 @@ class T(unittest.TestCase):
         r = AF.call("project_put", {"project": d.name, "storyboard": sb, "expect_hash": cur["hash"]})
         self.assertEqual(r["status"], "ok", r)
         pv = AF.call("preview", {"project": d.name})
+        self.assertEqual(pv["status"], "ok", pv)
         self.assertEqual(pv["rebuilt_scenes"], ["s01"], "only the scene whose data changed is rebuilt")
         self.assertNotEqual(clip()["scenes"][0]["camera"], before)
         sb["scenes"][0]["items"][0]["text"] = "Một cái nhãn rất dài ghi tên người nhận và cả địa chỉ nhà hàng xóm bên cạnh"

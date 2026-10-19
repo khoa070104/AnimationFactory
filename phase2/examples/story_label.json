@@ -23,7 +23,7 @@
                 "actions": [{"name": "point", "cue": "nhìn vào", "hold": 1.2}, {"name": "nod", "cue": "gật đầu"}],
                 "face_cues": [{"cue": "ngạc nhiên", "face": "surprised"}, {"cue": "bật cười", "face": "happy"}]}],
       "holds": [{"who": "main", "side": "L", "prop": "ai:prop_shopping_bag"}],
-      "items": [{"type": "notice", "amount": "NHÃN", "caption": "Gửi: Văn Minh", "x": 960, "y": 420, "appear": "cái nhãn", "until": "Linh ngạc nhiên"}],
+      "items": [{"type": "notice", "amount": "NHÃN", "caption": "Gửi: Văn Minh", "icon": "warn", "x": 960, "y": 420, "appear": "cái nhãn", "until": "Linh ngạc nhiên"}],
       "shots": [
         {"id": "sh1", "start": 0, "kind": "wide", "purpose": "Tuấn vào bếp, Linh ở bàn: người xem biết ai ở đâu"},
         {"id": "sh2", "start": "nhìn vào cái nhãn", "kind": "prop", "size": "detail", "focus": "item:notice", "ease": 0.6, "purpose": "đọc cái nhãn: chi tiết quan trọng nhất"},

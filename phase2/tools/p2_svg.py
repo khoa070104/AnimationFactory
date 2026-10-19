@@ -71,6 +71,23 @@ def card():
     return svg(600, 170, f'<rect x="8" y="8" width="584" height="154" rx="26" fill="#fff" {LN}/><circle cx="84" cy="85" r="36" fill="{A["green"]}" {LN}/><path d="M66 86 L80 100 L104 70" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>')
 
 
+NOTICE_ICONS = ("check", "warn", "info", "none")
+
+
+def notice_plate(icon, w=600):
+    """The notice card without the baked-in tick: the symbol follows the MEANING of the message (check = confirmed, warn = a problem, info = neutral, none = no symbol)."""
+    plate = f'<rect x="8" y="8" width="{w - 16}" height="154" rx="26" fill="#fff" {LN}/>'
+    if icon == "check":
+        sym = f'<circle cx="84" cy="85" r="36" fill="{A["green"]}" {LN}/><path d="M66 86 L80 100 L104 70" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>'
+    elif icon == "warn":
+        sym = f'<circle cx="84" cy="85" r="36" fill="{A["red"]}" {LN}/><path d="M84 64 L84 88" stroke="#fff" stroke-width="10" stroke-linecap="round"/><circle cx="84" cy="105" r="6" fill="#fff"/>'
+    elif icon == "info":
+        sym = f'<circle cx="84" cy="85" r="36" fill="{A["blue"]}" {LN}/><path d="M84 84 L84 106" stroke="#fff" stroke-width="10" stroke-linecap="round"/><circle cx="84" cy="66" r="6" fill="#fff"/>'
+    else:
+        sym = ""
+    return svg(w, 170, plate + sym)
+
+
 def board(w=820, h=600):
     return svg(w, h, f'<rect x="8" y="8" width="{w - 16}" height="{h - 16}" rx="28" fill="#fff" {LN}/>')
 

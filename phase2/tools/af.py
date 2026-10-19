@@ -47,7 +47,7 @@ def main(argv):
         n = a.parse_args(argv[1:])
         r = core.preview(n.project, n.scenes.split(",") if n.scenes else None)
         print(json.dumps(r, ensure_ascii=False))
-        return 0 if r["status"] == "ok" else 2
+        return {"ok": 0, "needs_changes": 3}.get(r["status"], 1)
     ap = argparse.ArgumentParser(prog="af", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     for t in core.TOOLS:
@@ -67,7 +67,15 @@ def main(argv):
     c.add_argument("--json", default="{}")
     a = ap.parse_args(argv)
     if a.cmd == "call":
-        name, args = a.tool, json.loads(a.json)
+        name = a.tool
+        try:
+            args = json.loads(a.json)
+            if not isinstance(args, dict):
+                raise ValueError("--json must be a JSON object")
+        except ValueError as e:
+            print(json.dumps({"status": "error", "contract": core.CONTRACT, "errors": [{"code": "INVALID_JSON", "scene_id": None, "shot_id": None, "field": "--json", "message": str(e),
+                                                                                       "next_action": "Pass a valid JSON object, e.g. --json '{\"project\": \"name\"}'."}], "charged_calls": 0}, ensure_ascii=False))
+            return 1
     else:
         name, args = a.cmd, {}
         t = next(x for x in core.TOOLS if x["name"] == name)
@@ -76,7 +84,12 @@ def main(argv):
             if spec.get("type") == "object":
                 v = getattr(a, attr + "_file", None)
                 if v:
-                    args[k] = json.loads(Path(v).read_text(encoding="utf-8"))
+                    try:
+                        args[k] = json.loads(Path(v).read_text(encoding="utf-8"))
+                    except (OSError, ValueError) as e:
+                        print(json.dumps({"status": "error", "contract": core.CONTRACT, "errors": [{"code": "BAD_FILE", "scene_id": None, "shot_id": None, "field": k, "message": f"{v}: {e}",
+                                                                                                   "next_action": "Pass the path of a readable JSON file."}], "charged_calls": 0}, ensure_ascii=False))
+                        return 1
             else:
                 v = getattr(a, attr, None)
                 if v not in (None, False):

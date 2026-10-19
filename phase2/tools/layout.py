@@ -32,7 +32,7 @@ def item_boxes(sc, ai_size=None):
             w = len(str(it.get("text", ""))) * 0.55 * size
             out.append((f"{lab} “{str(it.get('text', ''))[:18]}”", _box(x, y - 0.25 * size, w, size * 1.15)))
         elif t == "notice":
-            out.append((lab, _box(x, y, 600, 170)))
+            out.append((lab, _box(x, y, notice_width(it), 170)))
         elif t == "chart":
             out.append((lab, _box(x, y, 820 * s, 600 * s)))
         elif t == "pie":
@@ -150,13 +150,19 @@ def _shrink(it):
     return False
 
 
+def notice_width(it):
+    """Width of a notice card: the standard 600 px card, wider when its text needs it (the text never spills over the edge)."""
+    need = max(len(str(it.get("caption", ""))) * 40 * 0.52, len(str(it.get("amount", ""))) * 54 * 0.62) + 190
+    return max(600, int((need + 19) // 20 * 20))
+
+
 def compose(sc, ai_size=None):
     """Reusable layout for explanation scenes: the characters stand at the edges, every content item (title, table, chart, list, notice...) is stacked top to bottom in the
     content panel (shrunk to fit, never over a character), props stay scene dressing for nudge() to place. Deterministic, no AI. -> number of items placed."""
     cast = sc.get("cast") or []
     if cast:
-        sc["bi"]["x"] = 400
-        cast[0]["x"] = 1520
+        left, right = (400, 1520) if sc["bi"].get("x", 0) <= cast[0].get("x", 1e9) else (1520, 400)       # keeps who stands on which side: swap the x values in the data to swap them
+        sc["bi"]["x"], cast[0]["x"] = left, right
     x0, y0, x1, y1 = zone(sc)
     big_prop = lambda i: i.get("type") == "prop" and not any(d in str(i.get("img")) for d in DECOR) and item_boxes({"items": [i]}, ai_size)[0][1][2] - item_boxes({"items": [i]}, ai_size)[0][1][0] >= 150
     items = [i for i in sc.get("items", []) if (i.get("type") in CONTENT or big_prop(i)) and "x" in i]      # a big picture (a fridge) takes part in the stack like a table; small props are decoration

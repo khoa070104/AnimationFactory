@@ -31,21 +31,31 @@ def validate_obj(proj, sb, draft_chars=True):
         shutil.rmtree(tmp, ignore_errors=True)
 
 
-def save(proj, sb_obj, note="ui"):
-    """Validate; keep the previous file; bump the version when the content changed; write. Raises SaveError with the validator's errors."""
+class StaleError(SaveError):
+    pass
+
+
+def save(proj, sb_obj, note="ui", expect_hash=None):
+    """Validate; keep the previous file; bump the version when the content changed; write atomically. All inside the project lock, so the hash check
+    (expect_hash) and the write can not be interleaved by another CLI/UI. Raises SaveError with the validator's errors, StaleError when the file changed."""
+    import projlock
+    from agy_image import write_json_atomic
     proj = Path(proj)
-    old_text = (proj / "storyboard.json").read_text(encoding="utf-8")
-    errors, warnings = validate_obj(proj, sb_obj)
-    if errors:
-        raise SaveError("storyboard has errors; nothing was saved", errors, warnings)
-    old = json.loads(old_text)
-    changed = json.dumps(old, sort_keys=True, ensure_ascii=False) != json.dumps(sb_obj, sort_keys=True, ensure_ascii=False)
-    if changed:
-        (proj / "versions").mkdir(exist_ok=True)
-        (proj / "versions" / f"storyboard_v{old.get('version', 0)}_before_{note}_{time.strftime('%Y%m%d_%H%M%S')}.json").write_text(old_text, encoding="utf-8")
-        sb_obj["version"] = int(old.get("version", 0)) + 1
-        (proj / "storyboard.json").write_text(json.dumps(sb_obj, ensure_ascii=False, indent=2), encoding="utf-8")
-    return {"changed": changed, "version": sb_obj.get("version"), "hash": sha_file(proj / "storyboard.json"), "warnings": warnings}
+    with projlock.lock(proj):
+        old_text = (proj / "storyboard.json").read_text(encoding="utf-8")
+        if expect_hash is not None and sha_file(proj / "storyboard.json") != expect_hash:
+            raise StaleError("the storyboard changed since you read it", [], [])
+        errors, warnings = validate_obj(proj, sb_obj)
+        if errors:
+            raise SaveError("storyboard has errors; nothing was saved", errors, warnings)
+        old = json.loads(old_text)
+        changed = json.dumps(old, sort_keys=True, ensure_ascii=False) != json.dumps(sb_obj, sort_keys=True, ensure_ascii=False)
+        if changed:
+            (proj / "versions").mkdir(exist_ok=True)
+            (proj / "versions" / f"storyboard_v{old.get('version', 0)}_before_{note}_{time.strftime('%Y%m%d_%H%M%S')}.json").write_text(old_text, encoding="utf-8")
+            sb_obj["version"] = int(old.get("version", 0)) + 1
+            write_json_atomic(proj / "storyboard.json", sb_obj)
+        return {"changed": changed, "version": sb_obj.get("version"), "hash": sha_file(proj / "storyboard.json"), "warnings": warnings}
 
 
 def review_file(proj):

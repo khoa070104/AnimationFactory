@@ -11,12 +11,14 @@ import re
 import subprocess
 import sys
 import time
+import uuid
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import budget  # noqa: E402
 import capabilities as CAP  # noqa: E402
 import sbload  # noqa: E402
+import projlock  # noqa: E402
 import sbstore  # noqa: E402
 
 P2 = Path(__file__).resolve().parent.parent
@@ -54,12 +56,17 @@ def _hash(p):
     return hashlib.sha256(f.read_bytes()).hexdigest() if f.exists() else None
 
 
-def structure(msg):
-    """One validator text line -> structured error. Shot problems carry their own code/field; others are located by scene id."""
+def scene_ids(sb):
+    return [str(sc.get("id")) for sc in (sb or {}).get("scenes", []) if isinstance(sc, dict) and sc.get("id") is not None]
+
+
+def structure(msg, ids=()):
+    """One validator text line -> structured error. Shot problems carry their own code/field; others are located by scene id (any id the storyboard uses: `ids`)."""
     e = {"code": "INVALID_STORYBOARD", "scene_id": None, "shot_id": None, "field": None, "message": msg, "next_action": "Fix the named field and validate again."}
-    m = re.match(r"^(s\w+): (.*)$", msg)
-    if m:
-        e["scene_id"], rest = m.group(1), m.group(2)
+    sid = next((i for i in sorted(ids, key=len, reverse=True) if msg.startswith(i + ": ")), None)
+    m = re.match(r"^(s\w+): (.*)$", msg) if sid is None and not ids else None
+    if sid is not None or m:
+        e["scene_id"], rest = (sid, msg[len(sid) + 2:]) if sid is not None else (m.group(1), m.group(2))
         sm = re.match(r"^shot (\S+): ([\w.]+): (.*?) \[([A-Z_]+)\]$", rest)
         if sm:
             e.update(shot_id=sm.group(1) if sm.group(1) != "None" else None, field=sm.group(2), message=sm.group(3), code=sm.group(4))
@@ -98,8 +105,8 @@ def capabilities(project=None):
 
 def project_new(name, title, brief=None):
     import new_project
-    if re.search(r"[^A-Za-z0-9_\-]", name):
-        raise AfError("BAD_PROJECT_NAME", "project name: letters, digits, _ and - only", "name")
+    if not isinstance(name, str) or not re.fullmatch(r"[a-z0-9_]+", name):
+        raise AfError("BAD_PROJECT_NAME", "project name: lowercase letters, digits and _ only (e.g. new_video)", "name", "Choose a name such as new_video.")
     with _quiet():
         d = new_project.create(name, title, brief=brief) if brief else new_project.create(name, title)
     return _ok(project=name, path=str(d), next="project_get / project_put a storyboard, then validate")
@@ -124,7 +131,7 @@ def validate(project, storyboard=None):
     with _quiet():
         errs, warns = sbstore.validate_obj(p, sb)
     if errs:
-        return _fail([structure(e) for e in errs], "needs_changes", warnings=warns)
+        return _fail([structure(e, scene_ids(sb)) for e in errs], "needs_changes", warnings=warns)
     return _ok(errors=[], warnings=warns, charged_calls=0)
 
 
@@ -146,15 +153,21 @@ def project_put(project, storyboard, expect_hash, autolayout=False):
                     h["scale"] = round(min(1.0, 170 / (man[h["prop"][3:]]["png_size"][0] / 2)), 3)
             layout.compose(sc, ai)
             layout.nudge(sc, ai)
-    busy = _running_job(p)
-    if busy:
-        return _fail([{"code": "PROJECT_BUSY", "scene_id": None, "shot_id": None, "field": None, "message": f"job {busy['id']} is running on this project",
-                       "next_action": "Wait for it (jobs) before changing the storyboard."}], "needs_changes", job=busy)
     try:
-        with _quiet():
-            r = sbstore.save(p, storyboard, "af_put")
+        with projlock.lock(p):
+            busy = _running_job(p)
+            if busy:
+                return _fail([{"code": "PROJECT_BUSY", "scene_id": None, "shot_id": None, "field": None, "message": f"job {busy['id']} is running on this project",
+                               "next_action": "Wait for it (jobs) before changing the storyboard."}], "needs_changes", job=busy)
+            with _quiet():
+                r = sbstore.save(p, storyboard, "af_put", expect_hash=expect_hash)
+    except projlock.LockBusy as e:
+        return _fail([{"code": "PROJECT_BUSY", "scene_id": None, "shot_id": None, "field": None, "message": str(e), "next_action": "Retry in a few seconds."}], "needs_changes")
+    except sbstore.StaleError:
+        return _fail([{"code": "STALE_HASH", "scene_id": None, "shot_id": None, "field": "expect_hash", "message": "the storyboard changed since you read it",
+                       "next_action": "Call project_get again, merge your change into the current storyboard and retry with its hash.", "current_hash": _hash(p)}], "needs_changes")
     except sbstore.SaveError as e:
-        return _fail([structure(x) for x in e.errors] or [{"code": "SAVE_REFUSED", "message": str(e), "scene_id": None, "shot_id": None, "field": None, "next_action": "Fix and retry."}],
+        return _fail([structure(x, scene_ids(storyboard)) for x in e.errors] or [{"code": "SAVE_REFUSED", "message": str(e), "scene_id": None, "shot_id": None, "field": None, "next_action": "Fix and retry."}],
                      "needs_changes", warnings=e.warnings)
     return _ok(project=p.name, version=r["version"], hash=r["hash"], changed=r["changed"], warnings=r["warnings"])
 
@@ -186,7 +199,7 @@ def _job_view(p, rec):
     exitf = _jobs_dir(p) / f"{rec['id']}.exit"
     if exitf.exists():
         code = int(exitf.read_text().strip() or 1)
-        rec = {**rec, "state": {0: "succeeded", 2: "waiting_approval"}.get(code, "failed"), "exit_code": code}
+        rec = {**rec, "state": {0: "succeeded", 2: "waiting_approval", 3: "needs_changes"}.get(code, "failed"), "exit_code": code}
     elif _fresh_heartbeat(p, rec):
         rec = {**rec, "state": "running"}
     else:
@@ -195,7 +208,8 @@ def _job_view(p, rec):
 
 
 def _all_jobs(p):
-    return [_job_view(p, json.loads(f.read_text(encoding="utf-8"))) for f in sorted(_jobs_dir(p).glob("*.json"))]
+    from agy_image import read_json
+    return [_job_view(p, rec) for rec in (read_json(f, None) for f in sorted(_jobs_dir(p).glob("*.json"))) if rec]
 
 
 def _running_job(p, request=None):
@@ -219,21 +233,38 @@ def jobs(project, job_id=None):
 
 def _spawn(p, request, argv):
     """Run a command as a recorded job: the same request already running returns that job (no second run, no second paid call)."""
-    same = _running_job(p, request)
-    if same:
-        return same, False
-    busy = _running_job(p)
-    if busy:
-        raise AfError("PROJECT_BUSY", f"job {busy['id']} ({busy['request']['op']}) is running on this project", None, "Wait for it, or poll jobs(project, job_id).", status="needs_changes", job=busy)
-    jid = f"{request['op']}-{time.strftime('%Y%m%d%H%M%S')}"
-    log = _jobs_dir(p) / f"{jid}.log"
-    rec = {"id": jid, "request": request, "started": time.strftime("%Y-%m-%d %H:%M:%S"), "log": str(log), "argv": argv}
-    jf = _jobs_dir(p) / f"{jid}.json"
-    jf.write_text(json.dumps(rec, ensure_ascii=False, indent=1), encoding="utf-8")
+    try:
+        lk = projlock.lock(p, "jobs", timeout=30)
+        lk.__enter__()
+    except projlock.LockBusy:
+        raise AfError("PROJECT_BUSY", "another process is starting a job on this project", None, "Retry in a few seconds.", status="needs_changes")
+    try:
+        same = _running_job(p, request)
+        if same:
+            return same, False
+        busy = _running_job(p)
+        if busy:
+            raise AfError("PROJECT_BUSY", f"job {busy['id']} ({busy['request']['op']}) is running on this project", None, "Wait for it, or poll jobs(project, job_id).", status="needs_changes", job=busy)
+        jid = f"{request['op']}-{time.strftime('%Y%m%d%H%M%S')}-{uuid.uuid4().hex[:6]}"
+        log = _jobs_dir(p) / f"{jid}.log"
+        rec = {"id": jid, "request": request, "started": time.strftime("%Y-%m-%d %H:%M:%S"), "log": str(log), "argv": argv}
+        jf = _jobs_dir(p) / f"{jid}.json"
+        _atomic(jf, rec)
+        return _launch(p, rec, jf)
+    finally:
+        lk.__exit__(None, None, None)
+
+
+def _atomic(f, obj):
+    from agy_image import write_json_atomic
+    write_json_atomic(f, obj)
+
+
+def _launch(p, rec, jf):
     proc = subprocess.Popen([PY, str(P2 / "tools" / "af.py"), "_run_job", str(jf)], cwd=str(P2), env={**os.environ, "PYTHONIOENCODING": "utf-8"},
                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
     rec["pid"] = proc.pid
-    jf.write_text(json.dumps(rec, ensure_ascii=False, indent=1), encoding="utf-8")
+    _atomic(jf, rec)
     return _job_view(p, rec), True
 
 
@@ -256,6 +287,11 @@ def _delta(a, b):
     return {k: round(b[k] - a[k], 2) for k in a}
 
 
+def _paid(d):
+    """paid_calls_this_run is always a NUMBER: LLM calls + images + 1 when voice credits were spent (usage_delta has the detail)."""
+    return int(d["llm_calls"] + d["images"]) + (1 if d["voice_credits"] > 0 else 0)
+
+
 # ------------------------------------------------------------------------------------------------------------------ preview / render / artifacts
 def preview(project, scenes=None, background=False):
     """A free preview: draft build (stub voice, no paid call) of the given scenes (default: all) + a still per shot + a contact sheet + a low-res clip."""
@@ -272,15 +308,26 @@ def preview(project, scenes=None, background=False):
     if v["status"] != "ok":
         return v
     try:
-        with _quiet():
+        with projlock.lock(p, "build", timeout=0, stale=3600), _quiet():          # one build per project at a time, whoever asks (CLI, MCP, job)
             passed = build_remotion.build(p, draft=True, force=False, scene_ids=scenes, log=lambda m: print(m, file=sys.stderr))
+    except projlock.LockBusy:
+        return _fail([{"code": "PROJECT_BUSY", "scene_id": None, "shot_id": None, "field": None, "message": "another build is running on this project",
+                       "next_action": "Wait for it, or poll jobs(project)."}], "needs_changes")
     except export_remotion.ExportError as e:
+        if e.problems:
+            return _fail([{**x, "next_action": x.get("next_action") or "Fix the shot and preview again."} for x in e.problems], "needs_changes")
         return _fail([{"code": "PREVIEW_REFUSED", "scene_id": None, "shot_id": None, "field": None, "message": str(e), "next_action": "Fix the data named in the message (asset, character, voice) and preview again."}], "needs_changes")
     arts = _preview_artifacts(p)
     st = json.loads((p / "status.json").read_text(encoding="utf-8"))["last_build"]
     rep = json.loads((p / "logs" / "build_report.json").read_text(encoding="utf-8"))
-    return _ok(project=p.name, checks_passed=passed, checks=rep["checks"], rebuilt_scenes=st["rendered"], reused_scenes=st["reused"], artifacts=arts,
-               paid_calls_this_run=0, usage_delta=_delta(before, _usage(p)))
+    res = dict(project=p.name, checks_passed=bool(passed), checks=rep["checks"], rebuilt_scenes=st["rendered"], reused_scenes=st["reused"], artifacts=arts,
+               usage_delta=_delta(before, _usage(p)))
+    res["paid_calls_this_run"] = _paid(res["usage_delta"])
+    if not passed:                                                    # the draft clip is still returned so the caller can look at the problem
+        bad = [c for c in rep["checks"] if not c.get("pass", True)]
+        return _fail([{"code": "QA_FAILED", "scene_id": None, "shot_id": None, "field": None, "message": "the draft was built but its motion/layout checks failed",
+                       "next_action": "Read `failed_checks`, fix the data, preview again.", "failed_checks": bad}], "needs_changes", **{k: v for k, v in res.items() if k != "checks"}, checks=rep["checks"])
+    return _ok(**res)
 
 
 def _preview_artifacts(p):
@@ -329,7 +376,7 @@ def render(project, draft=False, background=False, timeout=1500):
     if background:
         return {"status": "running", "contract": CONTRACT, "job": job, "started": fresh, "paid_calls_this_run": 0}
     job = _wait(p, job, timeout)
-    res = {"job": job, "usage_delta": _delta(before, _usage(p)), "paid_calls_this_run": _delta(before, _usage(p))}
+    res = {"job": job, "usage_delta": _delta(before, _usage(p)), "paid_calls_this_run": _paid(_delta(before, _usage(p)))}
     if job["state"] == "running":
         return {"status": "running", "contract": CONTRACT, **res}
     if job["state"] == "waiting_approval":
@@ -375,11 +422,19 @@ def call(name, args):
     t = next((x for x in TOOLS if x["name"] == name), None)
     if not t:
         raise KeyError(name)
+    import inspect
+    try:
+        inspect.signature(t["fn"]).bind(**(args or {}))                              # wrong/missing arguments are the caller's error; a TypeError inside the tool is ours
+    except TypeError as e:
+        return _fail([{"code": "BAD_ARGUMENTS", "scene_id": None, "shot_id": None, "field": None, "message": str(e), "next_action": "Check the inputSchema from capabilities/tools list."}])
     try:
         return t["fn"](**(args or {}))
     except AfError as e:
         return _fail([e.err], e.status)
     except sbstore.SaveError as e:
         return _fail([structure(x) for x in e.errors], "needs_changes")
-    except TypeError as e:
-        return _fail([{"code": "BAD_ARGUMENTS", "scene_id": None, "shot_id": None, "field": None, "message": str(e), "next_action": "Check the inputSchema from capabilities/tools list."}])
+    except (ValueError, FileExistsError, json.JSONDecodeError) as e:      # bad input never escapes as a traceback: always the same JSON error shape
+        code = "PROJECT_EXISTS" if isinstance(e, FileExistsError) else "BAD_ARGUMENTS"
+        return _fail([{"code": code, "scene_id": None, "shot_id": None, "field": None, "message": str(e), "next_action": "Check the inputSchema from capabilities/tools list."}])
+    except Exception as e:                                                          # a defect in the tool itself: still machine-readable, never a traceback on stdout
+        return _fail([{"code": "INTERNAL_ERROR", "scene_id": None, "shot_id": None, "field": None, "message": f"{type(e).__name__}: {e}", "next_action": "Report this to the tool owner; the project data was not changed by this call unless a later `jobs`/`project_get` shows otherwise."}])

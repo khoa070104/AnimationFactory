@@ -21,7 +21,30 @@ def auto_subtitles(voice, max_chars=40):
             cur = ""
     if cur:
         segs.append(cur)
-    return segs
+    return _no_orphans(segs, max_chars)
+
+
+def _no_orphans(segs, max_chars, min_words=3, min_chars=14):
+    """A segment of one or two words / under 14 characters ("xóm.") that only exists because the line before it was cut for length is joined with it,
+    and the pair is split again near its middle (a short segment after a full stop is a real short sentence and stays)."""
+    out = []
+    for seg in segs:
+        short = len(seg.split()) < min_words or len(seg) < min_chars
+        if short and out and out[-1][-1] not in ".!?:;,":
+            words = (out.pop() + " " + seg).split()
+            joined = " ".join(words)
+            if len(joined) <= max_chars:
+                out.append(joined)
+                continue
+            best = None
+            for k in range(1, len(words)):
+                x, y = " ".join(words[:k]), " ".join(words[k:])
+                if len(x) <= max_chars and len(y) <= max_chars and (best is None or abs(len(x) - len(y)) < best[0]):
+                    best = (abs(len(x) - len(y)), x, y)
+            out += [best[1], best[2]] if best else [" ".join(words[:-len(seg.split())]), seg]
+        else:
+            out.append(seg)
+    return out
 
 
 CAMERA_PRESETS = {"push_in": {"zoom": [1.0, 1.12], "pan": [[0, 0], [0, 0]]}, "pull_out": {"zoom": [1.12, 1.0], "pan": [[0, 0], [0, 0]]},

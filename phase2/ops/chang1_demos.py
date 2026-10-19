@@ -1,6 +1,7 @@
 """Chapter 1 demo builder: creates (or refreshes) a demo project from an example storyboard in phase2/examples through the CONTROL LAYER only
 (project_new -> project_get -> project_put(autolayout) -> validate -> preview). Budget is zero: no image, no voice, no LLM call can happen.
-  python ops/chang1_demos.py story|explain
+  python ops/chang1_demos.py story|explain [--before] [--variant]
+  --variant: the same sample with the two characters swapped, a different and longer label, and a longer voice: all data edits (generality check).
 Characters and pictures come from the series project (sample_a_thuc_don_tuan) with their approvals (asset_policy: series)."""
 import json
 import shutil
@@ -18,7 +19,7 @@ SERIES = "sample_a_thuc_don_tuan"
 DEMOS = {"story": ("story_label.json", ["bg_kitchen", "prop_shopping_bag"]), "explain": ("explain_process.json", [])}
 
 
-def build(kind, before=False):
+def build(kind, before=False, variant=False):
     """before=True: the SAME input without shots/until (what the old pipeline did): one fixed wide frame for the whole scene."""
     fn, assets = DEMOS[kind]
     sb = json.loads((P2 / "examples" / fn).read_text(encoding="utf-8"))
@@ -28,6 +29,17 @@ def build(kind, before=False):
             sc.pop("shots", None)
             for it in sc.get("items", []):
                 it.pop("until", None)
+    if variant:
+        sb["project"] += "_variant"
+        for sc in sb["scenes"]:
+            if sc.get("cast"):
+                m, c = sc["bi"], sc["cast"][0]
+                m["x"], c["x"], m["flip"], c["flip"] = c["x"], m["x"], not m.get("flip", False), not c.get("flip", False)
+            for it in sc.get("items", []):
+                if it.get("type") == "notice":
+                    it["caption"], it["amount"] = "Gửi: Nguyễn Văn Minh, số 12", "SAI TÊN"
+                    it["icon"] = "warn"
+            sc["voice"] += " Cảm ơn Linh đã nhìn kỹ giúp mình."
     name = sb["project"]
     if not (P2 / "projects" / name).exists():
         r = AF.call("project_new", {"name": name, "title": sb["title"], "brief": {"title": sb["title"], "asset_policy": "series", "series_from": SERIES, "character_mode": "ai", "research": "no",
@@ -50,7 +62,7 @@ def build(kind, before=False):
 
 
 if __name__ == "__main__":
-    res = build(sys.argv[1], before="--before" in sys.argv)
+    res = build(sys.argv[1], before="--before" in sys.argv, variant="--variant" in sys.argv)
     print(json.dumps({k: v for k, v in res.items() if k != "checks"}, ensure_ascii=False, indent=1)[:3500])
     for c in res.get("checks", []):
         print("PASS" if c["pass"] else "FAIL", c["name"][:90], "-", c["info"][:100])

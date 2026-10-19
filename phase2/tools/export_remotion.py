@@ -28,7 +28,7 @@ P2 = S.P2
 
 
 class ExportError(Exception):
-    pass
+    problems = None                                                              # structured problems (code, scene_id, shot_id, field, message, next_action) when known
 
 
 def _aligned(ibox):
@@ -118,25 +118,37 @@ def export(proj, work, scene_ids=None, draft=False, placeholders=None):
             ibox.append((bx[0][0], bx[0][1], it_) if bx else ("?", None, it_))
         rh = {cid: r_.get("height", 540) for cid, r_ in rigs.items()}
         rh[None] = 420                                                          # Bi, the built-in character
-        res = SH.resolve(sc, dur, T, rh, _aligned(ibox))
+        try:
+            res = SH.resolve(sc, dur, T, rh, _aligned(ibox))
+        except SH.ShotError as e_:
+            err = ExportError(f"{sc['id']}: {e_}")
+            err.problems = [{**p_, "scene_id": sc["id"]} for p_ in e_.problems]
+            raise err from e_
         for ch_ in chars:
             ch_["looks"] = res["looks"].get(ch_["who"], [])
         hides = {}                                                              # prim item index -> [[t0, t1]] windows where it is hidden (focus isolation)
         pn = sc.get("panel")
+        panel_screen = any(p_.get("item") == "panel" and p_.get("space") == "screen" for p_ in prims)
         for s_ in res["shots"]:
-            if not s_["zoomed"]:
-                continue
             vx0, vy0, vx1, vy1 = s_["view"]
             hit = lambda b: b and not (b[2] <= vx0 or b[0] >= vx1 or b[3] <= vy0 or b[1] >= vy1)
             for n_, (lab_, b_, it_) in enumerate(ibox):
+                if s_["id"] in (it_.get("hide_in") or []):                       # the data asks for this item to be hidden in this shot (any kind of item)
+                    hides.setdefault(n_, []).append([s_["t0"], s_["t1"]])
+                    continue
+                if not s_["zoomed"] or it_.get("keep") or it_.get("space", "world") == "screen":      # isolation only touches world items the data did not pin
+                    continue
                 if it_.get("type") in LAY.CONTENT and n_ != s_["focus_item"] and hit(b_):
                     hides.setdefault(n_, []).append([s_["t0"], s_["t1"]])
-            if pn and s_["focus_item"] is None and hit(tuple(pn)):
+            if s_["zoomed"] and pn and not panel_screen and s_["focus_item"] is None and hit(tuple(pn)):
                 hides.setdefault("panel", []).append([s_["t0"], s_["t1"]])
         for s_ in res["shots"]:                                                  # a shot about a picture/graphic: characters that would be cut off at its edge are faded out too
             if s_["zoomed"] and s_["focus_item"] is not None:
                 vx0, vy0, vx1, vy1 = s_["view"]
                 for ch_ in chars:
+                    src_ = sc["bi"] if ch_["who"] == "main" else (sc.get("cast") or [{}] * 9)[int(ch_["who"][4:]) - 1]
+                    if src_.get("keep"):
+                        continue
                     bx = SH.char_box({"x": ch_["x"], "y": ch_["y"], "scale": ch_["scale"]}, rh.get(ch_["id"], 540))
                     if not (bx[2] <= vx0 or bx[0] >= vx1 or bx[3] <= vy0 or bx[1] >= vy1):
                         ch_.setdefault("hide", []).append([s_["t0"], s_["t1"]])

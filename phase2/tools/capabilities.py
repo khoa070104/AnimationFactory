@@ -32,7 +32,7 @@ NUM = "number"
 ITEM_FIELDS = {
     "prop": [("img", "prop_img", True), ("x", NUM, True), ("y", NUM, True), ("scale", NUM, False), ("rot", NUM, False), ("appear", "appear", False)],
     "text": [("text", "string", True), ("x", NUM, True), ("y", NUM, True), ("size", NUM, True), ("color", "text_color", False), ("rot", NUM, False), ("appear", "appear", False)],
-    "notice": [("amount", "string", True), ("caption", "string", True), ("x", NUM, True), ("y", NUM, True), ("appear", "appear", False)],
+    "notice": [("amount", "string", True), ("caption", "string", True), ("x", NUM, True), ("y", NUM, True), ("appear", "appear", False), ("icon", "string", False)],      # icon: check (default, confirmed) | warn (a problem) | info | none: choose by meaning
     "chart": [("title", "string", True), ("x", NUM, True), ("y", NUM, True), ("scale", NUM, True), ("unit_h", NUM, False), ("appear", "appear", False),
               ("bars", "list:bar", True)],
     "pills": [("texts", "list:string", True), ("x", NUM, True), ("y", NUM, True), ("gap", NUM, True), ("size", NUM, False), ("appears", "list:appear", False), ("marker", "string", False)],
@@ -77,9 +77,10 @@ def capabilities(proj=None):
         "actions": [{"name": n, **ACTION_INFO[n]} for n in sorted(V.ACTIONS)],
         "poses": sorted(V.POSES), "faces": sorted(V.FACES), "props": sorted(V.PROP_IMGS), "ai_assets": ai, "characters": chars,
         "character_note": "nhân vật chính = bi.char; nhân vật phụ (tối đa 3) = cast[]; mỗi nhân vật có actions/face_cues riêng; mọi nhân vật dùng cùng thư viện hành động",
-        "shots": {"note": "scene.shots (optional; absent = one implicit wide shot). Remotion renderer only. Camera frames `focus` at `size`; starts increase; end earlier than the next start = gap (wide), later = overlap (refused); characters keep their pose across cuts.",
+        "shots": {"note": "scene.shots (optional; absent = one implicit wide shot). Remotion renderer only. Camera frames `focus` at `size`; starts strictly increase (also after phrases are turned into seconds), start < end <= scene end, end earlier than the next start = gap (wide), later = overlap (refused); an `ease` longer than the shot is refused (EASE_TOO_LONG); characters keep their pose across cuts. Move into a shot: `cut: true`/`ease: s` always win; by default a short move glides 0.5 s and a long one (far subject, big size change, non-wide shot) is a CUT. A character in a close/medium shot is framed with headroom and room toward where it looks (gaze).",
                   "kinds": list(SH.KINDS), "sizes": list(SH.SIZES), "focus": "main | cast1.. | item:<index|img> | [x, y, w, h]", "gaze": "[{who, at}] at = cast1 | item:.. | left | right | [x, y]",
-                  "max_zoom": SH.MAX_ZOOM, "item_space": "item.space = world (follows the camera, default) | screen (fixed); subtitles are always screen"},
+                  "max_zoom": SH.MAX_ZOOM, "item_space": "item.space = world (follows the camera, default) | screen (fixed); subtitles are always screen",
+                  "isolation": "in close/detail shots, world content that pokes into the view and is not the focus fades out for that shot only (until the shot's `end`/next start). Data controls: item.keep = true never hides it; item.hide_in = [shot ids] hides it in those shots; character.keep = true keeps a character visible. Screen-layer items are never touched."},
         "backgrounds": ["cream", "blue", "#RRGGBB", "ai:<id>"], "text_colors": sorted(V.TEXT_COLORS), "accent_colors": sorted(S.A),
         "camera_presets": sorted(sbload.CAMERA_PRESETS), "transitions": ["cut", "fade-out"],
         "transition_note": "chỉ có cắt thẳng và mờ dần ở cảnh cuối; các nhãn khác được coi là cắt thẳng",

@@ -10,6 +10,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 sys.path.insert(0, str(Path(__file__).parent))
 import p2_svg as S
+import layout as LAY
 import sbload
 import toolpaths
 import build_motion_demo as B
@@ -147,9 +148,16 @@ def expand(sc, out, proj=None):
                 P(f"tbar_{w}x{h}", it["x"], it["y"] - 0.3 * it["size"], 1.0, 0, ap)
             T(it["text"], it["x"], it["y"], it["size"], it.get("color", "dark"), it.get("rot", 0), ap)
         elif ty == "notice":
-            P("card", it["x"], it["y"], 1.0, 0, ap)
-            T(it["amount"], it["x"] + 68, it["y"] - 20, 54, "good", 0, ap)
-            T(it["caption"], it["x"] + 72, it["y"] + 38, 40, "dark", 0, ap)
+            icon = it.get("icon", "check")
+            nw = LAY.notice_width(it)
+            if icon == "check" and nw == 600:
+                P("card", it["x"], it["y"], 1.0, 0, ap)
+            else:
+                S.ensure_png(f"nplate_{icon}_{nw}", S.notice_plate(icon, nw), out)
+                P(f"nplate_{icon}_{nw}", it["x"], it["y"], 1.0, 0, ap)
+            dx = 68 if icon != "none" else 0
+            T(it["amount"], it["x"] + dx, it["y"] - 20, 54, {"check": "good", "warn": "bad"}.get(icon, "dark"), 0, ap)
+            T(it["caption"], it["x"] + dx + 4, it["y"] + 38, 40, "dark", 0, ap)
         elif ty == "chart":
             k, x, y = it["scale"], it["x"], it["y"]
             P("board", x, y, k, 0, ap)

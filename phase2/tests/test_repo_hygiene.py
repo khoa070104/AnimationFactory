@@ -39,6 +39,14 @@ class T(unittest.TestCase):
         names = {f.split("/")[2] for f in tracked() if f.startswith("phase2/projects/") and f.count("/") >= 3}
         self.assertTrue(names <= FIXTURES, f"project data is not source: {sorted(names - FIXTURES)}")
 
+    def test_files_the_code_needs_to_start_are_tracked(self):
+        """A clean clone must be able to start: .gitignore must never swallow these (it once swallowed style/tokens.json via a `*token*` rule)."""
+        need = ["phase2/style/tokens.json", "phase2/approved/bi_v2.1/tokens.json", "phase2/approved/bi_v2.1/assets/png/head.png", "phase2/remotion/package-lock.json", ".gitattributes"]
+        missing = [f for f in need if f not in set(tracked())]
+        self.assertFalse(missing, missing)
+        ignored = subprocess.run(["git", "-C", str(ROOT), "check-ignore"] + need, capture_output=True, text=True).stdout.split()
+        self.assertFalse(ignored, ignored)
+
     def test_no_big_files(self):
         big = [(f, (ROOT / f).stat().st_size) for f in tracked() if (ROOT / f).exists() and (ROOT / f).stat().st_size > MAX_BYTES]
         self.assertFalse(big, big)
