@@ -16,11 +16,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 import build_storyboard as SBD  # noqa: E402
-import build_video as BV  # noqa: E402
+from action_plan import plan_actions  # noqa: E402
 import characters as CHR  # noqa: E402
 import cues as C  # noqa: E402
 import p2_svg as S  # noqa: E402
 import sbload  # noqa: E402
+import toolpaths  # noqa: E402
 import voice_stub  # noqa: E402
 
 P2 = S.P2
@@ -28,25 +29,6 @@ P2 = S.P2
 
 class ExportError(Exception):
     pass
-
-
-def plan_actions(actions, face, T, held=()):
-    out = []
-    for ac in actions:
-        params = {k: v for k, v in ac.items() if k not in ("name", "at", "cue", "cues", "stay")}
-        params.update(sbload.arm_params(ac["name"], held))
-        if ac["name"] == "point":
-            params.setdefault("face", face)
-        if ac["name"] == "point_seq":
-            params["times"] = [T(c) for c in ac["cues"]]
-            params.setdefault("face", face)
-            t0 = params["times"][0] - 0.45
-        elif "cue" in ac:
-            t0 = max(0.0, T(ac["cue"]) - BV.PEAK.get(ac["name"], 0.0))
-        else:
-            t0 = ac.get("at", 0.0)
-        out.append({"name": ac["name"], "T": round(t0, 3), "params": params, "stay": bool(ac.get("stay"))})
-    return out
 
 
 def _aligned(ibox):
@@ -177,7 +159,7 @@ def export(proj, work, scene_ids=None, draft=False, placeholders=None):
         lack = [n for n in CHR.rig_images(rigs[cid]) if not (pub / "rigs" / cid / f"{n}.png").exists()]
         if lack:
             raise ExportError(f"rig pictures of {cid!r} are missing: {lack}")
-    shutil.copy("C:/Windows/Fonts/arialbd.ttf", pub / "fonts" / "arialbd.ttf")
+    shutil.copy(toolpaths.font_bold(), pub / "fonts" / "arialbd.ttf")
     from PIL import Image
     sizes = {}
     for f in (pub / "assets" / "png").glob("*.png"):

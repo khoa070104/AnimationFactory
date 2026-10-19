@@ -11,6 +11,13 @@ DEFAULTS = {"effectcraft": r"C:\Program Files\EffectCraft\effectcraft-cli.exe", 
             "vectorcraft": r"C:\Program Files\VectorCraft\vectorcraft-cli.exe", "font": "C:/Windows/Fonts/arial.ttf"}
 
 
+def font_bold():
+    """Bold variant of the configured font (Arial Bold next to arial.ttf), else the font itself."""
+    f = Path(get("font"))
+    b = f.with_name(f.stem + "bd" + f.suffix)
+    return b if b.exists() else f
+
+
 def get(name):
     env = os.environ.get("AF_" + name.upper())
     if env:

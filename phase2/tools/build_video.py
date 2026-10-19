@@ -13,6 +13,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 import acceptance  # noqa: E402
+from action_plan import plan_actions  # noqa: E402
 import approve  # noqa: E402
 import build_motion_demo as B  # noqa: E402
 import build_storyboard as SBD  # noqa: E402
@@ -26,7 +27,6 @@ import p2_svg as S  # noqa: E402
 
 FC = toolpaths.filmcraft()
 TICKS = 254016000000
-PEAK = {"point": 0.45, "cheer": 0.5, "cheek": 0.5, "shrug": 0.3, "hold_phone": 0.5, "nod": 0.0, "wave": 0.4, "enter": 0.0, "write": 0.5, "carry": 0.5}
 P2 = S.P2
 
 
@@ -120,27 +120,8 @@ def main():
         for p in prims:
             if isinstance(p.get("appear"), str):
                 p["appear"] = T(p["appear"])
-        def plan_actions(actions, face, who="main"):
-            acts_ = []
-            held = sbload.held_sides(sc, who)
-            for ac in actions:
-                params = {k: v for k, v in ac.items() if k not in ("name", "at", "cue", "cues", "stay")}
-                params.update(sbload.arm_params(ac["name"], held))
-                if ac["name"] == "point":
-                    params.setdefault("face", face)
-                if ac["name"] == "point_seq":
-                    params["times"] = [T(c) for c in ac["cues"]]
-                    params.setdefault("face", face)
-                    t0 = params["times"][0] - 0.45
-                elif "cue" in ac:
-                    t0 = max(0.0, T(ac["cue"]) - PEAK.get(ac["name"], 0.0))
-                else:
-                    t0 = ac.get("at", 0.0)
-                acts_.append({"name": ac["name"], "T": round(t0, 3), "params": params, "stay": bool(ac.get("stay"))})
-            return acts_
-
-        acts = plan_actions(sc.get("actions", []), sc["bi"]["face"])
-        cast = [{**c, "rig": c.get("char"), "actions": plan_actions(c.get("actions", []), c["face"], f"cast{ci + 1}"), "face_cues": [{"t": T(f["cue"]), "face": f["face"]} for f in c.get("face_cues", [])]}
+        acts = plan_actions(sc.get("actions", []), sc["bi"]["face"], T, sbload.held_sides(sc, "main"))
+        cast = [{**c, "rig": c.get("char"), "actions": plan_actions(c.get("actions", []), c["face"], T, sbload.held_sides(sc, f"cast{ci + 1}")), "face_cues": [{"t": T(f["cue"]), "face": f["face"]} for f in c.get("face_cues", [])]}
                 for ci, c in enumerate(sc.get("cast", []))]
         subs = []
         seg = C.segment_times(wj, sc["subtitles"])

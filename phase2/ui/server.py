@@ -57,8 +57,7 @@ def proj_dir(name):
     return p
 
 
-def sha_file(p):
-    return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+sha_file = agy_image.sha_file                                    # one definition of the file hash
 
 
 def jread(p, default=None):

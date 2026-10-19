@@ -174,16 +174,6 @@ def _jobs_dir(p):
     return d
 
 
-def _alive(pid):
-    if not pid:
-        return False
-    try:
-        r = subprocess.run(["tasklist", "/FI", f"PID eq {pid}", "/FO", "CSV", "/NH"], capture_output=True, text=True)
-        return str(pid) in r.stdout
-    except OSError:
-        return False
-
-
 def _fresh_heartbeat(p, rec):
     """Running = the launcher's heartbeat is younger than 12 s; just spawned (no heartbeat yet) = 25 s of grace."""
     hb = _jobs_dir(p) / f"{rec['id']}.hb"

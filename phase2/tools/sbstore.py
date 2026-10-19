@@ -1,12 +1,12 @@
 """Storyboard persistence shared by the UI server, the AI steps and the CLI: validate a storyboard object (without touching the project),
 save it as a new version (previous file kept in versions/), and apply a voice edit with automatic cue/subtitle realignment."""
-import hashlib
 import json
 import shutil
 import tempfile
 import time
 from pathlib import Path
 
+from agy_image import sha_file  # noqa: E402,F401  (one definition of the file hash)
 import realign
 
 
@@ -14,10 +14,6 @@ class SaveError(ValueError):
     def __init__(self, msg, errors=(), warnings=()):
         super().__init__(msg)
         self.errors, self.warnings = list(errors), list(warnings)
-
-
-def sha_file(p):
-    return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
 
 def validate_obj(proj, sb, draft_chars=True):
