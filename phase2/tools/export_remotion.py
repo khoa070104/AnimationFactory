@@ -141,7 +141,7 @@ def export(proj, work, scene_ids=None, draft=False, placeholders=None):
         bg_rgb, bg_img = SBD.bg_spec(pub / "assets", sc["bg"], proj)
         holds = [{**h, "prop": SBD.resolve_img(pub / "assets", h["prop"], proj)} for h in sc.get("holds", [])]
         scenes.append({"id": sid, "title": sc["title"], "dur": dur, "start": round(t_cursor, 3), "audio": f"audio/{sid}.wav", "bgRGB": bg_rgb, "bgImage": bg_img, "subs": subs,
-                       "subtitleY": sc.get("subtitle_y", 1030), "chars": chars, "holds": holds, "prims": prims, "camera": res["camera"], "shots": [{k_: s_.get(k_) for k_ in ("id", "kind", "size", "purpose")} for s_ in (sc.get("shots") or [])]})
+                       "subtitleY": sc.get("subtitle_y", 1030), "chars": chars, "holds": holds, "prims": prims, "camera": res["camera"], "shots": res["shots"]})
         t_cursor += dur
     have = {f.stem for f in (pub / "assets" / "png").glob("*.png")}
     missing = sorted({f"{sc['id']}: {n}" for sc in scenes for n in [p["img"] for p in sc["prims"] if p["kind"] == "prop"] + [h["prop"] for h in sc["holds"]] + ([sc["bgImage"]] if sc["bgImage"] else []) if n not in have})

@@ -135,7 +135,7 @@ def resolve(sc, dur, T, rig_heights=None, items_boxes=None):
     T(phrase) -> seconds; items_boxes: [(label, box, item)] aligned with sc['items']; rig_heights: {char id: rig height}."""
     shots = sc.get("shots") or []
     if not shots:
-        return {"camera": [], "looks": {}}
+        return {"camera": [], "looks": {}, "shots": []}
     rig_heights = rig_heights or {}
     chars = {"main": char_box(sc["bi"], rig_heights.get(sc["bi"].get("char"), 540))}
     for k, c in enumerate(sc.get("cast", []) or []):
@@ -170,7 +170,10 @@ def resolve(sc, dur, T, rig_heights=None, items_boxes=None):
                 b = _focus_box(at, chars, None, items_boxes, "wide") if not (isinstance(at, (list, tuple)) and len(at) == 2) else (at[0], at[1], at[0], at[1])
                 if b:
                     looks.setdefault(who, []).append({"t": t0, "at": [round((b[0] + b[2]) / 2, 1), round((b[1] + b[3]) / 2, 1)]})
-    return {"camera": cam, "looks": looks}
+    starts = [tt(s.get("start", 0)) for s in shots]
+    meta = [{"id": s.get("id"), "kind": s.get("kind", "wide"), "size": s.get("size", "wide"), "purpose": s.get("purpose"), "t0": starts[k],
+             "t1": (starts[k + 1] if k + 1 < len(shots) else round(dur, 3))} for k, s in enumerate(shots)]
+    return {"camera": cam, "looks": looks, "shots": meta}
 
 
 def camera_at(keys, t):

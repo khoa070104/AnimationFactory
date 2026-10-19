@@ -69,7 +69,7 @@ class T1(unittest.TestCase):
         self.assertGreater(r["looks"]["main"][0]["at"][0], 1000, "the main character looks towards the supporting character on the right")
 
     def test_no_shots_means_no_camera(self):
-        self.assertEqual(SH.resolve(SC, 5.0, T), {"camera": [], "looks": {}})
+        self.assertEqual(SH.resolve(SC, 5.0, T), {"camera": [], "looks": {}, "shots": []})
 
 
 if __name__ == "__main__":

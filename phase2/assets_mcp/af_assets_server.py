@@ -18,13 +18,16 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "tools"))
 import agy_jobs as J  # noqa: E402
+import af_core as AF  # noqa: E402     # the control layer shared with the af.py CLI: one core, two doors
 
 SERVER = {"name": "animation-factory-assets", "version": "1.0.0"}
 SUPPORTED = ["2025-06-18", "2025-03-26", "2024-11-05"]
 INSTRUCTIONS = ("Generate project art with Antigravity. 1) submit_asset_job (project, asset_id, kind, prompt, optional reference_images / "
                 "transparent_background / display_width) returns job_id immediately. 2) Poll check_asset_job until state is succeeded, failed or timeout "
                 "(a job takes about 1-2 minutes). A repeated identical request reuses the stored result. New assets are drafts: the owner approves them, "
-                "then scenes can use them as {\"type\":\"prop\",\"img\":\"ai:<asset_id>\"}.")
+                "then scenes can use them as {\"type\":\"prop\",\"img\":\"ai:<asset_id>\"}. Control loop: capabilities -> project_get -> edit -> validate/project_put (expect_hash) -> "
+                "preview (free: stills per shot, contact sheet, low-res clip) -> fix errors by scene/shot/field -> render (stops at approval gates; approving is the owner's job, there is no approve tool). "
+                "Long runs: pass background=true and poll jobs.")
 TOOLS = [
     {"name": "submit_asset_job",
      "description": "Queue an image-asset request for a project (Antigravity image generator). Returns a job_id immediately. Same request => same job (no duplicate run, stored result reused). Reports bad input clearly.",
@@ -43,6 +46,8 @@ TOOLS = [
      "inputSchema": {"type": "object", "additionalProperties": False, "required": ["project", "job_id"], "properties": {
          "project": {"type": "string"}, "job_id": {"type": "string", "description": "As returned by submit_asset_job."}}}},
 ]
+TOOLS += [{k: t[k] for k in ("name", "description", "inputSchema")} for t in AF.TOOLS]       # capabilities, project_*, validate, estimate, preview, render, jobs, artifacts
+CONTROL = {t["name"] for t in AF.TOOLS}
 _out_lock = threading.Lock()
 
 
@@ -61,6 +66,8 @@ def error(rid, code, msg):
 
 
 def call_tool(name, args):
+    if name in CONTROL:                                                # control layer: results (also errors) are structured JSON, never an exception
+        return AF.call(name, args)
     if name == "submit_asset_job":
         a = dict(args)
         project = a.pop("project", None)
